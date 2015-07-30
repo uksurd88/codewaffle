@@ -1,2 +1,1 @@
-# codewaffle
-My personal BLOG and PAGE!!
+# codewaffle - My personal BLOG and PAGE!!
