@@ -1,8 +1,8 @@
 # Site wide configuration
 
-title:            Site Title
-locale:           en_US
-url:
+title:            Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer
+locale:           en_GB
+url:              http://127.0.0.1:4000/
 
 
 # Jekyll configuration
@@ -26,10 +26,10 @@ kramdown:
 
 # Site owner
 owner:
-  name: Your Name
-  avatar: bio-photo.jpg
-  bio: "Describe your self."
-  email:
+  name: Sukhdeep Singh
+  avatar: sukhiBio.jpg
+  bio: "Bioinformatician, DJ and an Adventurer! I love travelling, hiking, making friends & frisbee."
+  email: sukhdeepsingh.bio@gmail.com
   disqus-shortname:
   twitter: #username
   facebook: #username
