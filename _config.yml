@@ -1,0 +1,15 @@
+# Site settings
+title: Camille Diez
+email: diezcami@gmail.com
+description: >
+  Hi, I'm Cami! Here, I write on topics related to programming, development, open source and anything related to my line of work.
+baseurl: "" 
+url: "http://diezcami.me"
+twitter_username: 
+github_username:  diezcami
+
+# Build settings
+markdown: redcarpet
+
+redcarpet:
+  extensions: ["tables", "autolink", "strikethrough", "space_after_headers", "fenced_code_blocks"]
