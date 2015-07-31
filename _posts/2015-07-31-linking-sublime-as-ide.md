@@ -1,8 +1,8 @@
 ---
-layout: 
+layout: post
 title: Linking Sublime as IDE
 categories: [None]
-tags: []
+tags: [sublime, IDE, test]
 published: True
 comments: True
 credit: 
