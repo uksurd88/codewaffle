@@ -15,6 +15,7 @@ sass:
   style: compressed
 gems:
   - jekyll-sitemap
+  - jekyll-minimagick # same name as given in the gem file
 
 kramdown:
   auto_ids: true
@@ -60,19 +61,35 @@ owner:
 include: [".htaccess"]
 exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules", "Gemfile", "Gemfile.lock", "LICENSE", "README.md"]
 
-# image cropping via MiniMagick, setting up presets
+# image cropping via MiniMagick, setting up presets, adding ! sign to the end of size, unlocks the aspect ratio
 mini_magick:
     thumbnail:
-        source: images/
-        destination: images/magick/thumbnail
+        source: images
+        destination: images/thumbnails
         resize: "100x100"
+        #commands:
+        #- thumbnail: "140x140^"
+        #- crop: "140x140-0x0"
     medium:
         source: images/
-        destination: images/magick/medium
+        destination: images/medium
         resize: "600x400"
     cover:
         source: images/
-        destination: images/magick/cover
-        resize: "851x315"
-    
+        destination: images/cover
+        resize: "851X250!"
+#    #
 
+#mini_magick:
+#  thumbnail:
+#    source: gallery
+#    destination: thumbnails
+#    commands:
+#      - thumbnail: "140x140^"
+#      - crop: "140x140-0x0"
+#  catnail:
+#    source: cats
+#    destination: cats/thumbs
+#    commands:
+#      - thumbnail: "140x140^"
+#      - crop: "140x140-0x0"
