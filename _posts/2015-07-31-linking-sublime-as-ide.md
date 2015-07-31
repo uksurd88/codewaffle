@@ -6,9 +6,9 @@ tags: [sublime, IDE, test]
 published: True
 comments: True
 credit: 
-image: Everyday-Be-Coding.jpg
-excerpt: 
-feature: 
+image: 
+excerpt: "Setting up Sublime as default IDE with Jekyll support"
+feature: Everyday-Be-Coding.jpg
 creditlink: 
 link2: https://github.com/23maverick23/sublime-jekyll
 markdown-editing: https://github.com/SublimeText-Markdown/MarkdownEditing
