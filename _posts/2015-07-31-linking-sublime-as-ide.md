@@ -12,6 +12,7 @@ image:
     credit:
     creditlink: http://twitrheaders.com/everyday-be-coding/
 link2: https://github.com/23maverick23/sublime-jekyll
+link: https://github.com/23maverick23/sublime-jekyll
 markdown-editing: https://github.com/SublimeText-Markdown/MarkdownEditing
 ---
 
