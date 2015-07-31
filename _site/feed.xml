@@ -2,13 +2,13 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
 <title type="text">Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer</title>
 <generator uri="https://github.com/jekyll/jekyll">Jekyll</generator>
-<link rel="self" type="application/atom+xml" href="/feed.xml" />
-<link rel="alternate" type="text/html" href="" />
-<updated>2015-07-31T00:44:45+02:00</updated>
-<id>/</id>
+<link rel="self" type="application/atom+xml" href="http://sukhdeepsingh.eu/feed.xml" />
+<link rel="alternate" type="text/html" href="http://sukhdeepsingh.eu" />
+<updated>2015-07-31T17:13:51+02:00</updated>
+<id>http://sukhdeepsingh.eu/</id>
 <author>
   <name>Sukhdeep Singh</name>
-  <uri>/</uri>
+  <uri>http://sukhdeepsingh.eu/</uri>
   <email>sukhdeepsingh.bio@gmail.com</email>
 </author>
 
@@ -17,20 +17,65 @@
 
 <entry>
   <title type="html"><![CDATA[Test Post]]></title>
-  <link rel="alternate" type="text/html" href="/testPost/" />
-  <id>/testPost</id>
+  <link rel="alternate" type="text/html" href="http://sukhdeepsingh.eu/testPost/" />
+  <id>http://sukhdeepsingh.eu/testPost</id>
   <updated>2015-07-31T00:00:00-00:00</updated>
   <published>2015-07-31T00:00:00+02:00</published>
   
   <author>
     <name>Sukhdeep Singh</name>
-    <uri></uri>
+    <uri>http://sukhdeepsingh.eu</uri>
     <email>sukhdeepsingh.bio@gmail.com</email>
   </author>
   <content type="html">
     
 
-    &lt;p&gt;&lt;a href=&quot;/testPost/&quot;&gt;Test Post&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on July 31, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://sukhdeepsingh.eu/testPost/&quot;&gt;Test Post&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;http://sukhdeepsingh.eu&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on July 31, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+  
+
+<entry>
+  <title type="html"><![CDATA[test2]]></title>
+  <link rel="alternate" type="text/html" href="http://sukhdeepsingh.eu/none/test2/" />
+  <id>http://sukhdeepsingh.eu/none/test2</id>
+  <published>2015-07-31T00:00:00+02:00</published>
+  <updated>2015-07-31T00:00:00+02:00</updated>
+  <author>
+    <name>Sukhdeep Singh</name>
+    <uri>http://sukhdeepsingh.eu</uri>
+    <email>sukhdeepsingh.bio@gmail.com</email>
+  </author>
+  <content type="html">
+    
+
+    &lt;p&gt;&lt;a href=&quot;http://sukhdeepsingh.eu/none/test2/&quot;&gt;test2&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;http://sukhdeepsingh.eu&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on July 31, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+  
+
+<entry>
+  <title type="html"><![CDATA[Linking Sublime as IDE]]></title>
+  <link rel="alternate" type="text/html" href="http://sukhdeepsingh.eu/none/linking-sublime-as-ide/" />
+  <id>http://sukhdeepsingh.eu/none/linking-sublime-as-ide</id>
+  <published>2015-07-31T00:00:00+02:00</published>
+  <updated>2015-07-31T00:00:00+02:00</updated>
+  <author>
+    <name>Sukhdeep Singh</name>
+    <uri>http://sukhdeepsingh.eu</uri>
+    <email>sukhdeepsingh.bio@gmail.com</email>
+  </author>
+  <content type="html">
+    &lt;p&gt;I just configured up &lt;a href=&quot;link&quot;&gt;Sublime Text 3 build 3083&lt;/a&gt; with &lt;a href=&quot;https://github.com/23maverick23/sublime-jekyll&quot;&gt;sublime-jekyll&lt;/a&gt; a Sublime Text package for Jekyll static sites. This provides the quick functionality to create new blog post. I will explain later how I put up the whole site together and thoughts about it.
+I added &lt;a href=&quot;markdown-editing&quot;&gt;MarkdownEditing&lt;/a&gt; on the top to get a better feel for the markdown, I am still testin it out.&lt;/p&gt;
+
+&lt;p&gt;Time to push this post out.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;http://sukhdeepsingh.eu/none/linking-sublime-as-ide/&quot;&gt;Linking Sublime as IDE&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;http://sukhdeepsingh.eu&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on July 31, 2015.&lt;/p&gt;
   </content>
 </entry>
 
@@ -39,13 +84,13 @@
 
 <entry>
   <title type="html"><![CDATA[Author Override]]></title>
-  <link rel="alternate" type="text/html" href="/author-override/" />
-  <id>/author-override</id>
+  <link rel="alternate" type="text/html" href="http://sukhdeepsingh.eu/author-override/" />
+  <id>http://sukhdeepsingh.eu/author-override</id>
   <published>2014-07-31T00:00:00+02:00</published>
   <updated>2014-07-31T00:00:00+02:00</updated>
   <author>
     <name>Billy Rick</name>
-    <uri></uri>
+    <uri>http://sukhdeepsingh.eu</uri>
     <email>billy@rick.com</email>
   </author>
   <content type="html">
@@ -81,7 +126,7 @@
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;l-Scalar-Plain&quot;&gt;author&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;billy_rick&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;/author-override/&quot;&gt;Author Override&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on July 31, 2014.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://sukhdeepsingh.eu/author-override/&quot;&gt;Author Override&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;http://sukhdeepsingh.eu&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on July 31, 2014.&lt;/p&gt;
   </content>
 </entry>
 
@@ -90,14 +135,14 @@
 
 <entry>
   <title type="html"><![CDATA[Syntax Highlighting Post]]></title>
-  <link rel="alternate" type="text/html" href="/code-highlighting-post/" />
-  <id>/code-highlighting-post</id>
+  <link rel="alternate" type="text/html" href="http://sukhdeepsingh.eu/code-highlighting-post/" />
+  <id>http://sukhdeepsingh.eu/code-highlighting-post</id>
   <updated>2014-09-14T00:00:00-00:00</updated>
   <published>2013-08-16T00:00:00+02:00</published>
   
   <author>
     <name>Sukhdeep Singh</name>
-    <uri></uri>
+    <uri>http://sukhdeepsingh.eu</uri>
     <email>sukhdeepsingh.bio@gmail.com</email>
   </author>
   <content type="html">
@@ -206,7 +251,7 @@ end
   &lt;/ol&gt;
 &lt;/div&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/code-highlighting-post/&quot;&gt;Syntax Highlighting Post&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on August 16, 2013.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://sukhdeepsingh.eu/code-highlighting-post/&quot;&gt;Syntax Highlighting Post&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;http://sukhdeepsingh.eu&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on August 16, 2013.&lt;/p&gt;
   </content>
 </entry>
 
@@ -215,13 +260,13 @@ end
 
 <entry>
   <title type="html"><![CDATA[Sample Link Post]]></title>
-  <link rel="alternate" type="text/html" href="/sample-link-post/" />
-  <id>/sample-link-post</id>
+  <link rel="alternate" type="text/html" href="http://sukhdeepsingh.eu/sample-link-post/" />
+  <id>http://sukhdeepsingh.eu/sample-link-post</id>
   <published>2013-08-12T00:00:00+02:00</published>
   <updated>2013-08-12T00:00:00+02:00</updated>
   <author>
     <name>Sukhdeep Singh</name>
-    <uri></uri>
+    <uri>http://sukhdeepsingh.eu</uri>
     <email>sukhdeepsingh.bio@gmail.com</email>
   </author>
   <content type="html">
@@ -233,7 +278,7 @@ end
 
 &lt;p&gt;Some &lt;a href=&quot;http://www.mademistakes.com&quot;&gt;link&lt;/a&gt; can also be shown.&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/sample-link-post/&quot;&gt;Sample Link Post&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on August 12, 2013.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://sukhdeepsingh.eu/sample-link-post/&quot;&gt;Sample Link Post&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;http://sukhdeepsingh.eu&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on August 12, 2013.&lt;/p&gt;
   </content>
 </entry>
 
@@ -242,13 +287,13 @@ end
 
 <entry>
   <title type="html"><![CDATA[Post with Large Feature Image and Text]]></title>
-  <link rel="alternate" type="text/html" href="/readability-feature-post/" />
-  <id>/readability-feature-post</id>
+  <link rel="alternate" type="text/html" href="http://sukhdeepsingh.eu/readability-feature-post/" />
+  <id>http://sukhdeepsingh.eu/readability-feature-post</id>
   <published>2013-05-23T00:00:00+02:00</published>
   <updated>2013-05-23T00:00:00+02:00</updated>
   <author>
     <name>Sukhdeep Singh</name>
-    <uri></uri>
+    <uri>http://sukhdeepsingh.eu</uri>
     <email>sukhdeepsingh.bio@gmail.com</email>
   </author>
   <content type="html">
@@ -301,7 +346,7 @@ end
   &lt;/ol&gt;
 &lt;/div&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/readability-feature-post/&quot;&gt;Post with Large Feature Image and Text&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on May 23, 2013.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://sukhdeepsingh.eu/readability-feature-post/&quot;&gt;Post with Large Feature Image and Text&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;http://sukhdeepsingh.eu&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on May 23, 2013.&lt;/p&gt;
   </content>
 </entry>
 
@@ -310,13 +355,13 @@ end
 
 <entry>
   <title type="html"><![CDATA[A Post with Images]]></title>
-  <link rel="alternate" type="text/html" href="/sample-post-images/" />
-  <id>/sample-post-images</id>
+  <link rel="alternate" type="text/html" href="http://sukhdeepsingh.eu/sample-post-images/" />
+  <id>http://sukhdeepsingh.eu/sample-post-images</id>
   <published>2013-05-22T00:00:00+02:00</published>
   <updated>2013-05-22T00:00:00+02:00</updated>
   <author>
     <name>Sukhdeep Singh</name>
-    <uri></uri>
+    <uri>http://sukhdeepsingh.eu</uri>
     <email>sukhdeepsingh.bio@gmail.com</email>
   </author>
   <content type="html">
@@ -371,7 +416,7 @@ end
 	&lt;figcaption&gt;Three images.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/sample-post-images/&quot;&gt;A Post with Images&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on May 22, 2013.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://sukhdeepsingh.eu/sample-post-images/&quot;&gt;A Post with Images&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;http://sukhdeepsingh.eu&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on May 22, 2013.&lt;/p&gt;
   </content>
 </entry>
 
@@ -380,13 +425,13 @@ end
 
 <entry>
   <title type="html"><![CDATA[Testing Readability with a Bunch of Text]]></title>
-  <link rel="alternate" type="text/html" href="/readability-post/" />
-  <id>/readability-post</id>
+  <link rel="alternate" type="text/html" href="http://sukhdeepsingh.eu/readability-post/" />
+  <id>http://sukhdeepsingh.eu/readability-post</id>
   <published>2012-05-22T00:00:00+02:00</published>
   <updated>2012-05-22T00:00:00+02:00</updated>
   <author>
     <name>Sukhdeep Singh</name>
-    <uri></uri>
+    <uri>http://sukhdeepsingh.eu</uri>
     <email>sukhdeepsingh.bio@gmail.com</email>
   </author>
   <content type="html">
@@ -431,7 +476,7 @@ end
 
 &lt;p&gt;Aliquip enim artisan dolor post-ironic. Pug tote bag Marfa, deserunt pour-over Portland wolf eu odio intelligentsia american apparel ugh ea. Sunt viral et, 3 wolf moon gastropub pug id. Id fashion axe est typewriter, mlkshk Portland art party aute brunch. Sint pork belly Cosby sweater, deep v mumblecore kitsch american apparel. Try-hard direct trade tumblr sint skateboard. Adipisicing bitters excepteur biodiesel, pickled gastropub aute veniam.&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/readability-post/&quot;&gt;Testing Readability with a Bunch of Text&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on May 22, 2012.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://sukhdeepsingh.eu/readability-post/&quot;&gt;Testing Readability with a Bunch of Text&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;http://sukhdeepsingh.eu&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on May 22, 2012.&lt;/p&gt;
   </content>
 </entry>
 
@@ -440,14 +485,14 @@ end
 
 <entry>
   <title type="html"><![CDATA[Sample Post]]></title>
-  <link rel="alternate" type="text/html" href="/sample-post/" />
-  <id>/sample-post</id>
+  <link rel="alternate" type="text/html" href="http://sukhdeepsingh.eu/sample-post/" />
+  <id>http://sukhdeepsingh.eu/sample-post</id>
   <updated>2013-05-31T00:00:00-00:00</updated>
   <published>2011-03-10T00:00:00+01:00</published>
   
   <author>
     <name>Sukhdeep Singh</name>
-    <uri></uri>
+    <uri>http://sukhdeepsingh.eu</uri>
     <email>sukhdeepsingh.bio@gmail.com</email>
   </author>
   <content type="html">
@@ -511,7 +556,7 @@ end
 
 &lt;p&gt;Lorem ipsum dolor sit amet, test link adipiscing elit. &lt;strong&gt;This is strong&lt;/strong&gt;. Nullam dignissim convallis est. Quisque aliquam.&lt;/p&gt;
 
-&lt;p class=&quot;image-pull-right&quot;&gt;&lt;img src=&quot;/images/3953273590_704e3899d5_m.jpg&quot; alt=&quot;Smithsonian Image&quot; /&gt;&lt;/p&gt;
+&lt;p class=&quot;image-pull-right&quot;&gt;&lt;img src=&quot;http://sukhdeepsingh.eu/images/3953273590_704e3899d5_m.jpg&quot; alt=&quot;Smithsonian Image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;This is emphasized&lt;/em&gt;. Donec faucibus. Nunc iaculis suscipit dui. 53 = 125. Water is H2O. Nam sit amet sem. Aliquam libero nisi, imperdiet at, tincidunt nec, gravida vehicula, nisl. The New York Times (That’s a citation). Underline.Maecenas ornare tortor. Donec sed tellus eget sapien fringilla nonummy. Mauris a ante. Suspendisse quam sem, consequat at, commodo vitae, feugiat in, nunc. Morbi imperdiet augue quis tellus.&lt;/p&gt;
 
@@ -613,7 +658,7 @@ end
 
 &lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;Watch out!&lt;/strong&gt; You can also add notices by appending &lt;code&gt;{: .notice}&lt;/code&gt; to a paragraph.&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/sample-post/&quot;&gt;Sample Post&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on March 10, 2011.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://sukhdeepsingh.eu/sample-post/&quot;&gt;Sample Post&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;http://sukhdeepsingh.eu&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on March 10, 2011.&lt;/p&gt;
   </content>
 </entry>
 

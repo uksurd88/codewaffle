@@ -44,7 +44,7 @@ owner:
   stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
   linkedin: #username
   xing: #username
-  instagram: #username
+  instagram: vanbug
   lastfm: #username
   tumblr: #username
   pinterest: #username
@@ -59,3 +59,20 @@ owner:
 
 include: [".htaccess"]
 exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules", "Gemfile", "Gemfile.lock", "LICENSE", "README.md"]
+
+# image cropping via MiniMagick, setting up presets
+mini_magick:
+    thumbnail:
+        source: images/
+        destination: images/magick/thumbnail
+        resize: "100x100"
+    medium:
+        source: images/
+        destination: images/magick/medium
+        resize: "600x400"
+    cover:
+        source: images/
+        destination: images/magick/cover
+        resize: "851x315"
+    
+
