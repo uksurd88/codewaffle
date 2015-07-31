@@ -4,7 +4,7 @@
 <generator uri="https://github.com/jekyll/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://sukhdeepsingh.eu/feed.xml" />
 <link rel="alternate" type="text/html" href="http://sukhdeepsingh.eu" />
-<updated>2015-07-31T17:13:51+02:00</updated>
+<updated>2015-07-31T17:27:05+02:00</updated>
 <id>http://sukhdeepsingh.eu/</id>
 <author>
   <name>Sukhdeep Singh</name>
@@ -31,27 +31,6 @@
     
 
     &lt;p&gt;&lt;a href=&quot;http://sukhdeepsingh.eu/testPost/&quot;&gt;Test Post&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;http://sukhdeepsingh.eu&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on July 31, 2015.&lt;/p&gt;
-  </content>
-</entry>
-
-
-  
-
-<entry>
-  <title type="html"><![CDATA[test2]]></title>
-  <link rel="alternate" type="text/html" href="http://sukhdeepsingh.eu/none/test2/" />
-  <id>http://sukhdeepsingh.eu/none/test2</id>
-  <published>2015-07-31T00:00:00+02:00</published>
-  <updated>2015-07-31T00:00:00+02:00</updated>
-  <author>
-    <name>Sukhdeep Singh</name>
-    <uri>http://sukhdeepsingh.eu</uri>
-    <email>sukhdeepsingh.bio@gmail.com</email>
-  </author>
-  <content type="html">
-    
-
-    &lt;p&gt;&lt;a href=&quot;http://sukhdeepsingh.eu/none/test2/&quot;&gt;test2&lt;/a&gt; was originally published by Sukhdeep Singh at &lt;a href=&quot;http://sukhdeepsingh.eu&quot;&gt;Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer&lt;/a&gt; on July 31, 2015.&lt;/p&gt;
   </content>
 </entry>
 
