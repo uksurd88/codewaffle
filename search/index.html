@@ -1,0 +1,44 @@
+---
+layout: page
+title: "Search"
+date: 
+modified:
+excerpt:
+image:
+  feature: Lysefjord_preikestolen.jpg
+search_omit: true
+sitemap: false
+---
+<!-- Search form -->
+<!-- {{ site.title }} - gives site title when included in the html form -->
+<form method="get" action="{{ site.url }}/search/" data-search-form class="simple-search">
+ <!-- <label for="q">Search Website For:</label> -->
+  <input type="search" name="q" id="q" placeholder="What are you looking for?" data-search-input id="goog-wm-qt" autofocus />
+  <br><br>
+  <input type="submit" value="Search" id="goog-wm-sb" />
+</form>
+
+<!--  <h1>Search</h1> -->
+
+  <!-- Search results placeholder -->
+  <p data-search-found>
+    <span data-search-found-count></span> result(s) found for &ldquo;<span data-search-found-term></span>&rdquo;.
+  </p>
+  <div data-search-results></div>
+
+
+
+  <!-- Search result template -->
+  <script type="text/x-template" id="search-result">
+    <div>
+      <h1><a href="##Url##">##Title##</a></h1>
+      <h2><a href="##Url##">##Date##</a></h2>
+      <a href="##Url##">Read &ldquo;##Title##&rdquo;</a>
+    </div>
+  </script>
+
+  <!-- jQuery - required but can be moved to the <head> -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+  <!-- Search script - Must appear after template -->
+  <script src="/scripts/search.js"></script>
