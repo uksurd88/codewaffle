@@ -8,7 +8,7 @@ comments: True
 credit: 
 excerpt: "Setting up Sublime as default IDE with Jekyll support"
 image: 
-    feature: images/cover/Everyday-Be-Coding.jpg
+    feature: cover/Everyday-Be-Coding.jpg
     credit:
     creditlink: http://twitrheaders.com/everyday-be-coding/
 link2: https://github.com/23maverick23/sublime-jekyll
