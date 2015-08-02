@@ -2,7 +2,7 @@
 
 title:            Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer
 locale:           en_GB
-url:              http://sukhdeepsingh.eu
+url:              
 #http://localhost:4000
 #
 
@@ -77,8 +77,8 @@ mini_magick:
         destination: images/medium
         resize: "600x400"
     cover:
-        source: images
-        destination: images
+        source: images/
+        destination: images/cover
         resize: "851X250!"
 #    #
 
