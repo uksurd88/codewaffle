@@ -77,8 +77,8 @@ mini_magick:
         destination: images/medium
         resize: "600x400"
     cover:
-        source: images/
-        destination: images/cover
+        source: images
+        destination: images
         resize: "851X250!"
 #    #
 
