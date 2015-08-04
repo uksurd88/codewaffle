@@ -31,7 +31,7 @@ kramdown:
 owner:
   name: Sukhdeep Singh
   avatar: sukhiBio.jpg
-  bio: "Bioinformatician, DJ and an Adventurer! I love travelling, hiking, making friends & frisbee."
+  bio: "I love travelling, hiking, frisbee and making friends."
   email: sukhdeepsingh.bio@gmail.com
   disqus-shortname:
   twitter: #username
@@ -81,7 +81,6 @@ mini_magick:
         source: images/
         destination: images/cover
         resize: "851X250!"
-#    #
 
 #mini_magick:
 #  thumbnail:

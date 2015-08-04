@@ -46,10 +46,26 @@
       {% endunless %}
       <article>
         {% if post.link %}
-          <h2 class="link-post"><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a> <a href="{{ post.link }}" target="_blank" title="{{ post.title }}"><i class="fa fa-link"></i></a></h2>
+        <!-- Adding Post Title with hyperlink and date side by side, using suggestion from http://goo.gl/nSrdfA-->
+        <p style="text-align:left;">
+          <h2 class="link-post">
+            <!-- Post Link -->
+            <a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+            <a href="{{ post.link }}" target="_blank" title="{{ post.title }}"><i class="fa fa-link"></i></a>
+            <!-- Date in the format of Month and Day -->
+            <span style="float:right;">{{ post.date | date: '%B %d' }}</span>
+          </h2>
+        </p>
         {% else %}
-          <h2><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
-          <p>{{ post.excerpt | strip_html | truncate: 160 }}</p>
+         <p style="text-align:left;"> 
+          <h2>
+            <a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+            <!-- Date in the format of Month and Day -->
+            <span style="float:right;">{{ post.date | date: '%B %d' }}</span>
+          </h2>
+        </p>
+        <!-- Post Excerpt -->
+        <p>{{ post.excerpt | strip_html | truncate: 160 }}</p>
         {% endif %}
       </article>
     {% endfor %}
