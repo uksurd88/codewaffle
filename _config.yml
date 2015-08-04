@@ -2,10 +2,11 @@
 
 title:            Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer
 locale:           en_GB
-url:              
-#http://localhost:4000
+url:              http://localhost:4000
 #
 
+# resume links
+favicon: sukhiBio.jpg
 
 # Jekyll configuration
 
@@ -43,9 +44,9 @@ owner:
     ad-client:
     ad-slot:
   bing-verify:
-  github: #username
+  github: sukhdeepsingh
   stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
-  linkedin: #username
+  linkedin: pub/sukhdeep-singh/7/a79/a5b
   xing: #username
   instagram: vanbug
   lastfm: #username
@@ -95,3 +96,81 @@ mini_magick:
 #    commands:
 #      - thumbnail: "140x140^"
 #      - crop: "140x140-0x0"
+
+
+
+
+
+# Resume Data
+# Author settings
+author:
+  name: Sukhdeep Singh
+  title: Bioinformatician
+  address: Biotechnologisches Zentrum, Dresden, Germany
+  email: sukhdeepsingh.bio@gmail.com
+  link: http://sukhdeepsingh.eu
+  weibo:
+  github: sukhdeepsingh
+  linkedin: pub/sukhdeep-singh/7/a79/a5b
+  twitter: 
+  gavatar: /assests/img/sukhiBio.jpg
+  workHistory:
+    - work1:
+      company: Biotec TU Dresden
+      location: Dresden, Germany
+      title: Predoctoral Student.
+      started: 2011
+      duration: July 2011 – Present
+      description: I am a pre-doctoral student and a bio-informatician by background working with high-throughput transcriptomic and regulomic (ChIP-Seq,RNA-SEQ) data to understand the interplay of histone methylases and demethylases in the mouse embryonic stem cell development. Our lab (Francis Stewart) is a core epigenetics lab and I support the bioinformatics component of the de-centralized experimental network of the SYBOSS project. http://www.syboss.eu/
+    - work2:
+      company: SYBOSS Project Systems Biology of Stem Cells and Reprogramming.
+      location: Dresden, Germany
+      title: Bioinformatician.
+      started: 2011
+      duration: July 2011 – Present
+      description: Creating ChIP-Seq and RNA-Seq computational pipelines for handling and analysis of data-sets generated within project from home and the partner labs. The aim of the project is to understand how a simple stem cell becomes a highly specialized member of a network, and how those conditions could be recreated in treating disease.
+    - work3:
+      company: Biostars.org
+      location: Worldwide
+      title: Editor
+      started: 2013
+      duration: January 2013 – Present
+      description: "My duties include : 
+        - monitoring spam and other content
+        - answering, editing and reformatting the posts
+        - closing duplicate, less informative and non-related posts"
+
+  educationHistory:
+    - education1:
+      organization: Northeastern University
+      degree: Bachelor
+      major: Software Engineering
+      started: 2005
+      duration: (2005 - 2009)
+      description: I am not a description. I am not description.I am not description. I am not a description. I am not description.I am not description. I am not a description. I am not description.I am not description. I am not a description. I am not description.I am not description. I am not a description. I am not description.I am not description. I am not a description. I am not description.I am not description. I am not a description. I am not description.I am not description. I am not a description. I am not description.I am not description.
+  languages:
+    - language1:
+      name: German
+      proficiency: Conversational
+    - language2:
+      name: English
+      proficiency: Professional
+    - language3:
+      name: Hindi/Punjabi
+      proficiency: Native
+  programmingSkills:
+    - skill1:
+      name: ChIP-Seq
+      percentage: 100%
+    - skill2:
+      name: RNA-Seq
+      percentage: 90%
+    - skill3:
+      name: JavaScript
+      percentage: 80%
+    - skill4:
+      name: AngularJS
+      percentage: 80%
+    - skill5:
+      name: Java/Java EE
+      percentage: 90%
