@@ -8,8 +8,9 @@
 	@include font(12);
 	color: #333332;
 	margin-bottom: 1.5em;
-	@include rounded(4px);
+	@include rounded(8px);
 	pre {
+		font-size: 1rem;
 		position: relative;
 		margin: 0;
 		padding: 1em;
