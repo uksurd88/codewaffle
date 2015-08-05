@@ -2,7 +2,7 @@
 
 title:            Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer
 locale:           en_GB
-url:              http://sukhdeepsingh.eu
+url:              http://localhost:4000
 #http://localhost:4000
 #http://sukhdeepsingh.eu
 #
@@ -107,7 +107,7 @@ mini_magick:
 # Resume Data
 # Author settings
 author:
-  name: Sukhdeep Singh
+  name: <a href='http://sukhdeepsingh.eu'>Sukhdeep Singh</a>
   title: Bioinformatician
   address: Biotechnologisches Zentrum, Dresden, Germany
   email: sukhdeepsingh.bio@gmail.com
