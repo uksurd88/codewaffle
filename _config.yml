@@ -100,10 +100,6 @@ mini_magick:
 #      - thumbnail: "140x140^"
 #      - crop: "140x140-0x0"
 
-
-
-
-
 # Resume Data
 # Author settings
 author:
