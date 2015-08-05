@@ -84,7 +84,7 @@ mini_magick:
     cover:
         source: images/
         destination: images/cover
-        resize: "851X250!"
+        resize: "1500X250!"
 
 #mini_magick:
 #  thumbnail:
