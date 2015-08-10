@@ -5,8 +5,9 @@
 - title: Search
   url: /search/
 
-- title: Resume
-  url: /resume/
+# hiding resume for now
+#- title: Resume
+#  url: /resume/
 
 - title: About
   url: /about/
