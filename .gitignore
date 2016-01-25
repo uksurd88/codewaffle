@@ -2,5 +2,7 @@ _site/*
 _site
 .sass-cache/
 .jekyll-metadata
-d3/frameToD3/*
-d3/frameToD3/
+grub/
+grub/*
+#d3/frameToD3/*
+#d3/frameToD3/
