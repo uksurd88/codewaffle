@@ -1,7 +1,7 @@
 [
  {
  "name": "Title.Mll2?",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Roman Verraest",
 "Categorie.Business Consulting",
@@ -14,7 +14,7 @@
 },
 {
  "name": "Title.Why not add some 'WHY' to your decision documents?",
-"size":      1,
+"size": 1,
 "imports": [
  "Author.Wim Van Emelen",
 "Categorie.Business Consulting",
@@ -28,7 +28,7 @@
 },
 {
  "name": "Title.5 Questions about the challenges in the energy sector",
-"size":      1,
+"size": 1,
 "imports": [
  "Author.Brigitte Narmon",
 "Categorie.Business Consulting",
@@ -41,7 +41,7 @@
 },
 {
  "name": "Title.The AE Blog: Looking back and looking forward",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.AE admin",
 "Categorie.Business Consulting",
@@ -51,7 +51,7 @@
 },
 {
  "name": "Title.Offline first: as simple as unplug & play?",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Thomas Anciaux",
 "Categorie.Software Engineering",
@@ -62,7 +62,7 @@
 },
 {
  "name": "Title.7 Deadly Sins for the CEO",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Guido Van Humbeeck",
 "Categorie.Business Consulting",
@@ -73,7 +73,7 @@
 },
 {
  "name": "Title.Does your customer care about his journey and your touch points?",
-"size":      1,
+"size": 1,
 "imports": [
  "Author.Filip Hendrickx",
 "Categorie.Business Consulting",
@@ -86,7 +86,7 @@
 },
 {
  "name": "Title.The Hackathon: Intrapreneurship's Dry Run",
-"size":      2,
+"size": 2,
 "imports": [
  "Author.Jasper Verplanken",
 "Categorie.Business Consulting",
@@ -100,7 +100,7 @@
 },
 {
  "name": "Title.Design smartphone first!",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Sarah Denayer",
 "Categorie.Software Engineering",
@@ -111,7 +111,7 @@
 },
 {
  "name": "Title.AE Hackathon: Meet the ideas",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.AE admin",
 "Categorie.Business Consulting",
@@ -123,7 +123,7 @@
 },
 {
  "name": "Title.The beer coaster analysis",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Tom Princen",
 "Categorie.Information Management",
@@ -135,7 +135,7 @@
 },
 {
  "name": "Title.New Customer Experience Insights: Go dining!",
-"size":      1,
+"size": 1,
 "imports": [
  "Author.Tom Devos",
 "Categorie.Business Consulting",
@@ -147,7 +147,7 @@
 },
 {
  "name": "Title.Why a hackathon is not a game",
-"size":      1,
+"size": 1,
 "imports": [
  "Author.Valerie Taerwe",
 "Categorie.Business Consulting",
@@ -161,7 +161,7 @@
 },
 {
  "name": "Title.Journeys and touch points: two sides of the same coin",
-"size":      1,
+"size": 1,
 "imports": [
  "Author.Filip Hendrickx",
 "Categorie.Business Consulting",
@@ -174,7 +174,7 @@
 },
 {
  "name": "Title.ng-europe 2014: interesting evolutions in the AngularJs world",
-"size":      5,
+"size": 5,
 "imports": [
  "Author.Glenn Dejaeger",
 "Categorie.Software Engineering",
@@ -188,7 +188,7 @@
 },
 {
  "name": "Title.Customer journeys as a strategy guide",
-"size":      1,
+"size": 1,
 "imports": [
  "Author.Filip Hendrickx",
 "Categorie.Business Consulting",
@@ -202,7 +202,7 @@
 },
 {
  "name": "Title.Fronteers 2014 Takeaways",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Thomas Anciaux",
 "Categorie.Software Engineering",
@@ -216,7 +216,7 @@
 },
 {
  "name": "Title.Make Your Workshop Live",
-"size":      1,
+"size": 1,
 "imports": [
  "Author.Igor Torfs",
 "Categorie.Business Consulting",
@@ -227,7 +227,7 @@
 },
 {
  "name": "Title.Why people don't buy your product online",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Tom Devos",
 "Categorie.Business Consulting",
@@ -239,7 +239,7 @@
 },
 {
  "name": "Title.Integration : Dr Jekyll and Mr Hyde",
-"size":      1,
+"size": 1,
 "imports": [
  "Author.Bart Orbie",
 "Categorie.Enterprise Architecture",
@@ -252,7 +252,7 @@
 },
 {
  "name": "Title.ALM benefits",
-"size":      1,
+"size": 1,
 "imports": [
  "Author.Frederick Beernaert",
 "Categorie.Enterprise Architecture",
@@ -263,7 +263,7 @@
 },
 {
  "name": "Title.ALM - How to increase maturity in software delivery?",
-"size":      1,
+"size": 1,
 "imports": [
  "Author.Frederick Beernaert",
 "Categorie.Enterprise Architecture",
@@ -273,7 +273,7 @@
 },
 {
  "name": "Title.ALM - From business idea to working software",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Frederick Beernaert",
 "Categorie.Enterprise Architecture",
@@ -284,7 +284,7 @@
 },
 {
  "name": "Title.10 ways to make Scrum fail",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Glenn Dejaeger",
 "Categorie.Business Consulting",
@@ -296,7 +296,7 @@
 },
 {
  "name": "Title.Why is your documentation getting out of date?",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Sarah Denayer",
 "Categorie.Information Management",
@@ -307,7 +307,7 @@
 },
 {
  "name": "Title.Relationsh<U+200B>ips, the essence of Outside-In Thinking",
-"size":      1,
+"size": 1,
 "imports": [
  "Author.Frederik Willaert",
 "Categorie.Enterprise Architecture",
@@ -318,7 +318,7 @@
 },
 {
  "name": "Title.4 BMC tools compared - Draft",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Frederik Willaert",
 "Categorie.Speciale Reserve Categorie",
@@ -328,7 +328,7 @@
 },
 {
  "name": "Title.Why Everbody is Talking Analytics but Nobody is Doing it?",
-"size":      2,
+"size": 2,
 "imports": [
  "Author.Bram Vanschoenwinkel",
 "Categorie.Information Management",
@@ -340,7 +340,7 @@
 },
 {
  "name": "Title.Google says your site is naughty",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Tom Devos",
 "Categorie.Information Management",
@@ -351,7 +351,7 @@
 },
 {
  "name": "Title.No need to fear Cloud Computing?",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Aline Coelst",
 "Categorie.Business Consulting",
@@ -362,7 +362,7 @@
 },
 {
  "name": "Title.From server virtualization to hybrid cloud",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Wim Haedens",
 "Categorie.Business Consulting",
@@ -372,7 +372,7 @@
 },
 {
  "name": "Title.The Product vs Project dimension",
-"size":      8,
+"size": 8,
 "imports": [
  "Author.Sarah Denayer",
 "Categorie.Information Management",
@@ -383,7 +383,7 @@
 },
 {
  "name": "Title.Customer Centricity - What about Technology?",
-"size":      2,
+"size": 2,
 "imports": [
  "Author.Johan Merckx",
 "Categorie.Business Consulting",
@@ -396,7 +396,7 @@
 },
 {
  "name": "Title.Customer Centricity - Turning your business model around",
-"size":      1,
+"size": 1,
 "imports": [
  "Author.Johan Merckx",
 "Categorie.Business Consulting",
@@ -408,7 +408,7 @@
 },
 {
  "name": "Title.EACBPM 2014 - Some conference themes",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Filip Hendrickx",
 "Categorie.Enterprise Architecture",
@@ -421,7 +421,7 @@
 },
 {
  "name": "Title.From Organisation to Customer Centric",
-"size":      1,
+"size": 1,
 "imports": [
  "Author.Johan Merckx",
 "Categorie.Business Consulting",
@@ -433,7 +433,7 @@
 },
 {
  "name": "Title.Techorama 2014 takeaways",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Jo Van Eyck",
 "Categorie.Software Engineering",
@@ -446,7 +446,7 @@
 },
 {
  "name": "Title.The visitor pattern in C#, part I - Draft",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Jeroen Haegebaert",
 "Categorie.Speciale Reserve Categorie",
@@ -456,7 +456,7 @@
 },
 {
  "name": "Title.How to use Composite Indexes",
-"size":      1,
+"size": 1,
 "imports": [
  "Author.Gert Nelissen",
 "Categorie.Information Management",
@@ -473,7 +473,7 @@
 },
 {
  "name": "Title.The value driven PM lifecycle - Draft",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Filip Hendrickx",
 "Categorie.Speciale Reserve Categorie",
@@ -483,7 +483,7 @@
 },
 {
  "name": "Title.Enterprise Architect, from policeman to entrepreneur? - Draft",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Johan Merckx",
 "Categorie.Speciale Reserve Categorie",
@@ -493,7 +493,7 @@
 },
 {
  "name": "Title.Some take aways from the 23rd BAEA Cafe with Chris Potts",
-"size":      2,
+"size": 2,
 "imports": [
  "Author.Filip Hendrickx",
 "Categorie.Enterprise Architecture",
@@ -505,7 +505,7 @@
 },
 {
  "name": "Title.Customer Journeys - Are we really going outside in? - Draft",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Johan Merckx",
 "Categorie.Speciale Reserve Categorie",
@@ -515,7 +515,7 @@
 },
 {
  "name": "Title.Business Cases: getting money or creating value?",
-"size":      2,
+"size": 2,
 "imports": [
  "Author.Johan Merckx",
 "Categorie.Business Consulting",
@@ -525,7 +525,7 @@
 },
 {
  "name": "Title.Identify the stakeholders of your analysis",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Sarah Denayer",
 "Categorie.Information Management",
@@ -535,7 +535,7 @@
 },
 {
  "name": "Title.Please stop writing 200 page documents",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Sarah Denayer",
 "Categorie.Information Management",
@@ -546,7 +546,7 @@
 },
 {
  "name": "Title.Uw gegevens zijn uw reputatie",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Guido Van Humbeeck",
 "Categorie.Information Management",
@@ -557,7 +557,7 @@
 },
 {
  "name": "Title.EA on its own delivers no value",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Johan Merckx",
 "Categorie.Enterprise Architecture",
@@ -568,7 +568,7 @@
 },
 {
  "name": "Title.Requirements are dead",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Robrecht David",
 "Categorie.Information Management",
@@ -579,7 +579,7 @@
 },
 {
  "name": "Title.Take an Outside-in Perspective",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Johan Merckx",
 "Categorie.Enterprise Architecture",
@@ -590,7 +590,7 @@
 },
 {
  "name": "Title.Are user stories and use cases at war?",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Sarah Denayer",
 "Categorie.Information Management",
@@ -603,7 +603,7 @@
 },
 {
  "name": "Title.Business requirement or atomic requirement?",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Robrecht David",
 "Categorie.Information Management",
@@ -614,7 +614,7 @@
 },
 {
  "name": "Title.The Road to Continuous Delivery",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Jo Van Eyck",
 "Categorie.Enterprise Architecture",
@@ -626,7 +626,7 @@
 },
 {
  "name": "Title.Push to add drama: CXO-lunch met Jan Dobbenie",
-"size":      1,
+"size": 1,
 "imports": [
  "Author.Guido Van Humbeeck",
 "Categorie.Business Consulting",
@@ -637,7 +637,7 @@
 },
 {
  "name": "Title.Simplicity and change",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Filip Hendrickx",
 "Categorie.Business Consulting",
@@ -648,7 +648,7 @@
 },
 {
  "name": "Title.Open brief aan de CEO",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Guido Van Humbeeck",
 "Categorie.Business Consulting",
@@ -659,7 +659,7 @@
 },
 {
  "name": "Title.Nieuwjaarsbrief van ICT",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Guido Van Humbeeck",
 "Categorie.Business Consulting",
@@ -670,7 +670,7 @@
 },
 {
  "name": "Title.ICT-groeten uit Barcelona",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Guido Van Humbeeck",
 "Categorie.Business Consulting",
@@ -681,7 +681,7 @@
 },
 {
  "name": "Title.Informatie modelleren was, is en zal zijn",
-"size":      0,
+"size": 0,
 "imports": [
  "Author.Geert Sprengers",
 "Categorie.Information Management",
@@ -692,7 +692,7 @@
 },
 {
  "name": "Author.Roman Verraest",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Mll2?",
 "Categorie.Business Consulting",
@@ -705,7 +705,7 @@
 },
 {
  "name": "Author.Wim Van Emelen",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.Why not add some 'WHY' to your decision documents?",
 "Categorie.Business Consulting",
@@ -719,7 +719,7 @@
 },
 {
  "name": "Author.Brigitte Narmon",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.5 Questions about the challenges in the energy sector",
 "Categorie.Business Consulting",
@@ -732,7 +732,7 @@
 },
 {
  "name": "Author.AE admin",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.The AE Blog: Looking back and looking forward",
 "Categorie.Business Consulting",
@@ -747,7 +747,7 @@
 },
 {
  "name": "Author.Thomas Anciaux",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Offline first: as simple as unplug & play?",
 "Categorie.Software Engineering",
@@ -764,7 +764,7 @@
 },
 {
  "name": "Author.Guido Van Humbeeck",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.7 Deadly Sins for the CEO",
 "Categorie.Business Consulting",
@@ -790,7 +790,7 @@
 },
 {
  "name": "Author.Filip Hendrickx",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Does your customer care about his journey and your touch points?",
 "Categorie.Business Consulting",
@@ -824,7 +824,7 @@
 },
 {
  "name": "Author.Jasper Verplanken",
-"size":      2,
+"size": 2,
 "imports": [
  "Title.The Hackathon: Intrapreneurship's Dry Run",
 "Categorie.Business Consulting",
@@ -838,7 +838,7 @@
 },
 {
  "name": "Author.Sarah Denayer",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Design smartphone first!",
 "Categorie.Software Engineering",
@@ -865,7 +865,7 @@
 },
 {
  "name": "Author.Tom Princen",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.The beer coaster analysis",
 "Categorie.Information Management",
@@ -877,7 +877,7 @@
 },
 {
  "name": "Author.Tom Devos",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.New Customer Experience Insights: Go dining!",
 "Categorie.Business Consulting",
@@ -897,7 +897,7 @@
 },
 {
  "name": "Author.Valerie Taerwe",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.Why a hackathon is not a game",
 "Categorie.Business Consulting",
@@ -911,7 +911,7 @@
 },
 {
  "name": "Author.Glenn Dejaeger",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.ng-europe 2014: interesting evolutions in the AngularJs world",
 "Categorie.Software Engineering",
@@ -931,7 +931,7 @@
 },
 {
  "name": "Author.Igor Torfs",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.Make Your Workshop Live",
 "Categorie.Business Consulting",
@@ -942,7 +942,7 @@
 },
 {
  "name": "Author.Bart Orbie",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.Integration : Dr Jekyll and Mr Hyde",
 "Categorie.Enterprise Architecture",
@@ -955,7 +955,7 @@
 },
 {
  "name": "Author.Frederick Beernaert",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.ALM benefits",
 "Categorie.Enterprise Architecture",
@@ -968,7 +968,7 @@
 },
 {
  "name": "Author.Frederik Willaert",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Relationsh<U+200B>ips, the essence of Outside-In Thinking",
 "Categorie.Enterprise Architecture",
@@ -982,7 +982,7 @@
 },
 {
  "name": "Author.Bram Vanschoenwinkel",
-"size":      2,
+"size": 2,
 "imports": [
  "Title.Why Everbody is Talking Analytics but Nobody is Doing it?",
 "Categorie.Information Management",
@@ -994,7 +994,7 @@
 },
 {
  "name": "Author.Aline Coelst",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.No need to fear Cloud Computing?",
 "Categorie.Business Consulting",
@@ -1005,7 +1005,7 @@
 },
 {
  "name": "Author.Wim Haedens",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.From server virtualization to hybrid cloud",
 "Categorie.Business Consulting",
@@ -1015,7 +1015,7 @@
 },
 {
  "name": "Author.Johan Merckx",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Customer Centricity - What about Technology?",
 "Categorie.Business Consulting",
@@ -1045,7 +1045,7 @@
 },
 {
  "name": "Author.Jo Van Eyck",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Techorama 2014 takeaways",
 "Categorie.Software Engineering",
@@ -1063,7 +1063,7 @@
 },
 {
  "name": "Author.Jeroen Haegebaert",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.The visitor pattern in C#, part I - Draft",
 "Categorie.Speciale Reserve Categorie",
@@ -1073,7 +1073,7 @@
 },
 {
  "name": "Author.Gert Nelissen",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.How to use Composite Indexes",
 "Categorie.Information Management",
@@ -1090,7 +1090,7 @@
 },
 {
  "name": "Author.Robrecht David",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Requirements are dead",
 "Categorie.Information Management",
@@ -1103,7 +1103,7 @@
 },
 {
  "name": "Author.Geert Sprengers",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Informatie modelleren was, is en zal zijn",
 "Categorie.Information Management",
@@ -1114,7 +1114,7 @@
 },
 {
  "name": "Categorie.Business Consulting",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Mll2?",
 "Author.Roman Verraest",
@@ -1197,7 +1197,7 @@
 },
 {
  "name": "Categorie.Enterprise Architecture",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Mll2?",
 "Author.Roman Verraest",
@@ -1250,7 +1250,7 @@
 },
 {
  "name": "Categorie.Software Engineering",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Why not add some 'WHY' to your decision documents?",
 "Author.Wim Van Emelen",
@@ -1309,7 +1309,7 @@
 },
 {
  "name": "Categorie.Information Management",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.The beer coaster analysis",
 "Author.Tom Princen",
@@ -1365,7 +1365,7 @@
 },
 {
  "name": "Categorie.Speciale Reserve Categorie",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.4 BMC tools compared - Draft",
 "Author.Frederik Willaert",
@@ -1385,7 +1385,7 @@
 },
 {
  "name": "Tag.AE Foyer",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Mll2?",
 "Author.Roman Verraest",
@@ -1396,7 +1396,7 @@
 },
 {
  "name": "Tag.Business Architecture",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Mll2?",
 "Author.Roman Verraest",
@@ -1416,7 +1416,7 @@
 },
 {
  "name": "Tag.Customer Journey",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Mll2?",
 "Author.Roman Verraest",
@@ -1450,7 +1450,7 @@
 },
 {
  "name": "Tag.Business Analysis",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Why not add some 'WHY' to your decision documents?",
 "Author.Wim Van Emelen",
@@ -1500,7 +1500,7 @@
 },
 {
  "name": "Tag.Business value",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.Why not add some 'WHY' to your decision documents?",
 "Author.Wim Van Emelen",
@@ -1512,7 +1512,7 @@
 },
 {
  "name": "Tag.first time right",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.Why not add some 'WHY' to your decision documents?",
 "Author.Wim Van Emelen",
@@ -1524,7 +1524,7 @@
 },
 {
  "name": "Tag.Digital Reference Architecture",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.5 Questions about the challenges in the energy sector",
 "Author.Brigitte Narmon",
@@ -1538,7 +1538,7 @@
 },
 {
  "name": "Tag.energy",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.5 Questions about the challenges in the energy sector",
 "Author.Brigitte Narmon",
@@ -1548,7 +1548,7 @@
 },
 {
  "name": "Tag.outside-in",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.5 Questions about the challenges in the energy sector",
 "Author.Brigitte Narmon",
@@ -1561,7 +1561,7 @@
 },
 {
  "name": "Tag.Front-End Engineering",
-"size":      5,
+"size": 5,
 "imports": [
  "Title.Offline first: as simple as unplug & play?",
 "Author.Thomas Anciaux",
@@ -1578,7 +1578,7 @@
 },
 {
  "name": "Tag.HTML5",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Offline first: as simple as unplug & play?",
 "Author.Thomas Anciaux",
@@ -1590,7 +1590,7 @@
 },
 {
  "name": "Tag.Customer Centric",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.7 Deadly Sins for the CEO",
 "Author.Guido Van Humbeeck",
@@ -1621,7 +1621,7 @@
 },
 {
  "name": "Tag.Outside-In Architecture",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.Does your customer care about his journey and your touch points?",
 "Author.Filip Hendrickx",
@@ -1648,7 +1648,7 @@
 },
 {
  "name": "Tag.Innovation",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.The Hackathon: Intrapreneurship's Dry Run",
 "Author.Jasper Verplanken",
@@ -1681,7 +1681,7 @@
 },
 {
  "name": "Tag.Intrapreneurship",
-"size":      2,
+"size": 2,
 "imports": [
  "Title.The Hackathon: Intrapreneurship's Dry Run",
 "Author.Jasper Verplanken",
@@ -1692,7 +1692,7 @@
 },
 {
  "name": "Tag.Mobile (first)",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.The Hackathon: Intrapreneurship's Dry Run",
 "Author.Jasper Verplanken",
@@ -1715,7 +1715,7 @@
 },
 {
  "name": "Tag.Functional Analysis & Design",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Design smartphone first!",
 "Author.Sarah Denayer",
@@ -1739,7 +1739,7 @@
 },
 {
  "name": "Tag.Requirements",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.The beer coaster analysis",
 "Author.Tom Princen",
@@ -1761,7 +1761,7 @@
 },
 {
  "name": "Tag.AngularJS",
-"size":      5,
+"size": 5,
 "imports": [
  "Title.ng-europe 2014: interesting evolutions in the AngularJs world",
 "Author.Glenn Dejaeger",
@@ -1771,7 +1771,7 @@
 },
 {
  "name": "Tag.Conference",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.ng-europe 2014: interesting evolutions in the AngularJs world",
 "Author.Glenn Dejaeger",
@@ -1789,7 +1789,7 @@
 },
 {
  "name": "Tag.CSS",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Fronteers 2014 Takeaways",
 "Author.Thomas Anciaux",
@@ -1799,7 +1799,7 @@
 },
 {
  "name": "Tag.JavaScript",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Fronteers 2014 Takeaways",
 "Author.Thomas Anciaux",
@@ -1809,7 +1809,7 @@
 },
 {
  "name": "Tag.Documentation",
-"size":      8,
+"size": 8,
 "imports": [
  "Title.Make Your Workshop Live",
 "Author.Igor Torfs",
@@ -1825,7 +1825,7 @@
 },
 {
  "name": "Tag.Business Driven EA",
-"size":      2,
+"size": 2,
 "imports": [
  "Title.Integration : Dr Jekyll and Mr Hyde",
 "Author.Bart Orbie",
@@ -1843,7 +1843,7 @@
 },
 {
  "name": "Tag.Integration",
-"size":      2,
+"size": 2,
 "imports": [
  "Title.Integration : Dr Jekyll and Mr Hyde",
 "Author.Bart Orbie",
@@ -1857,7 +1857,7 @@
 },
 {
  "name": "Tag.SOA",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.Integration : Dr Jekyll and Mr Hyde",
 "Author.Bart Orbie",
@@ -1867,7 +1867,7 @@
 },
 {
  "name": "Tag.ALM & SDLC",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.ALM benefits",
 "Author.Frederick Beernaert",
@@ -1883,7 +1883,7 @@
 },
 {
  "name": "Tag.Predictability",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.ALM benefits",
 "Author.Frederick Beernaert",
@@ -1894,7 +1894,7 @@
 },
 {
  "name": "Tag.Agile",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.10 ways to make Scrum fail",
 "Author.Glenn Dejaeger",
@@ -1909,7 +1909,7 @@
 },
 {
  "name": "Tag.Project Management",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.10 ways to make Scrum fail",
 "Author.Glenn Dejaeger",
@@ -1929,7 +1929,7 @@
 },
 {
  "name": "Tag.Scrum",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.10 ways to make Scrum fail",
 "Author.Glenn Dejaeger",
@@ -1939,7 +1939,7 @@
 },
 {
  "name": "Tag.-",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.4 BMC tools compared - Draft",
 "Author.Frederik Willaert",
@@ -1957,7 +1957,7 @@
 },
 {
  "name": "Tag.Analytics & Business Intelligence",
-"size":      2,
+"size": 2,
 "imports": [
  "Title.Why Everbody is Talking Analytics but Nobody is Doing it?",
 "Author.Bram Vanschoenwinkel",
@@ -1967,7 +1967,7 @@
 },
 {
  "name": "Tag.Big Data & Analytics",
-"size":      2,
+"size": 2,
 "imports": [
  "Title.Why Everbody is Talking Analytics but Nobody is Doing it?",
 "Author.Bram Vanschoenwinkel",
@@ -1977,7 +1977,7 @@
 },
 {
  "name": "Tag.Google",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Google says your site is naughty",
 "Author.Tom Devos",
@@ -1987,7 +1987,7 @@
 },
 {
  "name": "Tag.SEO",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Google says your site is naughty",
 "Author.Tom Devos",
@@ -1997,7 +1997,7 @@
 },
 {
  "name": "Tag.Cloud & Infrastructure Industrialization",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.No need to fear Cloud Computing?",
 "Author.Aline Coelst",
@@ -2009,7 +2009,7 @@
 },
 {
  "name": "Tag.Legal",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.No need to fear Cloud Computing?",
 "Author.Aline Coelst",
@@ -2019,7 +2019,7 @@
 },
 {
  "name": "Tag.Business Process Management",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.EACBPM 2014 - Some conference themes",
 "Author.Filip Hendrickx",
@@ -2029,7 +2029,7 @@
 },
 {
  "name": "Tag.Security",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Techorama 2014 takeaways",
 "Author.Jo Van Eyck",
@@ -2039,7 +2039,7 @@
 },
 {
  "name": "Tag.Web Development",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Techorama 2014 takeaways",
 "Author.Jo Van Eyck",
@@ -2049,7 +2049,7 @@
 },
 {
  "name": "Tag.Composite Index",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.How to use Composite Indexes",
 "Author.Gert Nelissen",
@@ -2060,7 +2060,7 @@
 },
 {
  "name": "Tag.Covering Index",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.How to use Composite Indexes",
 "Author.Gert Nelissen",
@@ -2071,7 +2071,7 @@
 },
 {
  "name": "Tag.Database",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.How to use Composite Indexes",
 "Author.Gert Nelissen",
@@ -2082,7 +2082,7 @@
 },
 {
  "name": "Tag.Execution Plan",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.How to use Composite Indexes",
 "Author.Gert Nelissen",
@@ -2093,7 +2093,7 @@
 },
 {
  "name": "Tag.Indexes",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.How to use Composite Indexes",
 "Author.Gert Nelissen",
@@ -2104,7 +2104,7 @@
 },
 {
  "name": "Tag.Query Optimisation",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.How to use Composite Indexes",
 "Author.Gert Nelissen",
@@ -2115,7 +2115,7 @@
 },
 {
  "name": "Tag.SQL Server",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.How to use Composite Indexes",
 "Author.Gert Nelissen",
@@ -2126,7 +2126,7 @@
 },
 {
  "name": "Tag.Strategy",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Some take aways from the 23rd BAEA Cafe with Chris Potts",
 "Author.Filip Hendrickx",
@@ -2150,7 +2150,7 @@
 },
 {
  "name": "Tag.Use Cases",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Are user stories and use cases at war?",
 "Author.Sarah Denayer",
@@ -2160,7 +2160,7 @@
 },
 {
  "name": "Tag.User Stories",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Are user stories and use cases at war?",
 "Author.Sarah Denayer",
@@ -2170,7 +2170,7 @@
 },
 {
  "name": "Date.2014-12",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Mll2?",
 "Author.Roman Verraest",
@@ -2199,7 +2199,7 @@
 },
 {
  "name": "Date.2015-02",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.Why not add some 'WHY' to your decision documents?",
 "Author.Wim Van Emelen",
@@ -2219,7 +2219,7 @@
 },
 {
  "name": "Date.2015-01",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.The AE Blog: Looking back and looking forward",
 "Author.AE admin",
@@ -2238,7 +2238,7 @@
 },
 {
  "name": "Date.2014-11",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.The beer coaster analysis",
 "Author.Tom Princen",
@@ -2265,7 +2265,7 @@
 },
 {
  "name": "Date.2014-10",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.ng-europe 2014: interesting evolutions in the AngularJs world",
 "Author.Glenn Dejaeger",
@@ -2297,7 +2297,7 @@
 },
 {
  "name": "Date.2014-09",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Integration : Dr Jekyll and Mr Hyde",
 "Author.Bart Orbie",
@@ -2316,7 +2316,7 @@
 },
 {
  "name": "Date.2014-08",
-"size":      2,
+"size": 2,
 "imports": [
  "Title.10 ways to make Scrum fail",
 "Author.Glenn Dejaeger",
@@ -2346,7 +2346,7 @@
 },
 {
  "name": "Date.2014-07",
-"size":      2,
+"size": 2,
 "imports": [
  "Title.Google says your site is naughty",
 "Author.Tom Devos",
@@ -2374,7 +2374,7 @@
 },
 {
  "name": "Date.2014-06",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Customer Centricity - Turning your business model around",
 "Author.Johan Merckx",
@@ -2415,7 +2415,7 @@
 },
 {
  "name": "Date.2014-05",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Enterprise Architect, from policeman to entrepreneur? - Draft",
 "Author.Johan Merckx",
@@ -2439,7 +2439,7 @@
 },
 {
  "name": "Date.2014-04",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Please stop writing 200 page documents",
 "Author.Sarah Denayer",
@@ -2454,7 +2454,7 @@
 },
 {
  "name": "Date.2014-02",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.EA on its own delivers no value",
 "Author.Johan Merckx",
@@ -2476,7 +2476,7 @@
 },
 {
  "name": "Date.2014-01",
-"size":      1,
+"size": 1,
 "imports": [
  "Title.Business requirement or atomic requirement?",
 "Author.Robrecht David",
@@ -2498,7 +2498,7 @@
 },
 {
  "name": "Date.2013-09",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Simplicity and change",
 "Author.Filip Hendrickx",
@@ -2509,7 +2509,7 @@
 },
 {
  "name": "Date.2013-06",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Open brief aan de CEO",
 "Author.Guido Van Humbeeck",
@@ -2520,7 +2520,7 @@
 },
 {
  "name": "Date.2013-01",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Nieuwjaarsbrief van ICT",
 "Author.Guido Van Humbeeck",
@@ -2531,7 +2531,7 @@
 },
 {
  "name": "Date.2012-12",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.ICT-groeten uit Barcelona",
 "Author.Guido Van Humbeeck",
@@ -2542,7 +2542,7 @@
 },
 {
  "name": "Date.2012-11",
-"size":      0,
+"size": 0,
 "imports": [
  "Title.Informatie modelleren was, is en zal zijn",
 "Author.Geert Sprengers",

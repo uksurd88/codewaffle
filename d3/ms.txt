@@ -1,0 +1,5 @@
+Protein	Size	Imports
+Mll1	0	"Author.Sukhi","Bait.Ash1l","Bait.Ash2l","Bait.Setd1a","Date.2014-12-12"
+Mll2	0	"Author.Sukhi","Bait.Ash2l","Bait.Setd1a","Bait.Setd1b","Date.2014-12-14"
+Mll3	1	"Author.Sukhi","Bait.Ash1l","Bait.Ash2l","Bait.Mll2","Date.2014-12-12"
+Mll3	1	"Author.Sukhi","Bait.Ash1l","Bait.Mll1","Bait.Mll2","Date.2014-12-14"

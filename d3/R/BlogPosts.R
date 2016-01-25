@@ -35,7 +35,7 @@ setnames(dt, "SEO Title", "SEOTitle")
 setnames(dt, "Meta Desc.", "MetaDesc")
 setnames(dt, "Focus KW", "FocusKW")
 
-# remove unwanted columns, edit type of wanted columns
+# remove (delete) unwanted columns, edit type of wanted columns
 dt[,SelectAll:=NULL]
 dt[,SEO:=NULL]
 dt[,Title:=as.character(Title)]
@@ -144,6 +144,11 @@ dt[,Tag:=str_replace(Tag, "—","-")]
 #' EXAMPLE:
 #' -------
 #' [name: 'Title.But do you love it?', size:2, imports['Author.Roman Verraest', 'Categories.BC', 'Categories.EA']]
+
+# import data from JSON to a DF within R - Very IMPORTANT ###################################
+########### blog=fromJSON(paste(readLines('blogdata.json'),collapse=''))
+# coerce data frames directly in R to be exported to a file externally - http://stackoverflow.com/questions/17291283/outputting-a-dataframe-in-r-to-a-csv
+########### blogDF=data.frame(lapply(blog, as.character), stringsAsFactors=FALSE)
 
 #' change the resulting data.table to a list,
 #' so that it can be serialized to JSON
