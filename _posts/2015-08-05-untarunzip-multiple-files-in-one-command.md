@@ -1,18 +1,19 @@
 ---
 layout: post
 title: Untar/Unzip multiple files in one command
-categories: [None]
+categories: 
+  - None
 tags: []
-published: True
-link: 
-image:
-    feature: 
-    credit: 
-    creditlink: 
-comments: True
+published: true
+link: null
+image: 
+  feature: null
+  credit: null
+  creditlink: null
+comments: true
 excerpt: A post showing how to untar/unzip multiple files in one go.
-
 ---
+
 
 Hola!
 Ungzipping all files in one line 
@@ -23,4 +24,4 @@ For *.tar.gz
 find -name '*.tar.gz' -exec tar xzvf '{}' ';'
 {% endhighlight %}
 
-It uses all the files that ‘find’ outputs and send it to tar. Same can be applied for any other archive,  just change the parameters
+It uses all the files that ‘find’ outputs and send it to tar. Same can be applied to any other archive, just change the respective parameters.
