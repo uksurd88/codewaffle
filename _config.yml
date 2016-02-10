@@ -1,6 +1,6 @@
 # Site wide configuration
 
-title:            Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer
+title:            Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer ✈ ✇ ☯ ☀
 locale:           en_GB
 url:              http://sukhdeepsingh.eu
 #http://localhost:4000
@@ -35,7 +35,7 @@ kramdown:
 owner:
   name: Sukhdeep Singh
   avatar: sukhiBio.jpg
-  bio: "✈ \n I love travelling, hiking, frisbee and making friends."
+  bio: "I love travelling, hiking, frisbee and making friends."
   email: sukhdeepsingh.bio@gmail.com
   disqus-shortname:
   twitter: #username
