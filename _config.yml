@@ -1,6 +1,6 @@
 # Site wide configuration
 
-title:            Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer
+title:            Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer ✈ ☯ ☀
 locale:           en_GB
 url:              http://sukhdeepsingh.eu
 #http://localhost:4000
@@ -15,7 +15,7 @@ favicon: sukhiBio.jpg
 
 permalink:   /:categories/:title/
 markdown:    kramdown
-highlighter: pygments
+highlighter: rouge
 sass:
   sass_dir: _sass
   style: compressed
@@ -47,11 +47,12 @@ owner:
     ad-client:
     ad-slot:
   bing-verify:
+  biostars: u/426/
   github: sukhdeepsingh
   stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
-  linkedin: pub/sukhdeep-singh/7/a79/a5b
+  linkedin: sukhdeep-singh-a5ba797?trk=hp-identity-name
   xing: #username
-  instagram: vanbug
+  instagram: m.o.o.d.s
   lastfm: #username
   tumblr: cruisingwarrior
   pinterest: #username
@@ -60,7 +61,6 @@ owner:
   dribbble: #username
   youtube: UCcj1tSCvFu15-WRiK15uz_w
   soundcloud: nordic-berry
-  biostars: u/426/
   weibo: #username
   flickr: #username
   codepen: #username
