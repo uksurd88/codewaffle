@@ -146,7 +146,7 @@ author:
       major: Software Engineering
       started: 2009
       duration: (2009 - 2010)
-      description: Thesis: Structured Spreadsheet Web Interface for Neurophysiology Data Analysis. A web-application was developed for a functional reactive programming language (Bugpan) for experimenting on dynamic systems.
+      description: \Thesis: Structured Spreadsheet Web Interface for Neurophysiology Data Analysis. A web-application was developed for a functional reactive programming language (Bugpan) for experimenting on dynamic systems.
   languages:
     - language1:
       name: German
