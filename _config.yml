@@ -141,12 +141,12 @@ author:
 
   educationHistory:
     - education1:
-      organization: Northeastern University
-      degree: Bachelor
+      organization: University of Leicester
+      degree: MSc in Bioinformatics (Merit)
       major: Software Engineering
-      started: 2005
-      duration: (2005 - 2009)
-      description: I am not a description. I am not description.I am not description. I am not a description. I am not description.I am not description. I am not a description. I am not description.I am not description. I am not a description. I am not description.I am not description. I am not a description. I am not description.I am not description. I am not a description. I am not description.I am not description. I am not a description. I am not description.I am not description. I am not a description. I am not description.I am not description.
+      started: 2009
+      duration: (2009 - 2010)
+      description: Thesis: Structured Spreadsheet Web Interface for Neurophysiology Data Analysis. A web-application was developed for a functional reactive programming language (Bugpan) for experimenting on dynamic systems.
   languages:
     - language1:
       name: German
@@ -165,11 +165,11 @@ author:
       name: RNA-Seq
       percentage: 90%
     - skill3:
-      name: JavaScript
-      percentage: 80%
-    - skill4:
-      name: AngularJS
-      percentage: 80%
-    - skill5:
-      name: Java/Java EE
+      name: R
       percentage: 90%
+    - skill4:
+      name: Bash/Shell
+      percentage: 60%
+    #- skill5:
+    #  name: Java/Java EE
+    #  percentage: 90%
