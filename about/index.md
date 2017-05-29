@@ -1,6 +1,6 @@
 ---
 layout: page
-title: + Work
+title: Work
 tags:
   - about
   - Jekyll
@@ -26,12 +26,11 @@ Apart from Science, I am actively involved in attending, organizing and moderati
 
 ### Current
 Working as a Bioinformatics Scientist at HZPC where I am creating, managing and supporting advanced Bioinformatics infrastructure to assist in the healthier and high-quality production of fourth-largest food crop in the world. I am directly engaged in NGS-based research using high-throughput genomics for the development and application of breeding and selection purposes.
-
 At HZPC, using the state of art principles, we contribute directly to the aim of food sustainability using Potatoes as a means. We are an innovative world leader in potato breeding, seed potato trade and product concept development operating worldwide in more than 15 countries and exports to over 90 countries.
 
 
 
-## - Work :
+## !Work :
 <!-- 
 * [Custom 404 page](http://mmistakes.github.io/minimal-mistakes/404.html) to get you started.
 -->
