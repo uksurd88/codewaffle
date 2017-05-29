@@ -1,17 +1,27 @@
 ---
 layout: page
 title: + Work
-tags: [about, Jekyll, sukhdeepsingh, bioinformatics, ChIP-Seq, responsive]
-modified: 2014-08-08T20:53:07.573882-04:00
+tags:
+  - about
+  - Jekyll
+  - sukhdeepsingh
+  - bioinformatics
+  - ChIP-Seq
+  - responsive
+modified: {}
 comments: true
 image:
   feature: sample-image-2.jpg
   credit: WeGraphics
-  creditlink: http://wegraphics.net/downloads/free-ultimate-blurred-background-pack/
+  creditlink: 'http://wegraphics.net/downloads/free-ultimate-blurred-background-pack/'
+published: true
 ---
 <p style='text-align: justify;'>
-Specialties: Bioinformatician with broad experience in scientific data analysis, construction of web applications, R package development. I have experiences in genomics, proteomics, neurophysiology and NGS data analysis. My experience includes working in-vivo, in-vitro and in-silico for long range projects. I have been working in Linux and Open source for 8 years and have working knowledge of PERL-CGI,R and Unix shell programming.
+Bioinformatics Scientist with broad experience in scientific and big data analysis (multi species), construction of web applications, R package development. I have experiences in genomics, epigenetics, proteomics, neurophysiology and NGS data analysis for long range projects. I have been working in Linux and Open source for 10 years.
 
+My general interests are solving complex problems in science using computational algorithms, artificial intelligence and exploiting the intelligent computation. With my Bachelors in Biotechnology and Masters in Bioinformatics, I have gained both theoretical and practical knowledge to question and challenge scientific questions. During my PhD in Bioinformatics, I have setup high-throughput state of art NGS data analysis pipelines utilizing high performance computing catering to the needs of hostlab and other collaborating labs along establishing many new collaborations. During my career path, I have been a part of various projects at excellent institutes, Imperial College London, University of Leicester, Max Planck Institute of Molecular Cell Biology and Genetics, and Wellcome Trust Sanger Institute, where I have had a chance to meet very skilled researchers in the field.
+
+Apart from Science, I am actively involved in attending, organizing and moderating various workshops, social events and tours ranging from community and cultural events to hiking and cycling tours. Every year, I spend some time abroad on eco-conservation and social innovation projects.
 </p>
 
 
