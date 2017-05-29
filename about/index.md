@@ -24,16 +24,19 @@ My general interests are solving complex problems in science using computational
 Apart from Science, I am actively involved in attending, organizing and moderating various workshops, social events and tours ranging from community and cultural events to hiking and cycling tours. Every year, I spend some time abroad on eco-conservation and social innovation projects.
 </p>
 
+### Current
+Working as a Bioinformatics Scientist at HZPC where I am creating, managing and supporting advanced Bioinformatics infrastructure to assist in the healthier and high-quality production of fourth-largest food crop in the world. I am directly engaged in NGS-based research using high-throughput genomics for the development and application of breeding and selection purposes.
+
+At HZPC, using the state of art principles, we contribute directly to the aim of food sustainability using Potatoes as a means. We are an innovative world leader in potato breeding, seed potato trade and product concept development operating worldwide in more than 15 countries and exports to over 90 countries.
+
+
 
 ## - Work :
 <!-- 
 * [Custom 404 page](http://mmistakes.github.io/minimal-mistakes/404.html) to get you started.
 -->
 <p style='text-align: justify;'>
-I am from land of 5 rivers called Punjab and from a country where you find the most exotic places, best curries, rich culture and amazing people known as INDIA. I am currently living in Dresden, Germany and pursuing my PhD. 
-
-
-I love hiking. I like travelling n' talking to people, or doing something adventurous. If I am not doing any of these, you can find me Djing, Biking, playing Frisbee, Table Tennis, or something new that I have just heard of :) Mother nature makes me complete, being more wild and raw. I love to adventure and in this beautiful life, I want to gather most experiences I can get. I want to walk the world, hike the summits and dive the oceans, and the more I do it, more I feel I have done nothing. Being from a warrior clan (Sikh), I like to take risks and be brave, nothing is better then getting a new experience. Life is awesome and everyday is an opportunity to meet great people, learn, experience and do the undone. Most Pictures are my own :)
+I love hiking. I like travelling n' talking to people, or doing something adventurous. If I am not doing any of these, you can find me Djing, Biking, playing Frisbee, Table Tennis, or something new that I have just heard of :) Mother nature makes me complete, being more wild and raw. I love to adventure. I want to walk the world, hike the summits and dive the oceans, and the more I do, I feel I have done nothing. Being from a warrior clan (Sikh), I like to take risks and be brave. Life is awesome and everyday is an opportunity to meet great people, learn, experience and do the undone. Most Pictures are my own :)
 
 <!-- <a markdown="0" href="{{ site.url }}/theme-setup" class="btn">Install Minimal Mistakes Theme</a> -->
 </p>
