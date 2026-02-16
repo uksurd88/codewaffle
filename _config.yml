@@ -2,7 +2,7 @@
 
 title:            Sukhdeep Singh &#58 Bioinformatician, DJ and an Adventurer ✈ ☯ ☀
 locale:           en_GB
-url:              http://sukhdeepsingh.eu
+url:              https://sukhdeepsingh.eu
 #http://localhost:4000
 #http://sukhdeepsingh.eu
 #
@@ -38,10 +38,10 @@ owner:
   bio: "I love travelling, hiking, frisbee and making friends."
   email: sukhdeepsingh.bio@gmail.com
   disqus-shortname:
-  twitter: #username
-  facebook: #username
+  twitter:
+  facebook:
   google:
-    plus: #username
+    plus:
     analytics: UA-73123968-1
     verify:
     ad-client:
@@ -50,21 +50,21 @@ owner:
   biostars: u/426/
   impactstory: SukhdeepSingh
   github: sukhdeepsingh
-  stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
+  stackoverflow:
   linkedin: sukhdeep-singh-a5ba797?trk=hp-identity-name
-  xing: #username
+  xing:
   instagram: m.o.o.d.s
-  lastfm: #username
+  lastfm:
   tumblr: cruisingwarrior
-  pinterest: #username
-  foursquare: #username
-  steam: #username
-  dribbble: #username
+  pinterest:
+  foursquare:
+  steam:
+  dribbble:
   youtube: UCcj1tSCvFu15-WRiK15uz_w
   soundcloud: nordic-berry
-  weibo: #username
-  flickr: #username
-  codepen: #username
+  weibo:
+  flickr:
+  codepen:
 
 include: [".htaccess"]
 exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules", "Gemfile", "Gemfile.lock", "LICENSE", "README.md"]
@@ -85,7 +85,7 @@ mini_magick:
     cover:
         source: images/
         destination: images/cover
-        resize: "1500X250!"
+        resize: "1500x250!"
 
 #mini_magick:
 #  thumbnail:
@@ -104,16 +104,16 @@ mini_magick:
 # Resume Data
 # Author settings
 author:
-  name: <a href='http://sukhdeepsingh.eu'>Sukhdeep Singh</a>
+  name: <a href='https://sukhdeepsingh.eu'>Sukhdeep Singh</a>
   title: Bioinformatician
   address: Biotechnologisches Zentrum, Dresden, Germany
   email: sukhdeepsingh.bio@gmail.com
-  link: http://sukhdeepsingh.eu
+  link: https://sukhdeepsingh.eu
   weibo:
   github: sukhdeepsingh
   linkedin: pub/sukhdeep-singh/7/a79/a5b
   twitter: 
-  gavatar: /assests/img/sukhiBio.jpg
+  gravatar: /assets/img/sukhiBio.jpg
   workHistory:
     - work1:
       company: Biotec TU Dresden

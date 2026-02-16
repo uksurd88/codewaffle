@@ -17,7 +17,7 @@ excerpt: A post showing how to untar/unzip multiple files in one go.
 
 Hola!
 Ungzipping all files in one line 
-{% highlight css %}
+{% highlight bash %}
 For *.gz
 find -name '*.gz' -exec tar xzv '{}' ';'
 For *.tar.gz
