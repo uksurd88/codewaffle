@@ -8,7 +8,7 @@ tags:
   - bioinformatics
   - ChIP-Seq
   - responsive
-modified: {}
+modified:
 comments: true
 image:
   feature: sample-image-2.jpg
