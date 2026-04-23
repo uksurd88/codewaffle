@@ -1,0 +1,39 @@
+{
+  "site": {
+    "title": "Sukhdeep Singh | Science, AI & Adventures",
+    "base_url": "https://sukhdeepsingh.eu",
+    "base_path": "/",
+    "trailing_slash": false,
+    "favicon": "/images/favicon.png",
+    "logo": "/images/logo.png",
+    "logo_width": "200",
+    "logo_height": "34",
+    "logo_text": "Sukhdeep Singh"
+  },
+
+  "settings": {
+    "pagination": 6
+  },
+
+  "metadata": {
+    "meta_author": "Sukhdeep Singh",
+    "meta_image": "/images/og-image.png",
+    "meta_description": "Bioinformatician, DJ and Adventurer. Writing about science, AI, antibody engineering and life."
+  },
+
+  "google_tag_manager": {
+    "enable": false,
+    "gtm_id": "GTM-XXXXXX"
+  },
+
+  "params": {
+    "contact_form_action": "#",
+    "copyright": "Copyright © 2026 [Sukhdeep Singh](https://sukhdeepsingh.eu)"
+  },
+
+  "contactinfo": {
+    "address": "Netherlands",
+    "email": "sukhdeepsingh.bio@gmail.com",
+    "phone": ""
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "main": [
+    {
+      "name": "GitHub",
+      "icon": "FaGithub",
+      "link": "https://github.com/sukhdeepsingh"
+    },
+    {
+      "name": "LinkedIn",
+      "icon": "FaLinkedin",
+      "link": "https://www.linkedin.com/in/sukhdeep-singh-a5ba797"
+    },
+    {
+      "name": "Instagram",
+      "icon": "FaInstagram",
+      "link": "https://www.instagram.com/m.o.o.d.s"
+    },
+    {
+      "name": "YouTube",
+      "icon": "FaYoutube",
+      "link": "https://www.youtube.com/channel/UCcj1tSCvFu15-WRiK15uz_w"
+    }
+  ]
+}
