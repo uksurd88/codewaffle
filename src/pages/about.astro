@@ -101,7 +101,8 @@ const { title, meta_title, image, what_i_do } = entry.data;
   display: none;
   position: absolute;
   top: 0;
-  right: 0;
+  /* Sit just outside the 1000px content container: 500px half-width + small gap */
+  right: max(12px, calc(50% - 520px));
   width: 44px;
   height: 100%;
   pointer-events: none;
@@ -185,8 +186,7 @@ const { title, meta_title, image, what_i_do } = entry.data;
 }
 
 .author-img-wrap {
-  border: 1px solid var(--cw-line);
-  border-radius: 2px;
+  border-radius: 8px;
   overflow: hidden;
   max-width: 200px;
 }
