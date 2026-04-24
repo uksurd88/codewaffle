@@ -132,7 +132,11 @@ def slugify(text):
     text = re.sub(r"[^\w\s-]", "", text)
     text = re.sub(r"[\s_]+", "-", text)
     text = re.sub(r"-+", "-", text)
-    return text[:60].rstrip("-")
+    if len(text) <= 70:
+        return text.rstrip("-")
+    # Cut at last word boundary before 70 chars
+    cut = text[:70].rsplit("-", 1)[0]
+    return cut.rstrip("-")
 
 
 def extract_title(content):
