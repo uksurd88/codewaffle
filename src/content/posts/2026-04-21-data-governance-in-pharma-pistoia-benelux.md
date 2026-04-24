@@ -5,7 +5,7 @@ description: "A speaker-by-speaker recap of the European Life Science Informatic
 date: 2026-04-21T10:00:00Z
 image: ""
 categories: ["pharma", "ai"]
-authors: ["Sukhdeep Singh"]
+authors: ["Sukhi Singh"]
 tags: ["data-governance", "fair", "pistoia-alliance", "agentic-ai", "drug-discovery", "bioinformatics"]
 draft: false
 ---

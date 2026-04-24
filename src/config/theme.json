@@ -13,6 +13,20 @@
         "text-dark": "#152035",
         "text-light": "#a1a5ae"
       }
+    },
+    "darkmode": {
+      "theme_color": {
+        "primary": "#2DD4C4",
+        "body": "#0f1628",
+        "border": "#2a3448",
+        "light": "#1a2238",
+        "dark": "#f3f4f6"
+      },
+      "text_color": {
+        "text": "#cbd5e1",
+        "text-dark": "#f3f4f6",
+        "text-light": "#94a3b8"
+      }
     }
   },
   "fonts": {

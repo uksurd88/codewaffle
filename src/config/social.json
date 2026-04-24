@@ -3,12 +3,17 @@
     {
       "name": "GitHub",
       "icon": "FaGithub",
-      "link": "https://github.com/sukhdeepsingh"
+      "link": "https://github.com/uksurd88"
     },
     {
       "name": "LinkedIn",
       "icon": "FaLinkedin",
-      "link": "https://www.linkedin.com/in/sukhdeep-singh-a5ba797"
+      "link": "https://www.linkedin.com/in/vanbug/"
+    },
+    {
+      "name": "Google Scholar",
+      "icon": "FaGoogleScholar",
+      "link": "https://scholar.google.com/citations?user=y62wfS8AAAAJ&hl=en&oi=sra"
     },
     {
       "name": "Instagram",

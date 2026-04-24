@@ -33,6 +33,17 @@ const { title, meta_title, description, image, noindex, canonical } =
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Apply stored/preferred theme before paint to avoid flash -->
+    <script is:inline>
+      (function () {
+        try {
+          const stored = localStorage.getItem("theme");
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const useDark = stored ? stored === "dark" : prefersDark;
+          document.documentElement.classList.toggle("dark", useDark);
+        } catch (_) {}
+      })();
+    </script>
     <!-- favicon -->
     <link rel="shortcut icon" href={config.site.favicon} />
     <!-- theme meta -->

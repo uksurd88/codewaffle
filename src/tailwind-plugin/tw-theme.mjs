@@ -18,17 +18,18 @@ const defaultColorGroups = [
   { colors: themeConfig.colors.default.theme_color, prefix: "" },
   { colors: themeConfig.colors.default.text_color, prefix: "" },
 ];
+// Dark mode overrides the same CSS vars so existing utilities (bg-body, text-text, ...) swap automatically when .dark is on <html>.
 const darkColorGroups = [];
 if (themeConfig.colors.darkmode?.theme_color) {
   darkColorGroups.push({
     colors: themeConfig.colors.darkmode.theme_color,
-    prefix: "darkmode-",
+    prefix: "",
   });
 }
 if (themeConfig.colors.darkmode?.text_color) {
   darkColorGroups.push({
     colors: themeConfig.colors.darkmode.text_color,
-    prefix: "darkmode-",
+    prefix: "",
   });
 }
 

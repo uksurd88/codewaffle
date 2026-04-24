@@ -5,7 +5,7 @@ description: "Setting up Sublime Text 3 as a default IDE with Jekyll support and
 date: 2015-07-31T00:00:00Z
 image: ""
 categories: ["tooling"]
-authors: ["Sukhdeep Singh"]
+authors: ["Sukhi Singh"]
 tags: ["sublime", "ide", "jekyll"]
 draft: false
 ---

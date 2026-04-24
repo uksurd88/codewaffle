@@ -5,7 +5,7 @@ description: "A quick tip showing how to untar or unzip multiple archive files i
 date: 2015-08-05T00:00:00Z
 image: ""
 categories: ["bioinformatics", "bash"]
-authors: ["Sukhdeep Singh"]
+authors: ["Sukhi Singh"]
 tags: ["bash", "linux", "tips"]
 draft: false
 ---

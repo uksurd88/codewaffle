@@ -1,7 +1,7 @@
 ---
-title: "I'm Sukhi Singh, a bioinformatician and program leader building AI at the edge of drug discovery."
+title: "I'm Sukhi, a bioinformatician and program leader building AI at the edge of drug discovery."
 meta_title: "About Sukhi Singh"
-image: "/images/authors/sukhdeep-singh.jpg"
+image: "/images/authors/sukhi-singh.jpg"
 draft: false
 
 what_i_do:
