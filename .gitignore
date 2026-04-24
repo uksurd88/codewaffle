@@ -22,3 +22,14 @@ package-lock.json
 
 # ignore .astro directory
 .astro
+
+# Jekyll leftovers
+.sass-cache/
+.ruby-version
+
+# unused deployment configs
+netlify.toml
+wrangler.jsonc
+
+# Sitepins CMS
+.sitepins/
