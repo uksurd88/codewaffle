@@ -134,28 +134,33 @@ function drawOrbitals(ctx: CanvasRenderingContext2D, w: number, h: number, t: nu
 }
 
 function drawHeroSequenceTrack(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, accent: string, warm: string, dpr: number) {
-  // Two rows of ACGT scrolling near bottom of hero
   const bases = ['A', 'C', 'G', 'T'];
   ctx.font = `${11 * dpr}px ui-monospace, monospace`;
   ctx.textAlign = 'center';
   const spacing = 28 * dpr;
+
   for (let row = 0; row < 2; row++) {
     const y = h * (0.82 + row * 0.1);
-    const dir = row === 0 ? 1 : -1;
-    const offset = ((t * spacing * 0.5 * dir) % spacing + spacing) % spacing;
-    // backbone line
-    ctx.strokeStyle = hexWithAlpha(accent, 0.2);
+    // Stable scroll: each column index always maps to the same base,
+    // position = col * spacing - scrollPos (no jitter from float mod)
+    const scrollPos = t * spacing * (row === 0 ? 0.5 : -0.38);
+
+    ctx.strokeStyle = hexWithAlpha(accent, 0.18);
     ctx.lineWidth = 1 * dpr;
     ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
-    for (let x = -offset; x < w + spacing; x += spacing) {
-      const idx = Math.floor((x / spacing + t * 2 * dir + 1000));
-      const base = bases[Math.abs(idx) % 4];
-      const col = base === 'A' || base === 'T' ? accent : warm;
-      const up = idx % 2 === 0;
-      const alpha = 0.55 + 0.25 * Math.sin(t * 1.5 + x / spacing);
-      ctx.fillStyle = hexWithAlpha(col, alpha);
+
+    const firstCol = Math.floor(scrollPos / spacing) - 1;
+    const lastCol = Math.ceil((scrollPos + w) / spacing) + 1;
+
+    for (let col = firstCol; col <= lastCol; col++) {
+      const x = col * spacing - scrollPos;
+      if (x < -spacing || x > w + spacing) continue;
+      const base = bases[((col % 4) + 4) % 4];
+      const up = col % 2 === 0;
+      const color = base === 'A' || base === 'T' ? accent : warm;
+      ctx.fillStyle = hexWithAlpha(color, 0.72);
       ctx.fillText(base, x, y + (up ? -9 : 18) * dpr);
-      ctx.strokeStyle = hexWithAlpha(col, 0.4);
+      ctx.strokeStyle = hexWithAlpha(color, 0.38);
       ctx.lineWidth = 1 * dpr;
       ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y + (up ? -4 : 4) * dpr); ctx.stroke();
     }

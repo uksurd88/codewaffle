@@ -1,17 +1,12 @@
 ---
 import WaffleHero from "@/components/WaffleHero.astro";
 import Posts from "@/components/Posts.astro";
-import config from "@/config/config.json";
 import Base from "@/layouts/Base.astro";
-import Pagination from "@/layouts/components/Pagination.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 import { sortByDate } from "@/lib/utils/sortFunctions";
 
 const posts = await getSinglePage("posts");
 const sortedPosts = sortByDate(posts);
-const totalPages = Math.ceil(posts.length / config.settings.pagination);
-const currentPosts = sortedPosts.slice(0, config.settings.pagination);
-const recentPosts = sortedPosts.slice(0, 3);
 ---
 
 <Base>
@@ -30,8 +25,8 @@ const recentPosts = sortedPosts.slice(0, 3);
         <span class="warm-text">machine intelligence</span>.
       </h1>
       <div class="hero-cta">
-        <a href="/blog" class="cw-btn">
-          <span>Read the archive</span>
+        <a href="/posts" class="cw-btn">
+          <span>Read the posts</span>
           <span class="btn-arrow">→</span>
         </a>
         <div class="hero-meta">
@@ -41,17 +36,16 @@ const recentPosts = sortedPosts.slice(0, 3);
     </div>
   </section>
 
-  <!-- Recent entries -->
+  <!-- All posts -->
   <section class="cw-section">
     <div class="cw-container">
       <div class="section-header">
         <div>
-          <div class="section-label">// LATEST.SEQUENCE</div>
-          <h2 class="section-title">Recent entries</h2>
+          <div class="section-label">// ALL.SEQUENCES</div>
+          <h2 class="section-title">All posts</h2>
         </div>
-        <a href="/blog" class="font-mono-bio all-entries-link">ALL ENTRIES →</a>
       </div>
-      <Posts posts={recentPosts} className="" fluid={false} />
+      <Posts posts={sortedPosts} className="" fluid={false} />
     </div>
   </section>
 
@@ -78,19 +72,6 @@ const recentPosts = sortedPosts.slice(0, 3);
       </div>
     </div>
   </section>
-
-  <!-- Full list with pagination -->
-  {totalPages > 1 && (
-    <section class="cw-section">
-      <div class="cw-container">
-        <div class="section-header">
-          <div class="section-label">// ALL.ENTRIES</div>
-        </div>
-        <Posts posts={currentPosts} className="mb-12" fluid={false} />
-        <Pagination currentPage={1} totalPages={totalPages} />
-      </div>
-    </section>
-  )}
 </Base>
 
 <style>
@@ -224,17 +205,6 @@ const recentPosts = sortedPosts.slice(0, 3);
 .section-title {
   font-size: 34px;
   margin: 0;
-}
-
-.all-entries-link {
-  color: var(--cw-ink-dim);
-  font-size: 11px;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.all-entries-link:hover {
-  color: var(--cw-accent);
 }
 
 /* About teaser */

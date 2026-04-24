@@ -1,0 +1,65 @@
+---
+import Posts from "@/components/Posts.astro";
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { sortByDate } from "@/lib/utils/sortFunctions";
+
+const posts = await getSinglePage("posts");
+const sortedPosts = sortByDate(posts);
+---
+
+<Base title="Posts">
+  <div class="posts-page">
+    <div class="posts-container">
+      <div class="posts-header">
+        <div class="posts-label font-mono-bio">// ALL.SEQUENCES</div>
+        <h1 class="posts-title">All posts</h1>
+        <p class="posts-sub">Every entry, chronologically. Hover a row — the helix lights up; an antibody binds.</p>
+      </div>
+      <Posts className="mb-12" posts={sortedPosts} />
+    </div>
+  </div>
+</Base>
+
+<style>
+.posts-page {
+  padding-bottom: 80px;
+}
+
+.posts-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 40px 0;
+}
+
+.posts-header {
+  margin-bottom: 48px;
+}
+
+.posts-label {
+  color: var(--cw-accent);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.posts-title {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: clamp(40px, 5vw, 64px);
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+
+.posts-sub {
+  color: var(--cw-ink-dim);
+  font-size: 17px;
+  max-width: 620px;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .posts-container {
+    padding: 40px 20px 0;
+  }
+}
+</style>
