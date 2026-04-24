@@ -33,16 +33,18 @@ const { title, meta_title, description, image, noindex, canonical } =
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Apply stored/preferred theme before paint to avoid flash -->
+    <!-- Apply stored/preferred theme before paint and after each view transition -->
     <script is:inline>
-      (function () {
+      function applyTheme() {
         try {
           const stored = localStorage.getItem("theme");
           const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
           const useDark = stored ? stored === "dark" : prefersDark;
           document.documentElement.classList.toggle("dark", useDark);
         } catch (_) {}
-      })();
+      }
+      applyTheme();
+      document.addEventListener("astro:after-swap", applyTheme);
     </script>
     <!-- favicon -->
     <link rel="shortcut icon" href={config.site.favicon} />
