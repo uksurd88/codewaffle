@@ -12,6 +12,7 @@ const { title, meta_title, image, what_i_do } = entry.data;
 
 <Base title={title} meta_title={meta_title} image={image}>
   <div id="about-page">
+    <canvas id="dna-strip-right" aria-hidden="true"></canvas>
     <!-- Header -->
     <section class="about-header">
       <div class="about-container">
@@ -93,6 +94,21 @@ const { title, meta_title, image, what_i_do } = entry.data;
 <style>
 #about-page {
   padding-bottom: 80px;
+  position: relative;
+}
+
+#dna-strip-right {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 100%;
+  pointer-events: none;
+}
+
+@media (min-width: 1100px) {
+  #dna-strip-right { display: block; }
 }
 
 .about-container {
@@ -270,3 +286,85 @@ const { title, meta_title, image, what_i_do } = entry.data;
   }
 }
 </style>
+
+<script>
+(function () {
+  function hex(h: string, a: number): string {
+    const c = h.replace('#', '');
+    const r = parseInt(c.slice(0,2),16), g = parseInt(c.slice(2,4),16), b = parseInt(c.slice(4,6),16);
+    return `rgba(${r},${g},${b},${Math.max(0,Math.min(1,a))})`;
+  }
+
+  function initDnaStrip() {
+    const canvas = document.getElementById('dna-strip-right') as HTMLCanvasElement | null;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const resize = () => {
+      const r = canvas.getBoundingClientRect();
+      canvas.width = r.width * dpr;
+      canvas.height = r.height * dpr;
+    };
+    resize();
+    const ro = new ResizeObserver(resize);
+    ro.observe(canvas);
+
+    const bases = ['A', 'C', 'G', 'T'];
+    let t = 0;
+    let rafId = 0;
+    const isDark = () => document.documentElement.classList.contains('dark');
+
+    const draw = () => {
+      const w = canvas.width, h = canvas.height;
+      t += 0.007;
+      ctx.clearRect(0, 0, w, h);
+
+      const dark = isDark();
+      const accent = dark ? '#6FE3D8' : '#178F84';
+      const warm   = dark ? '#E8B168' : '#B87A28';
+      const spacing = 28 * dpr;
+
+      for (let col = 0; col < 2; col++) {
+        const cx = w * (col === 0 ? 0.28 : 0.72);
+        const scrollPos = t * spacing * (col === 0 ? 0.55 : -0.42);
+
+        ctx.strokeStyle = hex(accent, 0.18);
+        ctx.lineWidth = 1 * dpr;
+        ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, h); ctx.stroke();
+
+        ctx.font = `${11 * dpr}px ui-monospace, monospace`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        const firstRow = Math.floor(scrollPos / spacing) - 1;
+        const lastRow  = Math.ceil((scrollPos + h) / spacing) + 1;
+
+        for (let row = firstRow; row <= lastRow; row++) {
+          const y = row * spacing - scrollPos;
+          if (y < -spacing || y > h + spacing) continue;
+          const base  = bases[((row % 4) + 4) % 4];
+          const left  = row % 2 === 0;
+          const color = (base === 'A' || base === 'T') ? accent : warm;
+
+          ctx.fillStyle = hex(color, 0.72);
+          ctx.fillText(base, cx + (left ? -9 : 9) * dpr, y);
+          ctx.strokeStyle = hex(color, 0.38);
+          ctx.lineWidth = 1 * dpr;
+          ctx.beginPath();
+          ctx.moveTo(cx, y);
+          ctx.lineTo(cx + (left ? -4 : 4) * dpr, y);
+          ctx.stroke();
+        }
+      }
+
+      rafId = requestAnimationFrame(draw);
+    };
+    rafId = requestAnimationFrame(draw);
+  }
+
+  initDnaStrip();
+  document.addEventListener('astro:after-swap', initDnaStrip);
+})();
+</script>
