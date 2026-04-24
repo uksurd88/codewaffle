@@ -36,20 +36,20 @@ def fetch_json(url):
 def fetch_news_digest():
     """Returns (digest_text, source_map) where source_map keys are SOURCE_N / PAPER_N."""
     today = datetime.now(timezone.utc)
-    week_ago = (today - timedelta(days=7)).strftime("%Y-%m-%d")
+    month_ago = (today - timedelta(days=30)).strftime("%Y-%m-%d")
     today_str = today.strftime("%Y-%m-%d")
 
     params = urllib.parse.urlencode({
-        "q": NEWS_QUERY, "from": week_ago, "to": today_str,
-        "language": "en", "sortBy": "relevancy", "pageSize": "8",
+        "q": NEWS_QUERY, "from": month_ago, "to": today_str,
+        "language": "en", "sortBy": "relevancy", "pageSize": "12",
         "apiKey": NEWSAPI_KEY,
     })
     news = fetch_json(f"https://newsapi.org/v2/everything?{params}")
-    articles = news.get("articles", [])[:6]
+    articles = news.get("articles", [])[:8]
 
     pubmed_params = urllib.parse.urlencode({
-        "db": "pubmed", "term": PUBMED_QUERY, "reldate": "7",
-        "datetype": "pdat", "retmax": "6", "retmode": "json", "sort": "relevance",
+        "db": "pubmed", "term": PUBMED_QUERY, "reldate": "30",
+        "datetype": "pdat", "retmax": "8", "retmode": "json", "sort": "relevance",
     })
     ids_data = fetch_json(f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?{pubmed_params}")
     ids = ids_data.get("esearchresult", {}).get("idlist", [])
@@ -104,53 +104,61 @@ def fetch_news_digest():
 
 
 def process_references(content, source_map):
-    """Replace [SOURCE_N]/[PAPER_N] tags with inline links, append a References section."""
+    """Replace [SOURCE_N]/[PAPER_N] tags with numbered inline citations [1], [2],
+    and append a bullet-point references section with URLs."""
     # Drop any References section the model wrote despite instructions
     content = re.sub(r"##\s+References[\s\S]*$", "", content, flags=re.IGNORECASE).rstrip()
 
     tag_re = re.compile(r"\[(SOURCE_\d+|PAPER_\d+)\]")
-    # Order of first appearance
-    used = []
+    # Unique tags in order of first appearance → each gets a sequential number
+    ordered_tags = []
     seen = set()
     for m in tag_re.finditer(content):
         if m.group(1) not in seen:
             seen.add(m.group(1))
-            used.append(m.group(1))
+            ordered_tags.append(m.group(1))
 
-    # Inline replacement
-    for tag in used:
+    tag_to_num = {tag: i + 1 for i, tag in enumerate(ordered_tags)}
+
+    # Replace every tag occurrence (including repeats) with its number
+    def replace(match):
+        tag = match.group(1)
+        n = tag_to_num.get(tag)
+        return f"[{n}]" if n else ""
+    content = tag_re.sub(replace, content)
+
+    if not ordered_tags:
+        return content
+
+    # Build bullet-point references section
+    lines = ["", "", "---", "", "## References", ""]
+    for tag in ordered_tags:
         ref = source_map.get(tag)
         if not ref:
-            content = re.sub(rf"\[{tag}\]", "", content)
             continue
+        n = tag_to_num[tag]
         if "authors" in ref and ref["authors"]:
-            first_author = ref["authors"].split(",")[0].strip()
-            link = f"[{first_author} et al., *{ref['journal']}*]({ref['url']})"
+            year = ""
+            if ref.get("date"):
+                m = re.search(r"\d{4}", ref["date"])
+                if m:
+                    year = m.group(0)
+            author_str = ref["authors"].rstrip(" .")
+            if author_str.count(",") >= 2:
+                author_str = author_str.split(",")[0].strip() + " et al"
+            title = ref["title"].rstrip(" .")
+            year_suffix = f" ({year})" if year else ""
+            lines.append(
+                f"- **[{n}]** {author_str}. *{title}*. {ref['journal']}{year_suffix}. <{ref['url']}>"
+            )
         else:
-            link = f"[{ref['source']}]({ref['url']})"
-        content = re.sub(rf"\[{tag}\]", link, content)
+            title = ref["title"].rstrip(" .")
+            date_suffix = f" ({ref['date']})" if ref.get("date") else ""
+            lines.append(
+                f"- **[{n}]** {ref['source']}. *{title}*{date_suffix}. <{ref['url']}>"
+            )
 
-    # Build References section
-    if used:
-        lines = ["", "", "---", "", "## References", ""]
-        n = 0
-        for tag in used:
-            ref = source_map.get(tag)
-            if not ref:
-                continue
-            n += 1
-            if "authors" in ref and ref["authors"]:
-                lines.append(
-                    f"{n}. {ref['authors']}. \"{ref['title']}\" *{ref['journal']}* ({ref['date']}). [PubMed]({ref['url']})"
-                )
-            else:
-                lines.append(
-                    f"{n}. {ref['source']}. \"{ref['title']}\" ({ref['date']}). [Link]({ref['url']})"
-                )
-            lines.append("")
-        content = content.rstrip() + "\n".join(lines)
-
-    return content
+    return content.rstrip() + "\n".join(lines) + "\n"
 
 
 def build_prompt(digest_or_topic, is_topic=False):
@@ -159,7 +167,16 @@ def build_prompt(digest_or_topic, is_topic=False):
     if is_topic:
         input_section = f"TOPIC: {digest_or_topic}\n\nWrite a post on this topic in Sukhi's voice without needing to cite digest sources."
     else:
-        input_section = f"Here is this week's digest (week of {week_of}):\n{digest_or_topic}\n\nPick 3 compelling angles. Connect them into a coherent narrative. Have an opinion."
+        input_section = f"""Here is the last 30 days of industry news and PubMed papers (as of {week_of}):
+{digest_or_topic}
+
+Pick 3 compelling angles from the digest. Connect them into a coherent narrative. Have an opinion about each.
+
+CITATION CONTRACT (important):
+- Cite at least 3 different sources using the tag format [SOURCE_N] or [PAPER_N] exactly as they appear in the digest.
+- These tags will be auto-replaced with numbered citations like [1], [2] in the final post, and a bullet-point References section with URLs will be appended automatically. DO NOT write your own References section.
+- Do NOT invent sources, author names, or URLs.
+- Do NOT write out full author names or paper titles inline — just the tag."""
 
     return f"""You are ghostwriting for Sukhi Singh aka Rad. He's a Product Manager at ENPICOM (Dutch bioinformatics company behind the IGX Platform — leading SaaS for therapeutic antibody discovery from NGS sequencing data). PhD in Bioinformatics, Wharton MBA.
 
