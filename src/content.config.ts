@@ -22,18 +22,6 @@ const aboutCollection = defineCollection({
   }),
 });
 
-// Contact collection schema
-const contactCollection = defineCollection({
-  loader: glob({ pattern: "**/-*.{md,mdx}", base: "src/content/contact" }),
-  schema: z.object({
-    title: z.string(),
-    meta_title: z.string().optional(),
-    description: z.string().optional(),
-    image: z.string().optional(),
-    draft: z.boolean().optional(),
-  }),
-});
-
 // Authors collection schema
 const authorsCollection = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/authors" }),
@@ -89,7 +77,6 @@ const pagesCollection = defineCollection({
 export const collections = {
   posts: postsCollection,
   about: aboutCollection,
-  contact: contactCollection,
   authors: authorsCollection,
   pages: pagesCollection,
 };
