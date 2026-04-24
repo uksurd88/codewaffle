@@ -110,18 +110,55 @@ function drawSequenceTrack(ctx: CanvasRenderingContext2D, w: number, h: number, 
 }
 
 function drawOrbitals(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, accent: string, warm: string, dpr: number) {
-  const cx = w / 2, cy = h / 2;
+  const cx = w * 0.72, cy = h * 0.45;
   ctx.lineWidth = 1 * dpr;
   for (let orbit = 0; orbit < 3; orbit++) {
-    const r = Math.min(w, h) * (0.15 + orbit * 0.08);
-    ctx.strokeStyle = hexWithAlpha(orbit % 2 ? warm : accent, 0.15);
-    ctx.beginPath(); ctx.ellipse(cx, cy, r, r * 0.4, t * (orbit + 1) * 0.3, 0, Math.PI * 2); ctx.stroke();
+    const r = Math.min(w, h) * (0.14 + orbit * 0.1);
+    ctx.strokeStyle = hexWithAlpha(orbit % 2 ? warm : accent, 0.38 - orbit * 0.06);
+    ctx.beginPath(); ctx.ellipse(cx, cy, r, r * 0.42, t * (orbit + 1) * 0.25, 0, Math.PI * 2); ctx.stroke();
     const a = t * (1 + orbit * 0.5);
-    const ang = t * (orbit + 1) * 0.3;
-    const px = cx + Math.cos(a) * r * Math.cos(ang) - Math.sin(a) * r * 0.4 * Math.sin(ang);
-    const py = cy + Math.cos(a) * r * Math.sin(ang) + Math.sin(a) * r * 0.4 * Math.cos(ang);
-    ctx.fillStyle = hexWithAlpha(orbit % 2 ? warm : accent, 0.9);
-    ctx.beginPath(); ctx.arc(px, py, 4 * dpr, 0, Math.PI * 2); ctx.fill();
+    const ang = t * (orbit + 1) * 0.25;
+    const px = cx + Math.cos(a) * r * Math.cos(ang) - Math.sin(a) * r * 0.42 * Math.sin(ang);
+    const py = cy + Math.cos(a) * r * Math.sin(ang) + Math.sin(a) * r * 0.42 * Math.cos(ang);
+    ctx.fillStyle = hexWithAlpha(orbit % 2 ? warm : accent, 0.95);
+    ctx.beginPath(); ctx.arc(px, py, (5 - orbit) * dpr, 0, Math.PI * 2); ctx.fill();
+    // Glow halo
+    ctx.fillStyle = hexWithAlpha(orbit % 2 ? warm : accent, 0.2);
+    ctx.beginPath(); ctx.arc(px, py, (11 - orbit * 2) * dpr, 0, Math.PI * 2); ctx.fill();
+  }
+  // Central nucleus dot
+  ctx.fillStyle = hexWithAlpha(warm, 0.9);
+  ctx.beginPath(); ctx.arc(cx, cy, 5 * dpr, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = hexWithAlpha(warm, 0.2);
+  ctx.beginPath(); ctx.arc(cx, cy, 14 * dpr, 0, Math.PI * 2); ctx.fill();
+}
+
+function drawHeroSequenceTrack(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, accent: string, warm: string, dpr: number) {
+  // Two rows of ACGT scrolling near bottom of hero
+  const bases = ['A', 'C', 'G', 'T'];
+  ctx.font = `${11 * dpr}px ui-monospace, monospace`;
+  ctx.textAlign = 'center';
+  const spacing = 28 * dpr;
+  for (let row = 0; row < 2; row++) {
+    const y = h * (0.82 + row * 0.1);
+    const dir = row === 0 ? 1 : -1;
+    const offset = ((t * spacing * 0.5 * dir) % spacing + spacing) % spacing;
+    // backbone line
+    ctx.strokeStyle = hexWithAlpha(accent, 0.2);
+    ctx.lineWidth = 1 * dpr;
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+    for (let x = -offset; x < w + spacing; x += spacing) {
+      const idx = Math.floor((x / spacing + t * 2 * dir + 1000));
+      const base = bases[Math.abs(idx) % 4];
+      const col = base === 'A' || base === 'T' ? accent : warm;
+      const up = idx % 2 === 0;
+      const alpha = 0.55 + 0.25 * Math.sin(t * 1.5 + x / spacing);
+      ctx.fillStyle = hexWithAlpha(col, alpha);
+      ctx.fillText(base, x, y + (up ? -9 : 18) * dpr);
+      ctx.strokeStyle = hexWithAlpha(col, 0.4);
+      ctx.lineWidth = 1 * dpr;
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y + (up ? -4 : 4) * dpr); ctx.stroke();
+    }
   }
 }
 
@@ -219,7 +256,10 @@ function initCanvas(canvas: HTMLCanvasElement) {
     if (variant === 'helix') drawHelix(ctx, w, h, t, accent, warm, dpr);
     if (variant === 'antibody') drawAntibody(ctx, w, h, t, accent, warm, dpr);
     if (variant === 'sequence') drawSequenceTrack(ctx, w, h, t, accent, warm, dpr);
-    if (variant === 'waffle') drawOrbitals(ctx, w, h, t, accent, warm, dpr);
+    if (variant === 'waffle') {
+      drawOrbitals(ctx, w, h, t, accent, warm, dpr);
+      drawHeroSequenceTrack(ctx, w, h, t, accent, warm, dpr);
+    }
 
     rafId = requestAnimationFrame(draw);
   };
