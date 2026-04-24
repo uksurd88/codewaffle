@@ -21,9 +21,9 @@ from datetime import datetime, timedelta, timezone
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 POSTS_DIR = os.path.join(REPO_ROOT, "src/content/posts")
 
-NEWSAPI_KEY   = "b2e9703e570b413e89697497b21acba9"
-NEWS_QUERY    = "antibody discovery OR therapeutic antibody OR immunotherapy bioinformatics"
-PUBMED_QUERY  = "antibody discovery[Title/Abstract] AND (NGS OR single-cell OR bioinformatics OR immunogenomics)"
+NEWSAPI_KEY      = "b2e9703e570b413e89697497b21acba9"
+DEFAULT_NEWS_Q   = "antibody discovery OR therapeutic antibody OR immunotherapy bioinformatics"
+DEFAULT_PUBMED_Q = "antibody discovery[Title/Abstract] AND (NGS OR single-cell OR bioinformatics OR immunogenomics)"
 
 CATEGORIES = ["Science", "Antibody Engineering"]
 
@@ -33,14 +33,14 @@ def fetch_json(url):
         return json.loads(r.read())
 
 
-def fetch_news_digest():
+def fetch_news_digest(news_q=None, pubmed_q=None):
     """Returns (digest_text, source_map) where source_map keys are SOURCE_N / PAPER_N."""
     today = datetime.now(timezone.utc)
     month_ago = (today - timedelta(days=30)).strftime("%Y-%m-%d")
     today_str = today.strftime("%Y-%m-%d")
 
     params = urllib.parse.urlencode({
-        "q": NEWS_QUERY, "from": month_ago, "to": today_str,
+        "q": news_q or DEFAULT_NEWS_Q, "from": month_ago, "to": today_str,
         "language": "en", "sortBy": "relevancy", "pageSize": "12",
         "apiKey": NEWSAPI_KEY,
     })
@@ -48,7 +48,7 @@ def fetch_news_digest():
     articles = news.get("articles", [])[:8]
 
     pubmed_params = urllib.parse.urlencode({
-        "db": "pubmed", "term": PUBMED_QUERY, "reldate": "30",
+        "db": "pubmed", "term": pubmed_q or DEFAULT_PUBMED_Q, "reldate": "30",
         "datetype": "pdat", "retmax": "8", "retmode": "json", "sort": "relevance",
     })
     ids_data = fetch_json(f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?{pubmed_params}")
@@ -204,6 +204,41 @@ FORMAT: Markdown only. No frontmatter. No "References" section.
 {input_section}"""
 
 
+def build_topic_prompt_with_sources(topic, digest):
+    """Prompt that anchors the post on a specific topic but grounds claims in real sources."""
+    week_of = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    return f"""You are ghostwriting for Sukhi Singh aka Rad. Product Manager at ENPICOM (Dutch bioinformatics company behind the IGX Platform — therapeutic antibody discovery from NGS). PhD in Bioinformatics, Wharton MBA.
+
+VOICE & STYLE:
+- Smart peer talking over coffee. Short, declarative sentences. One idea per sentence.
+- Open with a bold observation or contrarian take. Never "This week..." or "Exciting developments..."
+- Banned words: "exciting", "groundbreaking", "cutting-edge", "thrilled", "game-changing", "delve", "landscape", "realm", "revolutionize", "leverage"
+- No emoji. Specific. Opinionated. First person where natural.
+- Paragraphs of 2-3 sentences max.
+
+STRUCTURE:
+1. First line MUST be a markdown H1: # Short Title Here (under 100 chars)
+2. Opening hook (1-2 sentences on the topic angle)
+3. 2-4 body sections with H2 headings that build an argument
+4. Personal take that connects the dots
+5. Closing: "Working on something similar? I'd love to hear about it — or explore what ENPICOM's IGX Platform can do for your team at [enpicom.com](https://enpicom.com)"
+
+LENGTH: 500-700 words. Markdown only, no frontmatter, no References section.
+
+TOPIC (write specifically about this): {topic}
+
+CITATION CONTRACT:
+- You MUST cite at least 3 different sources from the digest below using the exact tag format [SOURCE_N] or [PAPER_N].
+- Tags will be auto-replaced with numbered citations [1], [2] in the final post, and a References section will be appended.
+- Do NOT invent sources, author names, or URLs. Do NOT write out full titles inline.
+- Ground any concrete claim in a citation where a digest item supports it.
+
+Digest of relevant sources from the last 30 days (as of {week_of}):
+{digest}
+
+Write the post on the topic "{topic}", weaving in at least 3 of the digest sources as citations. If a digest item doesn't fit the topic, skip it — don't force it."""
+
+
 def run_claude(prompt):
     print("Calling claude -p ...", flush=True)
     result = subprocess.run(
@@ -300,23 +335,40 @@ def main():
     args = [a for a in args if a != "--dry-run"]
 
     source_map = {}
-    if args:
-        print(f"Using topic: {args[0]}")
-        prompt = build_prompt(args[0], is_topic=True)
-    else:
-        print("Fetching news digest from NewsAPI + PubMed...")
-        try:
-            digest, source_map = fetch_news_digest()
-            print(f"Digest: {len(source_map)} sources ({sum(1 for k in source_map if k.startswith('SOURCE'))} news, {sum(1 for k in source_map if k.startswith('PAPER'))} papers)")
-        except Exception as e:
-            print(f"News fetch failed: {e}")
-            print("Falling back to general antibody/AI topic")
-            digest = None
+    digest = None
+    topic = args[0] if args else None
 
-        if digest:
-            prompt = build_prompt(digest, is_topic=False)
-        else:
-            prompt = build_prompt("Latest developments in antibody discovery and AI-driven drug design", is_topic=True)
+    if topic:
+        print(f"Topic: {topic}")
+        print("Fetching topic-relevant sources from NewsAPI + PubMed (last 30d)...")
+        news_q = topic
+        # PubMed: use topic as Title/Abstract query, keep the antibody/immunology narrowing
+        pubmed_q = f"{topic}[Title/Abstract]"
+    else:
+        print("Fetching digest from NewsAPI + PubMed (last 30d)...")
+        news_q = None
+        pubmed_q = None
+
+    try:
+        digest, source_map = fetch_news_digest(news_q=news_q, pubmed_q=pubmed_q)
+        n_news   = sum(1 for k in source_map if k.startswith("SOURCE"))
+        n_papers = sum(1 for k in source_map if k.startswith("PAPER"))
+        print(f"Sources: {n_news} news, {n_papers} papers")
+        if topic and not source_map:
+            print(f"No sources matched topic '{topic}'. Retrying with default antibody query...")
+            digest, source_map = fetch_news_digest()
+            n_news   = sum(1 for k in source_map if k.startswith("SOURCE"))
+            n_papers = sum(1 for k in source_map if k.startswith("PAPER"))
+            print(f"Fallback sources: {n_news} news, {n_papers} papers")
+    except Exception as e:
+        print(f"Source fetch failed: {e}")
+
+    if topic and digest:
+        prompt = build_topic_prompt_with_sources(topic, digest)
+    elif digest:
+        prompt = build_prompt(digest, is_topic=False)
+    else:
+        prompt = build_prompt(topic or "Latest developments in antibody discovery and AI-driven drug design", is_topic=True)
 
     content = run_claude(prompt)
 
