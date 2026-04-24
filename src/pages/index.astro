@@ -1,4 +1,5 @@
 ---
+import WaffleHero from "@/components/WaffleHero.astro";
 import Posts from "@/components/Posts.astro";
 import config from "@/config/config.json";
 import Base from "@/layouts/Base.astro";
@@ -10,13 +11,293 @@ const posts = await getSinglePage("posts");
 const sortedPosts = sortByDate(posts);
 const totalPages = Math.ceil(posts.length / config.settings.pagination);
 const currentPosts = sortedPosts.slice(0, config.settings.pagination);
+const recentPosts = sortedPosts.slice(0, 3);
 ---
 
 <Base>
-  <section class="section">
-    <div class="container">
-      <Posts posts={currentPosts} className="mb-16" />
-      <Pagination currentPage={1} totalPages={totalPages} />
+  <!-- Hero section -->
+  <section id="cw-hero">
+    <WaffleHero variant="waffle" intensity={70} height="100%" class="hero-canvas" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badges">
+        <span class="cw-meta-badge">SEQ · {String(posts.length).padStart(3, '0')}</span>
+        <span class="cw-meta-badge warm-badge">AI · ANTIBODY · DATA</span>
+      </div>
+      <h1 class="hero-headline">
+        <span class="serif-italic">Notes</span> from the<br />
+        edge of <span class="accent-text">biology</span> and<br />
+        <span class="warm-text">machine intelligence</span>.
+      </h1>
+      <div class="hero-cta">
+        <a href="/blog" class="cw-btn">
+          <span>Read the archive</span>
+          <span class="btn-arrow">→</span>
+        </a>
+        <div class="hero-meta">
+          <span class="font-mono-bio">{posts.length} entries</span> · since 2015
+        </div>
+      </div>
     </div>
   </section>
+
+  <!-- Recent entries -->
+  <section class="cw-section">
+    <div class="cw-container">
+      <div class="section-header">
+        <div>
+          <div class="section-label">// LATEST.SEQUENCE</div>
+          <h2 class="section-title">Recent entries</h2>
+        </div>
+        <a href="/blog" class="font-mono-bio all-entries-link">ALL ENTRIES →</a>
+      </div>
+      <Posts posts={recentPosts} className="" fluid={false} />
+    </div>
+  </section>
+
+  <!-- About teaser -->
+  <section class="cw-section about-teaser">
+    <div class="cw-container">
+      <div class="about-grid">
+        <div class="about-text">
+          <div class="section-label warm-label">// ABOUT.THE.AUTHOR</div>
+          <h2 class="about-headline serif-italic">
+            Sukhi Singh. I build data platforms for antibody discovery.
+          </h2>
+          <p class="about-body">
+            Currently at ENPICOM, working on software that moves B-cell repertoire data from sequencer to decision. Before that: bioinformatics, pipelines, ontologies, and a lot of FAIR arguments.
+          </p>
+          <a href="/about" class="cw-btn">
+            <span>More about me</span>
+            <span class="btn-arrow">→</span>
+          </a>
+        </div>
+        <div class="about-visual">
+          <WaffleHero variant="antibody" intensity={50} height="100%" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full list with pagination -->
+  {totalPages > 1 && (
+    <section class="cw-section">
+      <div class="cw-container">
+        <div class="section-header">
+          <div class="section-label">// ALL.ENTRIES</div>
+        </div>
+        <Posts posts={currentPosts} className="mb-12" fluid={false} />
+        <Pagination currentPage={1} totalPages={totalPages} />
+      </div>
+    </section>
+  )}
 </Base>
+
+<style>
+/* Hero */
+#cw-hero {
+  position: relative;
+  height: 620px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--cw-line);
+}
+
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 60%, transparent 0%, color-mix(in srgb, var(--cw-bg) 80%, transparent) 70%, var(--cw-bg) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 40px 0;
+}
+
+.hero-badges {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.warm-badge {
+  border-color: color-mix(in srgb, var(--cw-warm) 35%, transparent) !important;
+  color: var(--cw-warm) !important;
+}
+
+.hero-headline {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: clamp(48px, 7vw, 88px);
+  line-height: 0.95;
+  margin-bottom: 32px;
+  max-width: 960px;
+  letter-spacing: -0.03em;
+  color: var(--cw-ink);
+}
+
+.serif-italic {
+  font-family: var(--font-serif, 'Instrument Serif', serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.accent-text { color: var(--cw-accent); }
+.warm-text { color: var(--cw-warm); }
+
+.hero-cta {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.hero-meta {
+  color: var(--cw-ink-dim);
+  font-size: 13px;
+}
+
+/* Button */
+.cw-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--cw-ink);
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--cw-ink);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  background: transparent;
+  cursor: pointer;
+}
+
+.cw-btn:hover {
+  background: var(--cw-ink);
+  color: var(--cw-bg);
+}
+
+.btn-arrow {
+  font-size: 14px;
+}
+
+/* Sections */
+.cw-section {
+  padding: 80px 0;
+}
+
+.cw-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.section-label {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--cw-accent);
+  margin-bottom: 8px;
+}
+
+.warm-label {
+  color: var(--cw-warm) !important;
+}
+
+.section-title {
+  font-size: 34px;
+  margin: 0;
+}
+
+.all-entries-link {
+  color: var(--cw-ink-dim);
+  font-size: 11px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.all-entries-link:hover {
+  color: var(--cw-accent);
+}
+
+/* About teaser */
+.about-teaser {
+  padding-top: 0;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.about-headline {
+  font-family: var(--font-serif, 'Instrument Serif', serif);
+  font-style: italic;
+  font-size: 44px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.about-body {
+  color: var(--cw-ink-dim);
+  font-size: 17px;
+  line-height: 1.55;
+  margin-bottom: 20px;
+}
+
+.about-visual {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: var(--cw-bg-elev);
+  border: 1px solid var(--cw-line);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .about-visual {
+    height: 280px;
+    aspect-ratio: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-content {
+    padding: 60px 20px 0;
+  }
+
+  #cw-hero {
+    height: 520px;
+  }
+
+  .cw-container {
+    padding: 0 20px;
+  }
+}
+</style>

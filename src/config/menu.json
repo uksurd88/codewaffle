@@ -1,24 +1,20 @@
 {
   "main": [
     {
-      "name": "Home",
+      "name": "Index",
       "url": "/"
     },
     {
-      "name": "About",
-      "url": "/about"
+      "name": "Archive",
+      "url": "/page/1"
     },
     {
       "name": "Categories",
       "url": "/categories"
     },
     {
-      "name": "Tags",
-      "url": "/tags"
-    },
-    {
-      "name": "Search",
-      "url": "/search"
+      "name": "About",
+      "url": "/about"
     }
   ],
   "footer": [
@@ -31,8 +27,8 @@
       "url": "/categories"
     },
     {
-      "name": "Authors",
-      "url": "/authors"
+      "name": "Tags",
+      "url": "/tags"
     }
   ]
 }

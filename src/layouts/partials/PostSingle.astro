@@ -2,138 +2,372 @@
 import GiscusComments from "@/components/GiscusComments.astro";
 import Share from "@/components/Share.astro";
 import SimilarPosts from "@/components/SimilarPosts.astro";
+import WaffleHero from "@/components/WaffleHero.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 import dateFormat from "@/lib/utils/dateFormat";
 import similerItems from "@/lib/utils/similarItems";
+import readingTime from "@/lib/utils/readingTime";
 import { humanize, markdownify, slugify } from "@/lib/utils/textConverter";
-import { Image } from "astro:assets";
 import { render } from "astro:content";
-import { BiCalendarEdit, BiCategoryAlt } from "react-icons/bi";
 
-const allAuthors = await getSinglePage("authors");
-const posts = await getSinglePage("posts");
+const allPosts = await getSinglePage("posts");
 const { post } = Astro.props;
-const similarPosts = similerItems(post, posts, post.slug);
+const similarPosts = similerItems(post, allPosts, post.slug);
 const { Content } = await render(post);
-const { title, description, authors, categories, image, date, tags } =
-  post.data;
+const { title, description, authors, categories, image, date, tags } = post.data;
+
+const readTime = readingTime(post.body ?? '');
+
+const heroVariant = (() => {
+  const cats = categories?.map((c: string) => c.toLowerCase()) ?? [];
+  if (cats.some((c: string) => c.includes('antibody') || c.includes('science'))) return 'antibody';
+  if (cats.some((c: string) => c.includes('ai') || c.includes('data'))) return 'sequence';
+  if (cats.some((c: string) => c.includes('pharma') || c.includes('bio'))) return 'helix';
+  return 'waffle';
+})();
 ---
 
-<section class="section">
-  <div class="container">
-    <article class="row justify-center">
-      <div class="md:col-10 text-center">
-        <h1 set:html={markdownify(title)} class="h2" />
-        <ul class="mt-4 flex flex-wrap items-center justify-center text-text">
-          <li class="mx-3">
-            {
-              allAuthors
-                .filter((author) =>
-                  authors
-                    .map((author: string) => slugify(author))
-                    .includes(slugify(author.data.title))
-                )
-                .map((author) => (
-                  <a
-                    href={`/authors/${slugify(author.id)}`}
-                    class="flex items-center hover:text-primary font-medium"
-                  >
-                    {author.data.image && (
-                      <Image
-                        src={author.data.image}
-                        alt={author.data.title}
-                        height={50}
-                        width={50}
-                        class="mr-2 h-6 w-6 rounded-full"
-                      />
-                    )}
-                    <span>{author.data.title}</span>
-                  </a>
-                ))
-            }
-          </li>
-          <li class="mx-3 flex items-center flex-wrap font-medium">
-            <BiCalendarEdit className="mr-1 h-5 w-5 text-gray-600" />
-            {dateFormat(date)}
-          </li>
-          <li class="mx-3 flex items-center flex-wrap">
-            <BiCategoryAlt className="mr-1 h-[18px] w-[18px] text-gray-600" />
-
-            <ul>
-              {
-                categories.map((category: string, i: number) => (
-                  <li class="inline-block">
-                    <a
-                      href={`/categories/${slugify(category)}`}
-                      class="mr-2 hover:text-primary font-medium"
-                    >
-                      {humanize(category)}
-                      {i !== post.data.categories.length - 1 && ","}
-                    </a>
-                  </li>
-                ))
-              }
-            </ul>
-          </li>
-        </ul>
-      </div>
-
-      <div class="col-12 mt-8 mb-2">
-        {
-          image && (
-            <Image
-              src={image}
-              height={500}
-              width={1000}
-              alt={title}
-              class="rounded-lg"
-            />
-          )
-        }
-      </div>
-
-      <div class="md:col-10">
-        <div class="content mb-16 text-left">
-          <Content />
-        </div>
-        <div class="flex flex-wrap items-center justify-between">
-          <ul class="mr-4 mb-4 space-x-3">
-            {
-              tags.map((tag: string) => (
-                <li class="inline-block">
-                  <a
-                    href={`/tags/${slugify(tag)}`}
-                    class="block rounded-lg bg-light px-4 py-2 font-semibold text-dark text-sm hover:text-primary transition duration-300"
-                  >
-                    #{humanize(tag)}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-          <Share
-            className="social-share mb-4"
-            title={title}
-            description={description}
-            slug={post.id}
-          />
-        </div>
-      </div>
-    </article>
+<!-- Sticky sequencing progress bar -->
+<div id="seq-bar-wrap">
+  <div class="seq-bar-inner">
+    <span class="seq-label font-mono-bio" id="seq-pct">READING · 000%</span>
+    <div id="seq-bar" class="seq-bar" aria-label="Reading progress"></div>
+    <span class="seq-readtime font-mono-bio">{readTime}</span>
   </div>
-</section>
+</div>
 
-<!-- comments -->
+<!-- Article -->
+<div id="post-scroll-area">
+  <div class="post-header-wrap">
+    <!-- Category badges -->
+    <div class="post-cats">
+      {categories?.map((cat: string) => (
+        <a href={`/categories/${slugify(cat)}`} class="cw-meta-badge">
+          {cat.toUpperCase()}
+        </a>
+      ))}
+    </div>
+
+    <!-- Title -->
+    <h1 class="post-title serif-italic">{title}</h1>
+
+    <!-- Meta row -->
+    <div class="post-meta font-mono-bio">
+      <span>{dateFormat(date).toUpperCase()}</span>
+      <span>·</span>
+      <span>SUKHI SINGH</span>
+      <span>·</span>
+      <span>{readTime}</span>
+    </div>
+
+    <!-- Hero viz banner -->
+    <div class="post-hero-viz">
+      <WaffleHero variant={heroVariant} intensity={55} height="100%" />
+    </div>
+
+    {image && (
+      <img
+        src={image.src ?? image}
+        alt={title}
+        class="post-hero-img"
+        loading="lazy"
+      />
+    )}
+  </div>
+
+  <!-- Body -->
+  <div class="post-body">
+    <div class="content">
+      <Content />
+    </div>
+
+    <!-- Tags + Share -->
+    <div class="post-footer-row">
+      <ul class="post-tags-list">
+        {tags?.map((tag: string) => (
+          <li class="inline-block">
+            <a
+              href={`/tags/${slugify(tag)}`}
+              class="post-tag-pill"
+            >
+              #{humanize(tag)}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <Share
+        className="social-share"
+        title={title}
+        description={description}
+        slug={post.id}
+      />
+    </div>
+  </div>
+
+  <!-- Related posts -->
+  {similarPosts.length > 0 && (
+    <div class="related-posts">
+      <div class="related-label font-mono-bio">// RELATED.SEQUENCES</div>
+      <div class="related-grid">
+        {similarPosts.slice(0, 2).map((p: any) => (
+          <a href={`/blog/${p.id}`} class="related-card">
+            <div class="related-date font-mono-bio">{dateFormat(p.data.date).toUpperCase()}</div>
+            <div class="related-title serif-italic">{p.data.title}</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+</div>
+
+<!-- Comments -->
 <GiscusComments />
 
-<!-- similar posts -->
-{
-  similarPosts.length > 0 && (
-    <section class="section pt-0">
-      <div class="container">
-        <h2 class="mb-8 text-center h3">Similar Posts</h2>
-        <SimilarPosts posts={similarPosts.slice(0, 3)} />
-      </div>
-    </section>
-  )
+<style>
+/* Sequencing bar */
+#seq-bar-wrap {
+  position: sticky;
+  top: 57px;
+  z-index: 10;
+  background: color-mix(in srgb, var(--cw-bg) 91%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--cw-line);
+  padding: 10px 40px;
 }
+
+.seq-bar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.seq-label {
+  color: var(--cw-ink-faint);
+  font-size: 10px;
+  white-space: nowrap;
+  min-width: 90px;
+}
+
+.seq-bar {
+  flex: 1;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.seq-readtime {
+  color: var(--cw-ink-faint);
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+/* Post layout */
+.post-header-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 80px 40px 40px;
+}
+
+.post-cats {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.post-title {
+  font-family: var(--font-serif, 'Instrument Serif', serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.05;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+  color: var(--cw-ink);
+}
+
+.post-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  color: var(--cw-ink-dim);
+  font-size: 11px;
+  margin-bottom: 40px;
+}
+
+.post-hero-viz {
+  position: relative;
+  height: 220px;
+  margin: 40px 0 60px;
+  background: var(--cw-bg-elev);
+  border: 1px solid var(--cw-line);
+  overflow: hidden;
+}
+
+.post-hero-img {
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  margin-bottom: 40px;
+}
+
+.post-body {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 40px 60px;
+}
+
+.post-footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--cw-line);
+}
+
+.post-tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.post-tag-pill {
+  display: block;
+  border-radius: 2px;
+  background: var(--cw-bg-elev);
+  border: 1px solid var(--cw-line);
+  padding: 4px 12px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  color: var(--cw-ink-dim);
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.post-tag-pill:hover {
+  border-color: var(--cw-accent);
+  color: var(--cw-accent);
+}
+
+/* Related posts */
+.related-posts {
+  max-width: 1200px;
+  margin: 80px auto 40px;
+  padding: 0 40px;
+}
+
+.related-label {
+  color: var(--cw-accent);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  margin-bottom: 24px;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.related-card {
+  display: block;
+  padding: 24px;
+  border: 1px solid var(--cw-line);
+  text-decoration: none;
+  transition: border-color 0.2s;
+}
+
+.related-card:hover {
+  border-color: var(--cw-accent);
+}
+
+.related-date {
+  color: var(--cw-ink-dim);
+  font-size: 10px;
+  margin-bottom: 8px;
+}
+
+.related-title {
+  font-family: var(--font-serif, 'Instrument Serif', serif);
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.15;
+  color: var(--cw-ink);
+  transition: color 0.2s;
+  font-weight: 400;
+}
+
+.related-card:hover .related-title {
+  color: var(--cw-accent);
+}
+
+@media (max-width: 768px) {
+  #seq-bar-wrap { padding: 10px 20px; }
+  .post-header-wrap { padding: 60px 20px 32px; }
+  .post-body { padding: 0 20px 40px; }
+  .related-posts { padding: 0 20px; }
+  .related-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<script>
+function initSequencingBar() {
+  const bar = document.getElementById('seq-bar');
+  const pct = document.getElementById('seq-pct');
+  const scrollArea = document.getElementById('post-scroll-area');
+  if (!bar || !pct || !scrollArea) return;
+
+  const TOTAL = 120;
+  const BASES = (() => {
+    const b = ['A','C','G','T'];
+    return Array.from({ length: TOTAL }, (_, i) => b[(i * 7 + 3) % 4]);
+  })();
+
+  function renderBar(progress: number) {
+    const lit = Math.floor(progress * TOTAL);
+    bar.innerHTML = BASES.map((b, i) => {
+      const active = i < lit;
+      const isAT = b === 'A' || b === 'T';
+      const color = active
+        ? (isAT ? 'var(--cw-accent)' : 'var(--cw-warm)')
+        : 'var(--cw-ink-faint)';
+      const h = active ? '12px' : '4px';
+      return `<div style="width:4px;height:${h};background:${color};opacity:${active ? 0.95 : 0.18};border-radius:1px;transition:height .3s cubic-bezier(.2,.7,.3,1)"></div>`;
+    }).join('');
+  }
+
+  renderBar(0);
+
+  const onScroll = () => {
+    const rect = scrollArea.getBoundingClientRect();
+    const total = scrollArea.scrollHeight - window.innerHeight;
+    const progress = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
+    const p = Math.round(progress * 100);
+    pct.textContent = `READING · ${String(p).padStart(3, '0')}%`;
+    renderBar(progress);
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  return () => window.removeEventListener('scroll', onScroll);
+}
+
+let cleanup: (() => void) | undefined;
+
+function init() {
+  cleanup?.();
+  cleanup = initSequencingBar() ?? undefined;
+}
+
+init();
+document.addEventListener('astro:after-swap', init);
+</script>

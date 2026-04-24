@@ -1,31 +1,87 @@
 ---
-import Social from "@/components/Social.astro";
 import config from "@/config/config.json";
-import menu from "@/config/menu.json";
 import social from "@/config/social.json";
-import { markdownify } from "@/lib/utils/textConverter";
+
+type SocialLink = { name: string; link: string };
+const mainSocial: SocialLink[] = (social as any).main ?? [];
 ---
 
-<footer class="section bg-dark">
-  <div class="container text-center">
-    {/* footer menu */}
-    <ul class="mb-8 space-x-4">
-      {
-        menu.footer.map((menu) => (
-          <li class="inline-block">
-            <a
-              href={menu.url}
-              class="p-4 text-white/75 hover:text-white transition-all"
-            >
-              {menu.name}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-    {/* social icons */}
-    <Social source={social.main} className="social-icons mb-8" />
-    {/* copyright */}
-    <p set:html={markdownify(config.params.copyright)} class="text-white/75" />
+<footer id="cw-footer">
+  <div class="cw-footer-inner">
+    <div>
+      <div class="footer-copy">© 2015–2026 · CODEWAFFLE</div>
+      <div class="footer-tagline">Notes on AI, antibody discovery, and the data that makes both work.</div>
+    </div>
+    <div class="footer-links">
+      {mainSocial.map((s) => (
+        <a href={s.link} target="_blank" rel="noopener noreferrer" class="footer-link">
+          {s.name.toUpperCase()}
+        </a>
+      ))}
+      <a href="/blog/rss.xml" class="footer-link">RSS</a>
+    </div>
   </div>
 </footer>
+
+<style>
+#cw-footer {
+  border-top: 1px solid var(--cw-line);
+  padding: 40px 40px 28px;
+  margin-top: 80px;
+}
+
+.cw-footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.footer-copy {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--cw-ink-faint);
+  margin-bottom: 8px;
+}
+
+.footer-tagline {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: 13px;
+  color: var(--cw-ink-dim);
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: 13px;
+  color: var(--cw-ink-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
+  color: var(--cw-accent);
+}
+
+@media (max-width: 768px) {
+  #cw-footer {
+    padding: 32px 20px 24px;
+    margin-top: 60px;
+  }
+
+  .cw-footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
+</style>

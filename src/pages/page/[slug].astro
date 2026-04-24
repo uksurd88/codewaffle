@@ -32,10 +32,58 @@ const currentPosts = sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
 ---
 
 <Base>
-  <section class="section">
-    <div class="container">
-      <Posts className="mb-16" posts={currentPosts} />
+  <div class="archive-page">
+    <div class="archive-container">
+      <div class="archive-header">
+        <div class="archive-label font-mono-bio">// ARCHIVE</div>
+        <h1 class="archive-title">The full sequence</h1>
+        <p class="archive-sub">Every entry, chronologically. Hover a row — the helix lights up; an antibody binds.</p>
+      </div>
+      <Posts className="mb-12" posts={currentPosts} />
       <Pagination totalPages={totalPages} currentPage={currentPage} />
     </div>
-  </section>
+  </div>
 </Base>
+
+<style>
+.archive-page {
+  padding-bottom: 80px;
+}
+
+.archive-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 40px 0;
+}
+
+.archive-header {
+  margin-bottom: 48px;
+}
+
+.archive-label {
+  color: var(--cw-accent);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.archive-title {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: clamp(40px, 5vw, 64px);
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+
+.archive-sub {
+  color: var(--cw-ink-dim);
+  font-size: 17px;
+  max-width: 620px;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .archive-container {
+    padding: 40px 20px 0;
+  }
+}
+</style>

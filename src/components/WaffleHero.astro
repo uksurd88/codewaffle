@@ -1,0 +1,256 @@
+---
+export interface Props {
+  variant?: 'waffle' | 'helix' | 'antibody' | 'sequence';
+  intensity?: number;
+  height?: string;
+  class?: string;
+  id?: string;
+}
+
+const {
+  variant = 'waffle',
+  intensity = 70,
+  height = '100%',
+  class: className = '',
+  id = `wh-${Math.random().toString(36).slice(2, 8)}`,
+} = Astro.props;
+---
+
+<canvas
+  id={id}
+  class={`wh-canvas ${className}`}
+  data-variant={variant}
+  data-intensity={intensity}
+  style={`height: ${height};`}
+></canvas>
+
+<script>
+function hexWithAlpha(hex: string, a: number): string {
+  const h = hex.replace('#', '');
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return `rgba(${r},${g},${b},${Math.max(0, Math.min(1, a))})`;
+}
+
+function drawHelix(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, accent: string, warm: string, dpr: number) {
+  const cx = w / 2;
+  const amp = Math.min(w, h) * 0.14;
+  const steps = 80;
+  const span = h * 0.8;
+  const top = h * 0.1;
+  ctx.lineWidth = 1.5 * dpr;
+  for (let strand = 0; strand < 2; strand++) {
+    ctx.beginPath();
+    for (let i = 0; i <= steps; i++) {
+      const y = top + (i / steps) * span;
+      const phase = (i / steps) * Math.PI * 6 + t + strand * Math.PI;
+      const x = cx + Math.sin(phase) * amp;
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = hexWithAlpha(strand ? warm : accent, 0.7);
+    ctx.stroke();
+  }
+  for (let i = 0; i <= steps; i += 3) {
+    const y = top + (i / steps) * span;
+    const phase = (i / steps) * Math.PI * 6 + t;
+    const x1 = cx + Math.sin(phase) * amp;
+    const x2 = cx + Math.sin(phase + Math.PI) * amp;
+    ctx.strokeStyle = hexWithAlpha(accent, 0.3 + 0.3 * Math.abs(Math.cos(phase)));
+    ctx.lineWidth = 1 * dpr;
+    ctx.beginPath(); ctx.moveTo(x1, y); ctx.lineTo(x2, y); ctx.stroke();
+  }
+}
+
+function drawAntibody(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, accent: string, warm: string, dpr: number) {
+  const cx = w / 2, cy = h * 0.55;
+  const scale = Math.min(w, h) * 0.18;
+  const pulse = 1 + Math.sin(t * 1.5) * 0.04;
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.scale(pulse, pulse);
+  ctx.lineWidth = 2.5 * dpr;
+  ctx.lineCap = 'round';
+  ctx.strokeStyle = hexWithAlpha(accent, 0.8);
+  ctx.beginPath(); ctx.moveTo(0, scale); ctx.lineTo(0, 0); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-scale * 0.8, -scale * 0.7); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(scale * 0.8, -scale * 0.7); ctx.stroke();
+  ctx.fillStyle = hexWithAlpha(warm, 0.9);
+  ctx.beginPath(); ctx.arc(0, 0, 4 * dpr, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = hexWithAlpha(accent, 0.95);
+  ctx.beginPath(); ctx.arc(-scale * 0.8, -scale * 0.7, 5 * dpr, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(scale * 0.8, -scale * 0.7, 5 * dpr, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(0, scale, 4 * dpr, 0, Math.PI * 2); ctx.fill();
+  ctx.strokeStyle = hexWithAlpha(accent, 0.2);
+  ctx.lineWidth = 1 * dpr;
+  ctx.beginPath(); ctx.arc(0, 0, scale * 1.6 + Math.sin(t * 2) * 8 * dpr, 0, Math.PI * 2); ctx.stroke();
+  ctx.restore();
+}
+
+function drawSequenceTrack(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, accent: string, warm: string, dpr: number) {
+  const y = h * 0.55;
+  ctx.strokeStyle = hexWithAlpha(accent, 0.4);
+  ctx.lineWidth = 1 * dpr;
+  ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+  const bases = ['A', 'C', 'G', 'T'];
+  ctx.font = `${12 * dpr}px ui-monospace, monospace`;
+  ctx.textAlign = 'center';
+  const spacing = 24 * dpr;
+  const offset = (t * spacing * 0.8) % spacing;
+  for (let x = -offset; x < w; x += spacing) {
+    const i = Math.floor((x + t * 100) / spacing);
+    const base = bases[Math.abs(i) % 4];
+    const up = (i % 2 === 0);
+    const col = base === 'A' || base === 'T' ? accent : warm;
+    ctx.fillStyle = hexWithAlpha(col, 0.85);
+    ctx.fillText(base, x, y + (up ? -10 : 22) * dpr);
+    ctx.strokeStyle = hexWithAlpha(col, 0.6);
+    ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y + (up ? -4 : 4) * dpr); ctx.stroke();
+  }
+}
+
+function drawOrbitals(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, accent: string, warm: string, dpr: number) {
+  const cx = w / 2, cy = h / 2;
+  ctx.lineWidth = 1 * dpr;
+  for (let orbit = 0; orbit < 3; orbit++) {
+    const r = Math.min(w, h) * (0.15 + orbit * 0.08);
+    ctx.strokeStyle = hexWithAlpha(orbit % 2 ? warm : accent, 0.15);
+    ctx.beginPath(); ctx.ellipse(cx, cy, r, r * 0.4, t * (orbit + 1) * 0.3, 0, Math.PI * 2); ctx.stroke();
+    const a = t * (1 + orbit * 0.5);
+    const ang = t * (orbit + 1) * 0.3;
+    const px = cx + Math.cos(a) * r * Math.cos(ang) - Math.sin(a) * r * 0.4 * Math.sin(ang);
+    const py = cy + Math.cos(a) * r * Math.sin(ang) + Math.sin(a) * r * 0.4 * Math.cos(ang);
+    ctx.fillStyle = hexWithAlpha(orbit % 2 ? warm : accent, 0.9);
+    ctx.beginPath(); ctx.arc(px, py, 4 * dpr, 0, Math.PI * 2); ctx.fill();
+  }
+}
+
+function initCanvas(canvas: HTMLCanvasElement) {
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return () => {};
+
+  const variant = canvas.dataset.variant ?? 'waffle';
+  const intensity = Number(canvas.dataset.intensity ?? 70);
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  let rafId = 0;
+  let t = 0;
+  let mx = 0.5, my = 0.5, tmx = 0.5, tmy = 0.5;
+
+  const resize = () => {
+    const r = canvas.getBoundingClientRect();
+    canvas.width = r.width * dpr;
+    canvas.height = r.height * dpr;
+  };
+  resize();
+  const ro = new ResizeObserver(resize);
+  ro.observe(canvas);
+
+  const onMove = (e: PointerEvent) => {
+    const r = canvas.getBoundingClientRect();
+    tmx = (e.clientX - r.left) / r.width;
+    tmy = (e.clientY - r.top) / r.height;
+  };
+  const onLeave = () => { tmx = 0.5; tmy = 0.5; };
+  canvas.addEventListener('pointermove', onMove);
+  canvas.addEventListener('pointerleave', onLeave);
+
+  const isDark = () => document.documentElement.classList.contains('dark');
+
+  const draw = () => {
+    const w = canvas.width, h = canvas.height;
+    t += 0.008 * (0.4 + (intensity / 100) * 1.6);
+    mx += (tmx - mx) * 0.06;
+    my += (tmy - my) * 0.06;
+
+    ctx.clearRect(0, 0, w, h);
+
+    const dark = isDark();
+    const accent = dark ? '#6FE3D8' : '#178F84';
+    const warm = dark ? '#E8B168' : '#B87A28';
+    const baseAlpha = dark ? 0.35 : 0.22;
+    const cell = 22 * dpr;
+    const cols = Math.ceil(w / cell);
+    const rows = Math.ceil(h / cell);
+
+    for (let i = 0; i < cols; i++) {
+      for (let j = 0; j < rows; j++) {
+        const x = i * cell + cell / 2;
+        const y = j * cell + cell / 2;
+        const dx = x - mx * w;
+        const dy = y - my * h;
+        const d = Math.hypot(dx, dy) / (Math.min(w, h) * 0.5);
+
+        let wx = 0, wy = 0, size = 1.1 * dpr;
+        if (variant === 'waffle') {
+          const pulse = Math.sin(t * 2 + (i + j) * 0.35);
+          wx = Math.cos(t + i * 0.3) * 2 * dpr * (intensity / 100);
+          wy = Math.sin(t + j * 0.3) * 2 * dpr * (intensity / 100);
+          size = (1 + pulse * 0.4) * 1.4 * dpr;
+        } else if (variant === 'helix') {
+          const phase = j * 0.25 + t * 1.5;
+          const strand = Math.sin(phase + i * 0.08) * 40 * dpr;
+          wx = strand * 0.3;
+          size = (1 + Math.abs(Math.cos(phase)) * 0.6) * 1.3 * dpr;
+        } else if (variant === 'antibody') {
+          const ang = Math.atan2(y - h / 2, x - w / 2);
+          const target = Math.abs(ang - Math.PI / 2) < 0.6 || Math.abs(ang - Math.PI / 6) < 0.4 || Math.abs(ang - (5 * Math.PI) / 6) < 0.4;
+          const k = target ? Math.sin(t * 2 + Math.hypot(dx, dy) * 0.01) * 0.5 + 0.5 : 0.2;
+          size = (1 + k * 0.8) * 1.3 * dpr;
+        } else if (variant === 'sequence') {
+          const phase = t * 2 - i * 0.2;
+          const band = Math.sin(phase);
+          wy = band * 3 * dpr * (intensity / 100);
+          size = (1 + (band + 1) * 0.4) * 1.25 * dpr;
+        }
+
+        const proximity = Math.max(0, 1 - d * 1.6);
+        const alpha = (baseAlpha + proximity * 0.5) * (dark ? 1 : 0.8);
+
+        ctx.fillStyle = proximity > 0.4
+          ? hexWithAlpha(accent, alpha)
+          : hexWithAlpha(dark ? '#8fa0b8' : '#29344a', alpha * 0.6);
+        ctx.beginPath();
+        ctx.arc(x + wx, y + wy, size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    if (variant === 'helix') drawHelix(ctx, w, h, t, accent, warm, dpr);
+    if (variant === 'antibody') drawAntibody(ctx, w, h, t, accent, warm, dpr);
+    if (variant === 'sequence') drawSequenceTrack(ctx, w, h, t, accent, warm, dpr);
+    if (variant === 'waffle') drawOrbitals(ctx, w, h, t, accent, warm, dpr);
+
+    rafId = requestAnimationFrame(draw);
+  };
+  rafId = requestAnimationFrame(draw);
+
+  return () => {
+    cancelAnimationFrame(rafId);
+    ro.disconnect();
+    canvas.removeEventListener('pointermove', onMove);
+    canvas.removeEventListener('pointerleave', onLeave);
+  };
+}
+
+function initAll() {
+  document.querySelectorAll<HTMLCanvasElement>('canvas.wh-canvas').forEach(canvas => {
+    if (canvas.dataset.whInit) return;
+    canvas.dataset.whInit = '1';
+    initCanvas(canvas);
+  });
+}
+
+initAll();
+document.addEventListener('astro:after-swap', () => {
+  document.querySelectorAll<HTMLCanvasElement>('canvas.wh-canvas').forEach(c => delete c.dataset.whInit);
+  initAll();
+});
+</script>
+
+<style>
+.wh-canvas {
+  display: block;
+  width: 100%;
+}
+</style>

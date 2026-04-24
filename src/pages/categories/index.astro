@@ -1,32 +1,183 @@
 ---
+import Posts from "@/components/Posts.astro";
 import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
 import { getTaxonomy } from "@/lib/taxonomyParser.astro";
-import { humanize } from "@/lib/utils/textConverter";
+import { sortByDate } from "@/lib/utils/sortFunctions";
+import taxonomyFilter from "@/lib/utils/taxonomyFilter";
+import { humanize, slugify } from "@/lib/utils/textConverter";
 
-const categories = await getTaxonomy("posts", "categories");
+const allCategories = await getTaxonomy("posts", "categories");
+const posts = await getSinglePage("posts");
+const sortedPosts = sortByDate(posts);
 
-import { BiCategoryAlt } from "react-icons/bi";
+const categoriesWithCount = allCategories.map((cat) => ({
+  name: cat,
+  count: taxonomyFilter(posts, "categories", cat).length,
+})).sort((a, b) => b.count - a.count);
+
+const firstCat = categoriesWithCount[0]?.name ?? '';
 ---
 
-<Base title={"Categories"}>
-  <section class="section">
-    <div class="container text-center">
-      <h1 class="h2 page-heading">Categories</h1>
-      <ul class="space-x-4">
-        {
-          categories.map((category) => (
-            <li class="inline-block">
-              <a
-                href={`/categories/${category}`}
-                class="rounded-lg bg-light px-4 py-2 text-dark transition hover:bg-primary hover:text-white flex items-center group"
-              >
-                <BiCategoryAlt className="mr-1 text-primary group-hover:text-white transition h-6 w-6 scale-75" />
-                {humanize(category || "")}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+<Base title="Categories">
+  <div id="categories-page">
+    <div class="cat-container">
+      <!-- Header -->
+      <div class="cat-header">
+        <div class="cat-label font-mono-bio">// CATEGORIES</div>
+        <h1 class="cat-title">By epitope</h1>
+        <p class="cat-sub">Pick a tag, see the bound sequences.</p>
+      </div>
+
+      <!-- Tag cloud (interactive filter) -->
+      <div class="tag-cloud" id="tag-cloud">
+        {categoriesWithCount.map((cat) => (
+          <button
+            class={`tag-btn font-mono-bio${cat.name === firstCat ? ' active' : ''}`}
+            data-cat={cat.name}
+          >
+            {cat.name.toUpperCase()} <span class="tag-count">{cat.count}</span>
+          </button>
+        ))}
+      </div>
+
+      <!-- Filtered post list -->
+      <div id="filtered-posts">
+        {categoriesWithCount.map((cat) => {
+          const filtered = taxonomyFilter(posts, "categories", cat.name);
+          const sorted = sortByDate(filtered);
+          return (
+            <div
+              class={`cat-section${cat.name === firstCat ? ' visible' : ' hidden'}`}
+              data-cat-section={cat.name}
+            >
+              <Posts posts={sorted} fluid={false} />
+            </div>
+          );
+        })}
+      </div>
     </div>
-  </section>
+  </div>
 </Base>
+
+<style>
+#categories-page {
+  padding-bottom: 80px;
+}
+
+.cat-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 40px 0;
+}
+
+.cat-header {
+  margin-bottom: 40px;
+}
+
+.cat-label {
+  color: var(--cw-accent);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.cat-title {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: clamp(40px, 5vw, 56px);
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+
+.cat-sub {
+  color: var(--cw-ink-dim);
+  font-size: 16px;
+  max-width: 600px;
+  margin: 0;
+}
+
+/* Tag cloud */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+.tag-btn {
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--cw-line);
+  background: transparent;
+  color: var(--cw-ink-dim);
+  transition: all 0.2s;
+  border-radius: 2px;
+}
+
+.tag-btn:hover {
+  border-color: var(--cw-accent);
+  color: var(--cw-accent);
+}
+
+.tag-btn.active {
+  border-color: var(--cw-accent);
+  background: color-mix(in srgb, var(--cw-accent) 10%, transparent);
+  color: var(--cw-accent);
+}
+
+.tag-count {
+  opacity: 0.6;
+  margin-left: 6px;
+}
+
+/* Filtered content */
+.cat-section {
+  transition: opacity 0.2s;
+}
+
+.cat-section.hidden {
+  display: none;
+}
+
+.cat-section.visible {
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .cat-container {
+    padding: 40px 20px 0;
+  }
+}
+</style>
+
+<script>
+function initCategories() {
+  const cloud = document.getElementById('tag-cloud');
+  if (!cloud) return;
+
+  cloud.querySelectorAll<HTMLButtonElement>('.tag-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.cat;
+      if (!cat) return;
+
+      cloud.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.querySelectorAll<HTMLElement>('[data-cat-section]').forEach(sec => {
+        if (sec.dataset.catSection === cat) {
+          sec.classList.remove('hidden');
+          sec.classList.add('visible');
+        } else {
+          sec.classList.remove('visible');
+          sec.classList.add('hidden');
+        }
+      });
+    });
+  });
+}
+
+initCategories();
+document.addEventListener('astro:after-swap', initCategories);
+</script>
