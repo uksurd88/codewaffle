@@ -1,18 +1,18 @@
 ---
 import WaffleHero from "@/components/WaffleHero.astro";
 import Base from "@/layouts/Base.astro";
-import { markdownify } from "@/lib/utils/textConverter";
 import type { CollectionEntry } from "astro:content";
 import { getEntry, render } from "astro:content";
 
 const entry = (await getEntry("about", "-index")) as CollectionEntry<"about">;
 const { Content } = await render(entry);
-const { title, meta_title, image, what_i_do } = entry.data;
+const { title, meta_title, image, what_i_do, experience, education, publications, certifications, languages } = entry.data;
 ---
 
 <Base title={title} meta_title={meta_title} image={image}>
   <div id="about-page">
-    <canvas id="dna-strip-right" aria-hidden="true"></canvas>
+    <canvas id="dna-helix-right" aria-hidden="true"></canvas>
+
     <!-- Header -->
     <section class="about-header">
       <div class="about-container">
@@ -22,20 +22,20 @@ const { title, meta_title, image, what_i_do } = entry.data;
         </h1>
         <p class="about-lede serif-italic">
           I work on data platforms for antibody discovery — the layer between a sequencer and a decision.
-          Currently Product Manager at ENPICOM, Eindhoven.
+          Currently Project Lead at ENPICOM, Den Bosch.
         </p>
       </div>
     </section>
 
-    <!-- Two-col: Sequence ID + full bio -->
+    <!-- Bio + ID -->
     <section class="about-bio-section">
       <div class="about-container">
         <div class="about-bio-grid">
           <div>
             <div class="col-label font-mono-bio">// SEQUENCE.ID</div>
             <div class="sequence-list">
-              <div><span class="accent-arrow">→</span> ENPICOM · Product</div>
-              <div><span class="accent-arrow">→</span> Amsterdam, NL</div>
+              <div><span class="accent-arrow">→</span> ENPICOM · Project Lead</div>
+              <div><span class="accent-arrow">→</span> Den Bosch, NL</div>
               <div><span class="accent-arrow">→</span> Pistoia Alliance</div>
               <div><span class="accent-arrow">→</span> Bioinformatics → Product</div>
             </div>
@@ -82,6 +82,93 @@ const { title, meta_title, image, what_i_do } = entry.data;
       </section>
     )}
 
+    <!-- Experience + Education side-by-side -->
+    {(experience?.length || education?.length) && (
+      <section class="exp-edu-section">
+        <div class="about-container-wide">
+          <div class="exp-edu-grid">
+            {experience?.length && (
+              <div>
+                <div class="about-label font-mono-bio">// EXPERIENCE</div>
+                <h2 class="section-h2">Experience</h2>
+                <ol class="timeline">
+                  {experience.map((e: any) => (
+                    <li class="timeline-item">
+                      <div class="timeline-period font-mono-bio">{e.period}</div>
+                      <div class="timeline-role">{e.role}</div>
+                      <div class="timeline-org">{e.org}</div>
+                      {e.description && <p class="timeline-desc">{e.description}</p>}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+
+            {education?.length && (
+              <div>
+                <div class="about-label font-mono-bio">// EDUCATION</div>
+                <h2 class="section-h2">Education</h2>
+                <ol class="timeline">
+                  {education.map((e: any) => (
+                    <li class="timeline-item">
+                      <div class="timeline-period font-mono-bio">{e.period}</div>
+                      <div class="timeline-role">{e.degree}</div>
+                      <div class="timeline-org">{e.org}</div>
+                      {e.description && <p class="timeline-desc" set:html={e.description.replace(/\*([^*]+)\*/g, '<em>$1</em>')} />}
+                    </li>
+                  ))}
+                </ol>
+
+                {certifications?.length && (
+                  <div class="certs-block">
+                    <div class="about-label font-mono-bio">// CERTIFICATIONS</div>
+                    <ul class="cert-list">
+                      {certifications.map((c: string) => (<li>{c}</li>))}
+                    </ul>
+                  </div>
+                )}
+
+                {languages && (
+                  <div class="certs-block">
+                    <div class="about-label font-mono-bio">// LANGUAGES</div>
+                    <p class="lang-line">{languages}</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Publications -->
+    {publications?.length && (
+      <section class="pubs-section">
+        <div class="about-container-wide">
+          <div class="about-label font-mono-bio">// PUBLICATIONS</div>
+          <h2 class="section-h2">Selected publications</h2>
+          <ul class="pubs-list">
+            {publications.map((p: any) => (
+              <li class="pub-item">
+                <div class="pub-year font-mono-bio">{p.year}</div>
+                <div class="pub-body">
+                  <a href={p.url} target="_blank" rel="noopener" class="pub-title">{p.title}</a>
+                  {p.authors && <div class="pub-authors">{p.authors}</div>}
+                  <div class="pub-meta">
+                    <em>{p.venue}</em>
+                    {p.citations !== undefined && (<span class="pub-cites"> · cited {p.citations}×</span>)}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <p class="pubs-footer">
+            Full list on <a href="https://scholar.google.com/citations?user=y62wfS8AAAAJ" target="_blank" rel="noopener">Google Scholar</a>.
+          </p>
+        </div>
+      </section>
+    )}
+
     <!-- Helix viz banner -->
     <section class="about-container">
       <div class="helix-viz">
@@ -97,23 +184,28 @@ const { title, meta_title, image, what_i_do } = entry.data;
   position: relative;
 }
 
-#dna-strip-right {
+#dna-helix-right {
   display: none;
   position: absolute;
   top: 0;
-  /* Sit just outside the 1000px content container: 500px half-width + small gap */
-  right: max(12px, calc(50% - 520px));
-  width: 44px;
+  right: max(12px, calc(50% - 540px));
+  width: 60px;
   height: 100%;
   pointer-events: none;
 }
 
-@media (min-width: 1100px) {
-  #dna-strip-right { display: block; }
+@media (min-width: 1180px) {
+  #dna-helix-right { display: block; }
 }
 
 .about-container {
   max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.about-container-wide {
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 40px;
 }
@@ -263,6 +355,173 @@ const { title, meta_title, image, what_i_do } = entry.data;
   margin: 0;
 }
 
+/* Experience + Education */
+.exp-edu-section {
+  padding: 40px 0 60px;
+}
+
+.exp-edu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.section-h2 {
+  font-size: 28px;
+  margin: 6px 0 28px;
+  letter-spacing: -0.02em;
+}
+
+.timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-left: 1px solid var(--cw-line-strong);
+}
+
+.timeline-item {
+  position: relative;
+  padding: 0 0 28px 22px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 6px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cw-accent);
+  box-shadow: 0 0 0 3px var(--cw-bg);
+}
+
+.timeline-period {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--cw-ink-faint);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.timeline-role {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--cw-ink);
+  letter-spacing: -0.01em;
+}
+
+.timeline-org {
+  font-size: 14px;
+  color: var(--cw-warm);
+  margin-bottom: 6px;
+}
+
+.timeline-desc {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--cw-ink-dim);
+  margin: 0;
+}
+
+.certs-block {
+  margin-top: 36px;
+}
+
+.cert-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--cw-ink-dim);
+}
+
+.cert-list li::before {
+  content: '◇ ';
+  color: var(--cw-accent);
+  margin-right: 4px;
+}
+
+.lang-line {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--cw-ink-dim);
+  margin: 8px 0 0;
+}
+
+/* Publications */
+.pubs-section {
+  padding: 40px 0 60px;
+}
+
+.pubs-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--cw-line);
+}
+
+.pub-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--cw-line);
+}
+
+.pub-year {
+  color: var(--cw-warm);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  padding-top: 2px;
+}
+
+.pub-title {
+  display: block;
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--cw-ink);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  transition: color 0.2s;
+}
+
+.pub-title:hover {
+  color: var(--cw-accent);
+}
+
+.pub-authors {
+  font-size: 13px;
+  color: var(--cw-ink-faint);
+  margin-top: 6px;
+  line-height: 1.45;
+}
+
+.pub-meta {
+  font-size: 13px;
+  color: var(--cw-ink-dim);
+  margin-top: 4px;
+}
+
+.pub-cites {
+  color: var(--cw-ink-faint);
+}
+
+.pubs-footer {
+  margin-top: 24px;
+  font-size: 13px;
+  color: var(--cw-ink-dim);
+}
+
+.pubs-footer a {
+  color: var(--cw-accent);
+  text-decoration: underline;
+}
+
 /* Helix banner */
 .helix-viz {
   position: relative;
@@ -273,16 +532,22 @@ const { title, meta_title, image, what_i_do } = entry.data;
   margin-top: 20px;
 }
 
-@media (max-width: 768px) {
-  .about-container { padding: 0 20px; }
+@media (max-width: 900px) {
+  .about-container, .about-container-wide { padding: 0 20px; }
 
-  .about-bio-grid {
+  .about-bio-grid,
+  .exp-edu-grid {
     grid-template-columns: 1fr;
     gap: 40px;
   }
 
   .wid-grid {
     grid-template-columns: 1fr;
+  }
+
+  .pub-item {
+    grid-template-columns: 60px 1fr;
+    gap: 12px;
   }
 }
 </style>
@@ -295,8 +560,8 @@ const { title, meta_title, image, what_i_do } = entry.data;
     return `rgba(${r},${g},${b},${Math.max(0,Math.min(1,a))})`;
   }
 
-  function initDnaStrip() {
-    const canvas = document.getElementById('dna-strip-right') as HTMLCanvasElement | null;
+  function initHelix() {
+    const canvas = document.getElementById('dna-helix-right') as HTMLCanvasElement | null;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -312,51 +577,81 @@ const { title, meta_title, image, what_i_do } = entry.data;
     ro.observe(canvas);
 
     const bases = ['A', 'C', 'G', 'T'];
+    const pair: Record<string, string> = { A: 'T', T: 'A', C: 'G', G: 'C' };
     let t = 0;
     let rafId = 0;
     const isDark = () => document.documentElement.classList.contains('dark');
 
     const draw = () => {
       const w = canvas.width, h = canvas.height;
-      t += 0.007;
+      t += 0.012;
       ctx.clearRect(0, 0, w, h);
 
       const dark = isDark();
       const accent = dark ? '#6FE3D8' : '#178F84';
       const warm   = dark ? '#E8B168' : '#B87A28';
-      const spacing = 28 * dpr;
 
-      for (let col = 0; col < 2; col++) {
-        const cx = w * (col === 0 ? 0.28 : 0.72);
-        const scrollPos = t * spacing * (col === 0 ? 0.55 : -0.42);
+      const cx = w * 0.5;
+      const amp = w * 0.36;       // horizontal swing
+      const turns = 6;            // number of helical turns down the strip
+      const stepY = 14 * dpr;     // vertical sample distance (tight = smooth strands)
+      const rungEvery = 22 * dpr; // distance between cross-base pairs
 
-        ctx.strokeStyle = hex(accent, 0.18);
-        ctx.lineWidth = 1 * dpr;
-        ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, h); ctx.stroke();
-
-        ctx.font = `${11 * dpr}px ui-monospace, monospace`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-
-        const firstRow = Math.floor(scrollPos / spacing) - 1;
-        const lastRow  = Math.ceil((scrollPos + h) / spacing) + 1;
-
-        for (let row = firstRow; row <= lastRow; row++) {
-          const y = row * spacing - scrollPos;
-          if (y < -spacing || y > h + spacing) continue;
-          const base  = bases[((row % 4) + 4) % 4];
-          const left  = row % 2 === 0;
-          const color = (base === 'A' || base === 'T') ? accent : warm;
-
-          ctx.fillStyle = hex(color, 0.72);
-          ctx.fillText(base, cx + (left ? -9 : 9) * dpr, y);
-          ctx.strokeStyle = hex(color, 0.38);
-          ctx.lineWidth = 1 * dpr;
-          ctx.beginPath();
-          ctx.moveTo(cx, y);
-          ctx.lineTo(cx + (left ? -4 : 4) * dpr, y);
-          ctx.stroke();
+      // Two backbones drawn first, with depth shading so the helix reads as 3D
+      for (let strand = 0; strand < 2; strand++) {
+        ctx.beginPath();
+        let started = false;
+        for (let y = -stepY; y <= h + stepY; y += stepY) {
+          const phase = (y / h) * Math.PI * 2 * turns + t + strand * Math.PI;
+          const x = cx + Math.sin(phase) * amp;
+          if (!started) { ctx.moveTo(x, y); started = true; }
+          else ctx.lineTo(x, y);
         }
+        // Vary strand color: front (sin > 0) brighter, back dimmer
+        ctx.strokeStyle = hex(strand ? warm : accent, 0.6);
+        ctx.lineWidth = 1.6 * dpr;
+        ctx.stroke();
+      }
+
+      // Cross-base rungs with depth + base letters
+      ctx.font = `${10 * dpr}px ui-monospace, monospace`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      let rungIdx = 0;
+      for (let y = 0; y <= h; y += rungEvery) {
+        const phase = (y / h) * Math.PI * 2 * turns + t;
+        const x1 = cx + Math.sin(phase) * amp;
+        const x2 = cx + Math.sin(phase + Math.PI) * amp;
+        const front = Math.cos(phase) > 0;
+        const depth = (Math.cos(phase) + 1) / 2; // 0..1, 1 = front
+
+        // Rung line
+        ctx.strokeStyle = hex(front ? accent : warm, 0.18 + depth * 0.42);
+        ctx.lineWidth = (0.8 + depth * 1.4) * dpr;
+        ctx.beginPath();
+        ctx.moveTo(x1, y);
+        ctx.lineTo(x2, y);
+        ctx.stroke();
+
+        // Base letters (only render front-facing rungs to avoid clutter)
+        if (depth > 0.45) {
+          const a = bases[((rungIdx % 4) + 4) % 4];
+          const b = pair[a];
+          const colA = (a === 'A' || a === 'T') ? accent : warm;
+          const colB = (b === 'A' || b === 'T') ? accent : warm;
+          // Halo dot
+          ctx.fillStyle = hex(colA, 0.35 * depth);
+          ctx.beginPath(); ctx.arc(x1, y, 5 * dpr, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = hex(colB, 0.35 * depth);
+          ctx.beginPath(); ctx.arc(x2, y, 5 * dpr, 0, Math.PI * 2); ctx.fill();
+          // Letters
+          ctx.fillStyle = hex(colA, 0.85 * depth);
+          ctx.fillText(a, x1, y);
+          ctx.fillStyle = hex(colB, 0.85 * depth);
+          ctx.fillText(b, x2, y);
+        }
+        rungIdx++;
       }
 
       rafId = requestAnimationFrame(draw);
@@ -364,7 +659,7 @@ const { title, meta_title, image, what_i_do } = entry.data;
     rafId = requestAnimationFrame(draw);
   }
 
-  initDnaStrip();
-  document.addEventListener('astro:after-swap', initDnaStrip);
+  initHelix();
+  document.addEventListener('astro:after-swap', initHelix);
 })();
 </script>

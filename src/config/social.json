@@ -14,16 +14,6 @@
       "name": "Google Scholar",
       "icon": "FaGoogleScholar",
       "link": "https://scholar.google.com/citations?user=y62wfS8AAAAJ&hl=en&oi=sra"
-    },
-    {
-      "name": "Instagram",
-      "icon": "FaInstagram",
-      "link": "https://www.instagram.com/m.o.o.d.s"
-    },
-    {
-      "name": "YouTube",
-      "icon": "FaYoutube",
-      "link": "https://www.youtube.com/channel/UCcj1tSCvFu15-WRiK15uz_w"
     }
   ]
 }

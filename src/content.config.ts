@@ -19,6 +19,40 @@ const aboutCollection = defineCollection({
         }),
       ),
     }),
+    experience: z
+      .array(
+        z.object({
+          role: z.string(),
+          org: z.string(),
+          period: z.string(),
+          description: z.string().optional(),
+        }),
+      )
+      .optional(),
+    education: z
+      .array(
+        z.object({
+          degree: z.string(),
+          org: z.string(),
+          period: z.string(),
+          description: z.string().optional(),
+        }),
+      )
+      .optional(),
+    publications: z
+      .array(
+        z.object({
+          title: z.string(),
+          authors: z.string().optional(),
+          venue: z.string(),
+          year: z.union([z.string(), z.number()]),
+          url: z.string().optional(),
+          citations: z.number().optional(),
+        }),
+      )
+      .optional(),
+    certifications: z.array(z.string()).optional(),
+    languages: z.string().optional(),
   }),
 });
 
