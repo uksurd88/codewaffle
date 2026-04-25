@@ -1,5 +1,4 @@
 ---
-import WaffleHero from "@/components/WaffleHero.astro";
 import Base from "@/layouts/Base.astro";
 import type { CollectionEntry } from "astro:content";
 import { getEntry, render } from "astro:content";
@@ -37,7 +36,7 @@ const { title, meta_title, image, what_i_do, experience, education, publications
               <div><span class="accent-arrow">→</span> ENPICOM · Project Lead</div>
               <div><span class="accent-arrow">→</span> Den Bosch, NL</div>
               <div><span class="accent-arrow">→</span> Pistoia Alliance</div>
-              <div><span class="accent-arrow">→</span> Bioinformatics → Product</div>
+              <div><span class="accent-arrow">→</span> Bioinformatics → Project</div>
             </div>
             {image && (
               <div class="author-img-wrap">
@@ -169,12 +168,6 @@ const { title, meta_title, image, what_i_do, experience, education, publications
       </section>
     )}
 
-    <!-- Helix viz banner -->
-    <section class="about-container">
-      <div class="helix-viz">
-        <WaffleHero variant="helix" intensity={60} height="100%" />
-      </div>
-    </section>
   </div>
 </Base>
 
@@ -188,13 +181,16 @@ const { title, meta_title, image, what_i_do, experience, education, publications
   display: none;
   position: absolute;
   top: 0;
-  right: max(12px, calc(50% - 540px));
+  /* Sit OUTSIDE the 1200px content container (half = 600px + 40px padding) with a gap.
+     Strip left edge lands at content's right edge + ~30px on wide viewports,
+     and clamps to 12px from viewport edge on narrower screens. */
+  right: max(12px, calc(50% - 670px));
   width: 60px;
   height: 100%;
   pointer-events: none;
 }
 
-@media (min-width: 1180px) {
+@media (min-width: 1320px) {
   #dna-helix-right { display: block; }
 }
 
@@ -520,16 +516,6 @@ const { title, meta_title, image, what_i_do, experience, education, publications
 .pubs-footer a {
   color: var(--cw-accent);
   text-decoration: underline;
-}
-
-/* Helix banner */
-.helix-viz {
-  position: relative;
-  height: 280px;
-  border: 1px solid var(--cw-line);
-  background: var(--cw-bg-elev);
-  overflow: hidden;
-  margin-top: 20px;
 }
 
 @media (max-width: 900px) {
