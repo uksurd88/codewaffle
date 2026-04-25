@@ -33,3 +33,13 @@ wrangler.jsonc
 
 # Sitepins CMS
 .sitepins/
+public/sitepins-manifest.json
+
+# Yarn (project uses npm)
+.yarnrc
+yarn.lock
+
+# Old theme leftovers (favicons live in public/, license is implicit)
+/LICENSE
+/favicon.ico
+/favicon.png
