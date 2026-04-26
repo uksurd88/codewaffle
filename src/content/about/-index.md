@@ -14,7 +14,7 @@ what_i_do:
     description: "Run cross-functional programs worth more than a million euros with scientists, bioinformaticians, and engineers. Comfortable in agile, RACI, and stakeholder-heavy environments."
 
   - title: "Data Strategy & Governance"
-    description: "Advise Top 15 pharma on FAIR, knowledge graphs, and data governance. Contributor to the FAIR Cookbook and architect of the Novartis Data42 knowledge graph."
+    description: "Advise Top 15 pharma on FAIR, knowledge graphs, and data governance. Contributor to the FAIR Cookbook and FAIR consultant on the Novartis Data42 knowledge graph program from inception through stakeholder delivery."
 
   - title: "AI Tech Enablement"
     description: "Translate AI, LLMs, agents, and MCP into production value across pharma, renewables, and DeSci, from strategy and MVP to deployment and change management."
@@ -43,7 +43,7 @@ experience:
   - role: "FAIR Data & AI Consultant"
     org: "The Hyve"
     period: "Nov 2019 – Mar 2021"
-    description: "Advised Top 15 pharma on knowledge engineering, data strategy, OMOP/CDISC mapping, real-world evidence (OHDSI, RADAR-BASE). Led the Novartis Data42 knowledge graph with 30+ stakeholders."
+    description: "Advised Top 15 pharma on knowledge engineering, data strategy, OMOP/CDISC mapping, real-world evidence (OHDSI, RADAR-BASE). Embedded as FAIR consultant on the Novartis Data42 knowledge graph program from start to delivery — core team member working with 30+ stakeholders across business, science, and engineering."
   - role: "Bioinformatician"
     org: "HZPC Research, Max Planck, Biotec TU Dresden"
     period: "2010 – 2019"

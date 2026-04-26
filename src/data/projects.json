@@ -42,13 +42,13 @@
     "title": "Novartis Data42 knowledge graph",
     "client": "Novartis (via The Hyve)",
     "period": "Nov 2019 – Mar 2021",
-    "role": "FAIR Data & AI Consultant",
+    "role": "FAIR Data Consultant — core team member",
     "tags": ["knowledge graph", "FAIR", "OMOP", "CDISC", "real-world evidence"],
-    "summary": "Architected and led the Data42 knowledge graph initiative across 30+ stakeholders, integrating clinical, omics, and real-world data for AI-driven discovery.",
+    "summary": "Embedded on the Data42 program from inception through delivery as the FAIR data consultant — the role responsible for getting clinical, omics, and real-world data integrated under FAIR + linked-data principles for AI-driven discovery. Worked alongside the architecture team and senior stakeholders across 30+ business, scientific, and engineering counterparts.",
     "outcomes": [
-      "Defined the schema and ingestion pipelines that underpin Data42",
-      "Aligned Top 15 pharma stakeholders on FAIR + linked data principles",
-      "Established the program as a reference case in pharma data engineering"
+      "Drove FAIR-by-design adoption across schema, vocabulary, and ingestion decisions",
+      "Aligned 30+ stakeholders across Novartis units on knowledge-graph principles in stakeholder workshops",
+      "Helped establish Data42 as a reference case in pharma data engineering"
     ]
   },
   {
