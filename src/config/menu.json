@@ -9,6 +9,10 @@
       "url": "/posts"
     },
     {
+      "name": "Business",
+      "url": "/business"
+    },
+    {
       "name": "Work",
       "url": "/work"
     },
@@ -29,6 +33,10 @@
     {
       "name": "About",
       "url": "/about"
+    },
+    {
+      "name": "Business",
+      "url": "/business"
     },
     {
       "name": "Work",
