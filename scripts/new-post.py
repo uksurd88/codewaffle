@@ -14,8 +14,11 @@ import os
 import re
 import subprocess
 import sys
+import threading
+import time
 import urllib.request
 import urllib.parse
+from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 
 REPO_ROOT  = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,6 +44,69 @@ def _load_env_file():
 
 
 _load_env_file()
+
+
+# ───────── Progress / status helpers ─────────
+
+_PIPELINE_START = time.monotonic()
+_STEP_NUM = 0
+_STEP_TOTAL = 8  # adjusted at runtime in main()
+
+
+def _fmt_dt(seconds):
+    if seconds < 1:
+        return f"{int(seconds * 1000)}ms"
+    if seconds < 60:
+        return f"{seconds:.1f}s"
+    m, s = int(seconds // 60), seconds - int(seconds // 60) * 60
+    return f"{m}m {s:.0f}s"
+
+
+def step(label):
+    global _STEP_NUM
+    _STEP_NUM += 1
+    print(f"\n\033[1;36m[{_STEP_NUM}/{_STEP_TOTAL}]\033[0m {label}", flush=True)
+
+
+def ok(msg, dt=None):
+    suffix = f" \033[2m({_fmt_dt(dt)})\033[0m" if dt is not None else ""
+    print(f"      \033[1;32m✓\033[0m {msg}{suffix}", flush=True)
+
+
+def warn(msg):
+    print(f"      \033[1;33m⚠\033[0m {msg}", flush=True)
+
+
+def info(msg):
+    print(f"      \033[2m· {msg}\033[0m", flush=True)
+
+
+@contextmanager
+def stopwatch():
+    start = time.monotonic()
+    yield lambda: time.monotonic() - start
+
+
+@contextmanager
+def heartbeat(label="still working", interval=10):
+    """Print elapsed time every `interval` seconds during long blocking calls."""
+    stop = threading.Event()
+
+    def _tick():
+        start = time.monotonic()
+        while not stop.wait(interval):
+            elapsed = time.monotonic() - start
+            print(f"      \033[2m… {label} ({_fmt_dt(elapsed)} elapsed)\033[0m", flush=True)
+
+    t = threading.Thread(target=_tick, daemon=True)
+    t.start()
+    try:
+        yield
+    finally:
+        stop.set()
+
+
+# ─────────────────────────────────────────────
 
 NEWSAPI_KEY       = "b2e9703e570b413e89697497b21acba9"
 UNSPLASH_KEY      = "0MBMTensZyqr9zdNG5_2d5tQGKCdSAsukPsQg_6P8So"
@@ -282,7 +348,7 @@ def fetch_hero_image(query=None):
             photo["links"]["html"],
         )
     except Exception as e:
-        print(f"Unsplash fetch failed: {e}")
+        warn(f"Unsplash fetch failed: {e}")
         return None
 
 
@@ -330,14 +396,13 @@ POST CONTENT:
 
 Write all 5 artifacts now. No commentary, just the headings and content."""
 
-    print("Generating social variants via claude -p ...", flush=True)
     try:
         result = subprocess.run(
             ["claude", "-p", prompt],
             capture_output=True, text=True, timeout=180
         )
         if result.returncode != 0:
-            print(f"Social variants generation failed: {result.stderr[:300]}")
+            warn(f"social generation: claude returned non-zero — {result.stderr[:200]}")
             return None
         social = result.stdout.strip()
         # Replace [BLOG_URL] with the actual URL
@@ -349,10 +414,9 @@ Write all 5 artifacts now. No commentary, just the headings and content."""
         header = f"# Social variants for: {blog_title}\n\nBlog URL: {blog_url}\n\nGenerated: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}\n\nCopy-paste each section into LinkedIn or Twitter on the suggested day. Spread over a week.\n\n---\n\n"
         with open(path, "w") as f:
             f.write(header + social + "\n")
-        print(f"Social variants saved: social/{slug}.md")
         return path
     except Exception as e:
-        print(f"Social variants error: {e}")
+        warn(f"social variants error: {e}")
         return None
 
 
@@ -367,7 +431,7 @@ def extract_bluesky_text(social_path):
             return None
         return m.group(1).strip()
     except Exception as e:
-        print(f"Bluesky extract failed: {e}")
+        warn(f"Bluesky extract failed: {e}")
         return None
 
 
@@ -378,7 +442,7 @@ def post_to_bluesky(text, blog_url=None, blog_title=None):
     handle = os.getenv("BSKY_HANDLE")
     app_pass = os.getenv("BSKY_APP_PASSWORD")
     if not handle or not app_pass:
-        print("Bluesky: BSKY_HANDLE and BSKY_APP_PASSWORD env vars not set, skipping post")
+        warn("BSKY_HANDLE / BSKY_APP_PASSWORD not set, skipping")
         return False
 
     pds = "https://bsky.social"
@@ -402,13 +466,13 @@ def post_to_bluesky(text, blog_url=None, blog_title=None):
         with urllib.request.urlopen(req, timeout=15) as r:
             session = json.loads(r.read())
     except Exception as e:
-        print(f"Bluesky auth failed: {e}")
+        warn(f"Bluesky auth failed: {e}")
         return False
 
     access_jwt = session.get("accessJwt")
     did = session.get("did")
     if not access_jwt or not did:
-        print("Bluesky session missing token/did")
+        warn("Bluesky session missing token/did")
         return False
 
     # 2. Build post record. Detect URL in text and convert to a clickable facet.
@@ -462,27 +526,25 @@ def post_to_bluesky(text, blog_url=None, blog_title=None):
         with urllib.request.urlopen(req, timeout=15) as r:
             resp = json.loads(r.read())
         post_uri = resp.get("uri", "")
-        # Convert at:// URI to web URL
         m = re.match(r"at://([^/]+)/app\.bsky\.feed\.post/(.+)", post_uri)
         if m:
             web = f"https://bsky.app/profile/{handle}/post/{m.group(2)}"
-            print(f"Bluesky posted: {web}")
+            info(web)
         else:
-            print(f"Bluesky posted: {post_uri}")
+            info(post_uri)
         return True
     except Exception as e:
-        print(f"Bluesky publish failed: {e}")
+        warn(f"Bluesky publish failed: {e}")
         return False
 
 
 def run_claude(prompt):
-    print("Calling claude -p ...", flush=True)
     result = subprocess.run(
         ["claude", "-p", prompt],
-        capture_output=True, text=True, timeout=120
+        capture_output=True, text=True, timeout=180
     )
     if result.returncode != 0:
-        print("claude stderr:", result.stderr[:500])
+        warn(f"claude returned non-zero — {result.stderr[:300]}")
         sys.exit(1)
     return result.stdout.strip()
 
@@ -561,7 +623,6 @@ draft: false
     os.makedirs(POSTS_DIR, exist_ok=True)
     with open(filepath, "w") as f:
         f.write(frontmatter)
-    print(f"Saved: src/content/posts/{filename}")
     return filepath, filename
 
 
@@ -577,39 +638,74 @@ def commit_post(filepath, description):
 
 
 def main():
+    global _STEP_TOTAL
     args = sys.argv[1:]
     dry_run = "--dry-run" in args
-    args = [a for a in args if a != "--dry-run"]
+    no_social = "--no-social" in args
+    args = [a for a in args if a not in ("--dry-run", "--no-social")]
+
+    has_bsky = bool(os.getenv("BSKY_HANDLE") and os.getenv("BSKY_APP_PASSWORD"))
+
+    # Compute total steps based on flags
+    # Always: fetch sources, generate post, save
+    # Conditional: process refs (if sources), Unsplash (unless dry-run), social (unless --no-social/dry-run),
+    #              Bluesky (only if creds and not dry-run), commit (unless dry-run)
+    _STEP_TOTAL = (
+        2  # fetch + generate
+        + (0 if dry_run else 1)  # save
+        + (1 if not dry_run else 0)  # Unsplash (inside save_post but worth its own banner — handled there)
+        + (0 if (no_social or dry_run) else 1)  # social variants
+        + (1 if (has_bsky and not dry_run and not no_social) else 0)  # bluesky
+        + (1 if not dry_run else 0)  # commit
+    )
+    # ^ Unsplash is a sub-step of save_post; we keep the count simple by folding save+image into one banner.
+    _STEP_TOTAL = (
+        1  # fetch sources
+        + 1  # generate post
+        + 1  # process refs / dry-render (always shown, even if no refs)
+        + (1 if not dry_run else 0)  # save (with Unsplash inline)
+        + (0 if (no_social or dry_run) else 1)  # social variants
+        + (1 if (has_bsky and not dry_run and not no_social) else 0)  # bluesky
+        + (1 if not dry_run else 0)  # commit
+    )
+
+    print(f"\033[1;35m▸ new-post.py\033[0m  pipeline of {_STEP_TOTAL} steps", flush=True)
+    if dry_run:
+        info("--dry-run: nothing will be saved or pushed")
+    if no_social:
+        info("--no-social: skipping social variants + Bluesky")
+    if not has_bsky and not dry_run and not no_social:
+        info("BSKY_HANDLE/BSKY_APP_PASSWORD not set — Bluesky step will be skipped")
 
     source_map = {}
     digest = None
     topic = args[0] if args else None
 
+    # ── 1. Fetch sources ──────────────────────────────────────
+    step(f"Fetching sources (NewsAPI + PubMed, last 30d){' for topic: ' + topic if topic else ''}")
     if topic:
-        print(f"Topic: {topic}")
-        print("Fetching topic-relevant sources from NewsAPI + PubMed (last 30d)...")
         news_q = topic
-        # PubMed: use topic as Title/Abstract query, keep the antibody/immunology narrowing
         pubmed_q = f"{topic}[Title/Abstract]"
     else:
-        print("Fetching digest from NewsAPI + PubMed (last 30d)...")
         news_q = None
         pubmed_q = None
 
     try:
-        digest, source_map = fetch_news_digest(news_q=news_q, pubmed_q=pubmed_q)
-        n_news   = sum(1 for k in source_map if k.startswith("SOURCE"))
-        n_papers = sum(1 for k in source_map if k.startswith("PAPER"))
-        print(f"Sources: {n_news} news, {n_papers} papers")
-        if topic and not source_map:
-            print(f"No sources matched topic '{topic}'. Retrying with default antibody query...")
-            digest, source_map = fetch_news_digest()
+        with stopwatch() as t:
+            digest, source_map = fetch_news_digest(news_q=news_q, pubmed_q=pubmed_q)
             n_news   = sum(1 for k in source_map if k.startswith("SOURCE"))
             n_papers = sum(1 for k in source_map if k.startswith("PAPER"))
-            print(f"Fallback sources: {n_news} news, {n_papers} papers")
+            if topic and not source_map:
+                warn(f"no sources matched topic '{topic}', retrying with default antibody query")
+                digest, source_map = fetch_news_digest()
+                n_news   = sum(1 for k in source_map if k.startswith("SOURCE"))
+                n_papers = sum(1 for k in source_map if k.startswith("PAPER"))
+        ok(f"{n_news} news + {n_papers} papers fetched", t())
     except Exception as e:
-        print(f"Source fetch failed: {e}")
+        warn(f"source fetch failed: {e}")
 
+    # ── 2. Generate blog post ─────────────────────────────────
+    step("Generating blog post via claude -p (this is the slow one)")
     if topic and digest:
         prompt = build_topic_prompt_with_sources(topic, digest)
     elif digest:
@@ -617,36 +713,81 @@ def main():
     else:
         prompt = build_prompt(topic or "Latest developments in antibody discovery and AI-driven drug design", is_topic=True)
 
-    content = run_claude(prompt)
-
+    info(f"prompt length: {len(prompt):,} chars")
+    with stopwatch() as t, heartbeat("claude is thinking", interval=10):
+        content = run_claude(prompt)
     if not content:
-        print("No output from claude")
+        warn("no output from claude — aborting")
         sys.exit(1)
+    ok(f"{len(content):,} chars generated", t())
 
-    if source_map:
-        content = process_references(content, source_map)
+    # ── 3. Process references ─────────────────────────────────
+    step("Processing references (replace tags → numbered, append bullet list)")
+    with stopwatch() as t:
+        if source_map:
+            content = process_references(content, source_map)
+            cited = len(re.findall(r"\[\d+\]", content))
+            ok(f"{cited} citation marker(s) inserted, references list appended", t())
+        else:
+            ok("no source map — skipping reference processing", t())
 
-    result = save_post(content, dry_run=dry_run)
+    # ── 4. Dry-run exit OR save post + Unsplash ───────────────
+    if dry_run:
+        print(f"\n\033[1;35m▸ dry-run output\033[0m", flush=True)
+        save_post(content, dry_run=True)
+        print(f"\n\033[1;35m▸ done\033[0m  total: \033[1m{_fmt_dt(time.monotonic() - _PIPELINE_START)}\033[0m", flush=True)
+        return
 
-    if not dry_run and result:
-        filepath, filename = result
-        slug = filename.replace(".md", "")
-        title = extract_title(content)
+    step("Saving post file (with Unsplash hero image)")
+    with stopwatch() as t:
+        result = save_post(content, dry_run=False, image_query=topic)
+    if not result:
+        warn("save_post returned nothing — aborting")
+        sys.exit(1)
+    filepath, filename = result
+    slug = filename.replace(".md", "")
+    title = extract_title(content)
+    ok(f"src/content/posts/{filename}", t())
 
-        # Generate social variants (LinkedIn x4 + Twitter thread + Bluesky)
-        if "--no-social" not in sys.argv:
+    # ── 5. Social variants ────────────────────────────────────
+    social_path = None
+    if not no_social:
+        step("Generating social variants (LinkedIn ×4 + Twitter thread + Bluesky)")
+        info("another claude -p call, expect 30–60s")
+        with stopwatch() as t, heartbeat("generating social copy", interval=10):
             social_path = generate_social_variants(content, title, slug)
-            # Auto-post to Bluesky if creds are set in env
-            if social_path and os.getenv("BSKY_HANDLE") and os.getenv("BSKY_APP_PASSWORD"):
-                bsky_text = extract_bluesky_text(social_path)
-                if bsky_text:
-                    blog_url = f"https://sukhdeepsingh.eu/blog/{slug}"
-                    post_to_bluesky(bsky_text, blog_url=blog_url, blog_title=title)
+        if social_path:
+            ok(f"social/{slug}.md", t())
+        else:
+            warn("social variants generation failed (post still saved)")
 
+    # ── 6. Bluesky cross-post ─────────────────────────────────
+    if has_bsky and not no_social and social_path:
+        step("Cross-posting to Bluesky")
+        bsky_text = extract_bluesky_text(social_path)
+        if bsky_text:
+            with stopwatch() as t:
+                posted = post_to_bluesky(bsky_text, blog_url=f"https://sukhdeepsingh.eu/blog/{slug}", blog_title=title)
+            if posted:
+                ok("posted to Bluesky", t())
+            else:
+                warn("Bluesky post failed (see error above)")
+        else:
+            warn("no Bluesky section found in social file — skipping")
+
+    # ── 7. Commit (UUID system) ───────────────────────────────
+    step("Committing to git with UUID")
+    with stopwatch() as t:
         commit_post(filepath, f"Add post: {title[:60]}")
-        print(f"\nDone. Push with: GIT_CONFIG_GLOBAL=/dev/null git push origin main")
-        print(f"URL after deploy: https://sukhdeepsingh.eu/blog/{slug}/")
-        print(f"Social copy: social/{slug}.md")
+    ok("committed", t())
+
+    # ── Summary ───────────────────────────────────────────────
+    total = time.monotonic() - _PIPELINE_START
+    print(f"\n\033[1;35m▸ done\033[0m  total: \033[1m{_fmt_dt(total)}\033[0m", flush=True)
+    print(f"  push with: \033[36mGIT_CONFIG_GLOBAL=/dev/null git push origin main\033[0m")
+    print(f"  url after deploy: \033[36mhttps://sukhdeepsingh.eu/blog/{slug}/\033[0m")
+    if social_path:
+        print(f"  social copy: \033[36msocial/{slug}.md\033[0m")
 
 
 if __name__ == "__main__":
