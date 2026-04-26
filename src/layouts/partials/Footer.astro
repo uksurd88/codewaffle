@@ -21,7 +21,52 @@ const mainSocial: SocialLink[] = (social as any).main ?? [];
       <a href="/blog/rss.xml" class="footer-link">RSS</a>
     </div>
   </div>
+
+  <!-- Visitor counter: bio-futurism styled, abacus.jasoncameron.dev API -->
+  <div class="cw-counter" aria-label="Visitor counter">
+    <div class="counter-pulse" aria-hidden="true"></div>
+    <span class="counter-label">// READS</span>
+    <span class="counter-digits" id="cw-counter-digits">
+      <span class="counter-skel">·······</span>
+    </span>
+    <span class="counter-strand" aria-hidden="true">
+      <span class="strand-base">A</span><span class="strand-base alt">T</span><span class="strand-base">G</span><span class="strand-base alt">C</span><span class="strand-base">A</span><span class="strand-base alt">T</span>
+    </span>
+    <span class="counter-meta">since <span id="cw-counter-since">2015</span></span>
+  </div>
 </footer>
+
+<script is:inline>
+  // Visitor counter — abacus.jasoncameron.dev (free, no auth, simple HTTP).
+  // /hit increments + returns; /get just reads. We use /hit per page load.
+  (function () {
+    const NAMESPACE = "sukhdeepsingh-eu";
+    const KEY = "total";
+    const target = document.getElementById("cw-counter-digits");
+    if (!target) return;
+
+    function pad(n) {
+      const s = String(n);
+      return s.padStart(7, "0");
+    }
+
+    function render(num) {
+      const digits = pad(num).split("");
+      target.innerHTML = digits
+        .map((d, i) => `<span class="counter-digit" style="animation-delay:${i * 60}ms">${d}</span>`)
+        .join("");
+    }
+
+    fetch(`https://abacus.jasoncameron.dev/hit/${NAMESPACE}/${KEY}`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (typeof data.value === "number") render(data.value);
+      })
+      .catch(() => {
+        // Silent fail — leave the skeleton dots
+      });
+  })();
+</script>
 
 <style>
 #cw-footer {
@@ -72,6 +117,125 @@ const mainSocial: SocialLink[] = (social as any).main ?? [];
   color: var(--cw-accent);
 }
 
+/* Visitor counter */
+.cw-counter {
+  max-width: 1400px;
+  margin: 28px auto 0;
+  padding-top: 18px;
+  border-top: 1px dashed var(--cw-line);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--cw-ink-faint);
+}
+
+.counter-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cw-accent);
+  position: relative;
+  animation: counter-blink 1.6s ease-in-out infinite;
+}
+
+.counter-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid var(--cw-accent);
+  opacity: 0.5;
+  animation: counter-ring 1.6s ease-out infinite;
+}
+
+@keyframes counter-blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.55; transform: scale(0.85); }
+}
+
+@keyframes counter-ring {
+  0%   { transform: scale(0.8); opacity: 0.55; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.counter-label {
+  color: var(--cw-accent);
+}
+
+.counter-digits {
+  display: inline-flex;
+  gap: 2px;
+  padding: 4px 8px;
+  border: 1px solid var(--cw-line-strong);
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--cw-bg-elev) 70%, transparent);
+}
+
+.counter-digit {
+  display: inline-block;
+  min-width: 9px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  color: var(--cw-ink);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0;
+  animation: counter-flip 0.5s cubic-bezier(.2, .9, .3, 1) both;
+}
+
+@keyframes counter-flip {
+  from { transform: translateY(-6px); opacity: 0; filter: blur(2px); }
+  to   { transform: translateY(0);    opacity: 1; filter: blur(0); }
+}
+
+.counter-skel {
+  color: var(--cw-ink-faint);
+  letter-spacing: 0.3em;
+}
+
+/* Tiny ACGT strand decoration so it actually looks like the rest of the site */
+.counter-strand {
+  display: inline-flex;
+  gap: 1px;
+  padding-left: 6px;
+  border-left: 1px solid var(--cw-line);
+  margin-left: 4px;
+}
+
+.strand-base {
+  display: inline-block;
+  font-size: 9px;
+  width: 11px;
+  text-align: center;
+  color: var(--cw-accent);
+  opacity: 0.7;
+  animation: strand-pulse 2.4s ease-in-out infinite;
+}
+
+.strand-base.alt {
+  color: var(--cw-warm);
+}
+
+.strand-base:nth-child(2) { animation-delay: 0.2s; }
+.strand-base:nth-child(3) { animation-delay: 0.4s; }
+.strand-base:nth-child(4) { animation-delay: 0.6s; }
+.strand-base:nth-child(5) { animation-delay: 0.8s; }
+.strand-base:nth-child(6) { animation-delay: 1.0s; }
+
+@keyframes strand-pulse {
+  0%, 100% { opacity: 0.7; transform: translateY(0); }
+  50%      { opacity: 0.3; transform: translateY(-1px); }
+}
+
+.counter-meta {
+  color: var(--cw-ink-faint);
+  margin-left: auto;
+}
+
 @media (max-width: 768px) {
   #cw-footer {
     padding: 32px 20px 24px;
@@ -82,6 +246,16 @@ const mainSocial: SocialLink[] = (social as any).main ?? [];
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
+  }
+
+  .cw-counter {
+    margin-top: 22px;
+    gap: 10px;
+  }
+
+  .counter-meta {
+    margin-left: 0;
+    width: 100%;
   }
 }
 </style>
