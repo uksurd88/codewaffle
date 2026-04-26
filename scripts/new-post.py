@@ -386,7 +386,7 @@ End with link.
 Each tweet 240 chars max. Number them like 1/, 2/, etc. Tweet 1 must be a strong hook standing alone. Last tweet must end with: "Full post → [BLOG_URL]".
 
 ## Bluesky Post
-ONE post, 280 characters MAX (hard cap, count carefully). Stand-alone hook. End with "→ [BLOG_URL]". No hashtags. Bluesky audience skews technical and science-leaning, so be direct and substantive.
+ONE post, **240 characters MAX including the URL** (hard cap — Bluesky truncates at 300 and the URL eats ~110 chars). Count your characters carefully. Stand-alone hook. End with "→ [BLOG_URL]". No hashtags. Bluesky audience skews technical and science-leaning, so be direct and substantive.
 
 The blog post title: {blog_title}
 The slug (use in [BLOG_URL] = https://sukhdeepsingh.eu/blog/{slug}):
@@ -447,12 +447,33 @@ def post_to_bluesky(text, blog_url=None, blog_title=None):
 
     pds = "https://bsky.social"
 
-    # Truncate text to 300 chars (Bluesky hard limit on graphemes is 300, bytes 3000)
-    if len(text) > 300:
-        # Reserve ~60 chars for URL + ellipsis
-        text = text[:240].rsplit(" ", 1)[0] + "…"
-        if blog_url:
-            text += f" {blog_url}"
+    # Bluesky enforces 300 graphemes. Truncate while preserving the trailing URL.
+    MAX_LEN = 290  # safety margin
+    text = text.strip()
+    if len(text) > MAX_LEN:
+        # Find the last URL in the text — we want to keep it (it's the CTA)
+        url_match = list(re.finditer(r"https?://\S+", text))
+        if url_match:
+            last_url = url_match[-1].group(0).rstrip(".,)")
+            body = text[: url_match[-1].start()].rstrip(" →")
+            budget = MAX_LEN - len(last_url) - 4  # " → " + 1 buffer
+            if budget < 40:
+                # URL is enormous — drop it, keep body
+                body = text[:MAX_LEN].rsplit(" ", 1)[0] + "…"
+                text = body
+            else:
+                if len(body) > budget:
+                    body = body[:budget].rsplit(" ", 1)[0] + "…"
+                text = f"{body} → {last_url}"
+        else:
+            # No URL in text — append blog_url if provided
+            if blog_url:
+                budget = MAX_LEN - len(blog_url) - 4
+                body = text[:budget].rsplit(" ", 1)[0] + "…"
+                text = f"{body} → {blog_url}"
+            else:
+                text = text[:MAX_LEN].rsplit(" ", 1)[0] + "…"
+    info(f"posting {len(text)} chars to bsky")
 
     # 1. Create session
     session_body = json.dumps({"identifier": handle, "password": app_pass}).encode()
@@ -533,6 +554,14 @@ def post_to_bluesky(text, blog_url=None, blog_title=None):
         else:
             info(post_uri)
         return True
+    except urllib.error.HTTPError as e:
+        body = ""
+        try:
+            body = e.read().decode("utf-8", errors="replace")[:400]
+        except Exception:
+            pass
+        warn(f"Bluesky publish failed: HTTP {e.code} — {body or e.reason}")
+        return False
     except Exception as e:
         warn(f"Bluesky publish failed: {e}")
         return False
