@@ -653,16 +653,25 @@ def post_to_bluesky(text, blog_url=None, blog_title=None):
         warn("Bluesky session missing token/did")
         return False
 
-    # 2. Build post record. Detect URL in text and convert to a clickable facet.
+    # 2. Build post record. Detect URLs and hashtags as clickable facets.
     facets = []
     for m in re.finditer(r"https?://\S+", text):
         url = m.group(0).rstrip(".,)")
-        # Byte offsets (Bluesky uses UTF-8 byte indices for facets)
         prefix = text[: m.start()].encode("utf-8")
         target = url.encode("utf-8")
         facets.append({
             "index": {"byteStart": len(prefix), "byteEnd": len(prefix) + len(target)},
             "features": [{"$type": "app.bsky.richtext.facet#link", "uri": url}],
+        })
+    # Hashtag facets — make #foo clickable + discoverable in topic feeds
+    for m in re.finditer(r"(?<!\w)#([A-Za-z][A-Za-z0-9_]{1,63})", text):
+        full_match = m.group(0)  # includes the '#'
+        tag = m.group(1)         # without '#'
+        prefix = text[: m.start()].encode("utf-8")
+        target = full_match.encode("utf-8")
+        facets.append({
+            "index": {"byteStart": len(prefix), "byteEnd": len(prefix) + len(target)},
+            "features": [{"$type": "app.bsky.richtext.facet#tag", "tag": tag}],
         })
 
     record = {
