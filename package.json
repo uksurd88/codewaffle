@@ -6,6 +6,7 @@
   "packageManager": "yarn@1.22.22",
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/snapshot-views.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "format": "prettier -w .",

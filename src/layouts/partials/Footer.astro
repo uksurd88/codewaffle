@@ -4,6 +4,16 @@ import social from "@/config/social.json";
 
 type SocialLink = { name: string; link: string };
 const mainSocial: SocialLink[] = (social as any).main ?? [];
+
+// Visitor count snapshot — written by scripts/snapshot-views.mjs at every build.
+// Provides a real fallback if the live counter API is unreachable client-side.
+let snapshot: { value: number; source?: string; fetched_at?: string } = { value: 0 };
+try {
+  // @ts-ignore — file is created by prebuild script, may not exist on first run
+  snapshot = (await import("@/data/views.json")).default;
+} catch {}
+const initialCount = snapshot.value || 0;
+const padded = String(initialCount).padStart(7, "0").split("");
 ---
 
 <footer id="cw-footer">
@@ -26,8 +36,10 @@ const mainSocial: SocialLink[] = (social as any).main ?? [];
   <div class="cw-counter" aria-label="Visitor counter">
     <div class="counter-pulse" aria-hidden="true"></div>
     <span class="counter-label">// READS</span>
-    <span class="counter-digits" id="cw-counter-digits">
-      <span class="counter-skel">·······</span>
+    <span class="counter-digits" id="cw-counter-digits" data-snapshot={String(initialCount)}>
+      {padded.map((d, i) => (
+        <span class="counter-digit" style={`animation-delay:${i * 60}ms`}>{d}</span>
+      ))}
     </span>
     <span class="counter-strand" aria-hidden="true">
       <span class="strand-base">A</span><span class="strand-base alt">T</span><span class="strand-base">G</span><span class="strand-base alt">C</span><span class="strand-base">A</span><span class="strand-base alt">T</span>
@@ -57,13 +69,20 @@ const mainSocial: SocialLink[] = (social as any).main ?? [];
         .join("");
     }
 
+    // Snapshot from build time is already rendered in the DOM. The runtime fetch
+    // increments the counter and replaces with the live number. If the API is
+    // unreachable, the build-time snapshot stays visible — never a broken state.
+    const snapshot = parseInt(target.getAttribute("data-snapshot") || "0", 10);
+
     fetch(`https://abacus.jasoncameron.dev/hit/${NAMESPACE}/${KEY}`)
       .then((r) => r.json())
       .then((data) => {
-        if (typeof data.value === "number") render(data.value);
+        if (typeof data.value === "number" && data.value >= snapshot) {
+          render(data.value);
+        }
       })
       .catch(() => {
-        // Silent fail — leave the skeleton dots
+        // Silent — keep snapshot visible
       });
   })();
 </script>
