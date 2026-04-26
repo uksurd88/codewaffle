@@ -35,6 +35,19 @@ import projects from "@/data/projects.json";
                 {p.outcomes.map((o: string) => (<li>{o}</li>))}
               </ul>
             )}
+            {p.articles?.length && (
+              <div class="work-articles">
+                <div class="work-articles-label font-mono-bio">// PUBLISHED FROM THIS WORK</div>
+                <ul class="work-articles-list">
+                  {p.articles.map((a: any) => (
+                    <li>
+                      <a href={a.url} target="_blank" rel="noopener noreferrer">{a.title}</a>
+                      <span class="work-articles-meta"> · {a.venue} · {new Date(a.date).getFullYear()}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
             {p.tags?.length && (
               <div class="work-tags">
                 {p.tags.map((t: string) => (<span class="work-tag">{t}</span>))}
@@ -141,6 +154,46 @@ import projects from "@/data/projects.json";
   position: absolute;
   left: 0;
   color: var(--cw-accent);
+}
+
+.work-articles {
+  margin: 14px 0 12px;
+  padding: 12px 14px;
+  border-left: 2px solid var(--cw-warm);
+  background: color-mix(in srgb, var(--cw-bg) 50%, transparent);
+}
+
+.work-articles-label {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--cw-warm);
+  margin-bottom: 8px;
+}
+
+.work-articles-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.work-articles-list li {
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 3px 0;
+  color: var(--cw-ink-dim);
+}
+
+.work-articles-list a {
+  color: var(--cw-ink);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.work-articles-list a:hover { color: var(--cw-accent); text-decoration: underline; }
+
+.work-articles-meta {
+  color: var(--cw-ink-faint);
+  font-size: 12px;
 }
 
 .work-tags {

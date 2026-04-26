@@ -49,6 +49,26 @@
       "Drove FAIR-by-design adoption across schema, vocabulary, and ingestion decisions",
       "Aligned 30+ stakeholders across Novartis units on knowledge-graph principles in stakeholder workshops",
       "Helped establish Data42 as a reference case in pharma data engineering"
+    ],
+    "articles": [
+      {
+        "title": "Data Landscape Exploration",
+        "venue": "The Hyve",
+        "date": "2020-06-19",
+        "url": "https://www.thehyve.nl/articles/data-landscape-exploration"
+      },
+      {
+        "title": "Merits and Demerits of Centralized, Decentralized and Hybrid Infrastructures",
+        "venue": "The Hyve",
+        "date": "2020-12-11",
+        "url": "https://www.thehyve.nl/articles/centralized-decentralized-and-hybrid-infrastructures"
+      },
+      {
+        "title": "Driving FAIR in Biopharma — D4 Pharma report contribution",
+        "venue": "D4 Pharma & The Hyve",
+        "date": "2021-02-08",
+        "url": "https://www.thehyve.nl/articles/fair-report-d4-the-hyve"
+      }
     ]
   },
   {

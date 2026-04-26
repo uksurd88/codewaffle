@@ -1,0 +1,203 @@
+---
+import Base from "@/layouts/Base.astro";
+import writing from "@/data/writing.json";
+
+function fmtDate(s: string) {
+  return new Date(s).toLocaleDateString("en-GB", { month: "short", year: "numeric" });
+}
+
+// Group by type, preserve type order encountered
+const byType: Record<string, any[]> = {};
+const typeOrder: string[] = [];
+for (const item of writing as any[]) {
+  if (!byType[item.type]) {
+    byType[item.type] = [];
+    typeOrder.push(item.type);
+  }
+  byType[item.type].push(item);
+}
+
+// Sort each group newest first
+for (const t of typeOrder) {
+  byType[t].sort((a, b) => +new Date(b.date) - +new Date(a.date));
+}
+---
+
+<Base
+  title="Writing elsewhere"
+  meta_title="Writing — articles, reports, and external bylines by Sukhi Singh"
+  description="Articles, industry reports, and external bylines written by Sukhi Singh — including pieces written during the consulting era at The Hyve."
+>
+  <section class="wri-section">
+    <div class="wri-container">
+      <div class="wri-label">// WRITING ELSEWHERE</div>
+      <h1 class="wri-h1">
+        Things I've written <span class="warm-text serif-italic">elsewhere</span>
+      </h1>
+      <p class="wri-lede">
+        Articles, industry reports, and contributed pieces hosted on other publications. Mostly from the consulting era at The Hyve, where the work itself was the writing. The full archive of my own blog lives on <a href="/posts">/posts</a>.
+      </p>
+
+      {typeOrder.map((type) => (
+        <div class="wri-block">
+          <div class="wri-block-label">{`// ${type.toUpperCase()}`}</div>
+          <ol class="wri-list">
+            {byType[type].map((item: any) => (
+              <li class="wri-item">
+                <div class="wri-date font-mono-bio">{fmtDate(item.date)}</div>
+                <div class="wri-body">
+                  <h2 class="wri-title">
+                    <a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}</a>
+                  </h2>
+                  <div class="wri-meta">
+                    Published in <em>{item.venue}</em>
+                    {item.coauthors && <span class="wri-coauth"> · {item.coauthors}</span>}
+                    <a class="wri-extlink" href={item.url} target="_blank" rel="noopener noreferrer">↗</a>
+                  </div>
+                  {item.annotation && <p class="wri-annot">{item.annotation}</p>}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+
+      <p class="wri-footer">
+        For my academic publications (PhD years and after), see <a href="/about#publications">about → publications</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+.wri-section { padding: 60px 0 100px; }
+
+.wri-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.wri-label, .wri-block-label {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--cw-accent);
+  margin-bottom: 12px;
+}
+
+.wri-block-label {
+  color: var(--cw-warm);
+  margin: 32px 0 18px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--cw-line-strong);
+}
+
+.wri-h1 {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: clamp(40px, 5vw, 56px);
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+  line-height: 1.05;
+}
+
+.warm-text { color: var(--cw-warm); }
+.serif-italic {
+  font-family: var(--font-serif, 'Instrument Serif', serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.wri-lede {
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--cw-ink-dim);
+  max-width: 780px;
+  margin: 0 0 40px;
+}
+
+.wri-lede a {
+  color: var(--cw-accent);
+  text-decoration: underline;
+}
+
+.wri-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--cw-line);
+}
+
+.wri-item {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 24px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--cw-line);
+}
+
+.wri-date {
+  color: var(--cw-warm);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding-top: 6px;
+}
+
+.wri-title {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: 20px;
+  margin: 0 0 6px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.wri-title a {
+  color: var(--cw-ink);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.wri-title a:hover { color: var(--cw-accent); }
+
+.wri-meta {
+  font-size: 13px;
+  color: var(--cw-ink-dim);
+  margin-bottom: 8px;
+}
+
+.wri-coauth { color: var(--cw-ink-faint); }
+
+.wri-extlink {
+  color: var(--cw-accent);
+  text-decoration: none;
+  margin-left: 6px;
+}
+
+.wri-annot {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--cw-ink-dim);
+  margin: 0;
+}
+
+.wri-footer {
+  margin-top: 56px;
+  font-size: 13px;
+  color: var(--cw-ink-faint);
+  border-top: 1px dashed var(--cw-line);
+  padding-top: 18px;
+}
+
+.wri-footer a {
+  color: var(--cw-accent);
+  text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+  .wri-container { padding: 0 20px; }
+  .wri-item {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+</style>

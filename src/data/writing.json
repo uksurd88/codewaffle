@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Data Landscape Exploration",
+    "venue": "The Hyve",
+    "type": "Article",
+    "date": "2020-06-19",
+    "url": "https://www.thehyve.nl/articles/data-landscape-exploration",
+    "annotation": "Most enterprise data problems aren't tech problems, they're discoverability problems. This piece walks through how to map an organization's data landscape as a knowledge graph — what data exists, who owns it, how it connects — and why that conversation has to happen before any platform decision."
+  },
+  {
+    "title": "Merits and Demerits of Centralized, Decentralized and Hybrid Infrastructures",
+    "venue": "The Hyve",
+    "type": "Article",
+    "date": "2020-12-11",
+    "url": "https://www.thehyve.nl/articles/centralized-decentralized-and-hybrid-infrastructures",
+    "annotation": "When pharma clients asked 'should we centralize our data?' the honest answer was always 'depends — and probably hybrid'. The piece walks through the tradeoffs across centralized, decentralized, and hybrid models with concrete CDO governance examples."
+  },
+  {
+    "title": "Driving FAIR in Biopharma — D4 Pharma report contribution",
+    "venue": "D4 Pharma & The Hyve",
+    "type": "Industry Report",
+    "date": "2021-02-08",
+    "url": "https://www.thehyve.nl/articles/fair-report-d4-the-hyve",
+    "coauthors": "with Kees van Bochove",
+    "annotation": "Co-contributed practical guidance to D4 Pharma's industry report on FAIR adoption in biopharma. The honest version of what worked, what didn't, and what was overhyped when organizations actually tried to budget for FAIR transformation."
+  }
+]
