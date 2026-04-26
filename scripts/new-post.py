@@ -22,6 +22,26 @@ REPO_ROOT  = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 POSTS_DIR  = os.path.join(REPO_ROOT, "src/content/posts")
 SOCIAL_DIR = os.path.join(REPO_ROOT, "social")
 
+
+def _load_env_file():
+    """Tiny .env loader — populates os.environ with KEY=VALUE pairs from <repo>/.env."""
+    env_path = os.path.join(REPO_ROOT, ".env")
+    if not os.path.exists(env_path):
+        return
+    with open(env_path) as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, _, value = line.partition("=")
+            key = key.strip()
+            value = value.strip().strip('"').strip("'")
+            if key and key not in os.environ:
+                os.environ[key] = value
+
+
+_load_env_file()
+
 NEWSAPI_KEY       = "b2e9703e570b413e89697497b21acba9"
 UNSPLASH_KEY      = "0MBMTensZyqr9zdNG5_2d5tQGKCdSAsukPsQg_6P8So"
 DEFAULT_NEWS_Q    = "antibody discovery OR therapeutic antibody OR immunotherapy bioinformatics"
