@@ -1,0 +1,151 @@
+---
+import Base from "@/layouts/Base.astro";
+
+const lastUpdated = "April 2026";
+
+const sections = [
+  {
+    label: "WORKING ON",
+    items: [
+      "Antibody discovery platform roadmap at ENPICOM, with a Q3 push on AI-assisted clonotype shortlisting",
+      "A series of posts on what the antibody discovery stack actually looks like in 2026",
+      "An n8n + Claude pipeline that runs my newsletter and cross-posts to LinkedIn",
+    ],
+  },
+  {
+    label: "READING",
+    items: [
+      "Recent papers on AlphaFold-Multimer applied to nanobody and GPCR discovery",
+      "FAIR Cookbook updates and the broader linked-data discussion in pharma",
+      "Anything practical on building distributed teams in regulated science",
+    ],
+  },
+  {
+    label: "LEARNING",
+    items: [
+      "How to design platforms that AI agents can use as a tool, not just humans",
+      "Building MCP-style tooling around bioinformatics workflows",
+      "Speaking craft — turning dense technical work into talks people remember",
+    ],
+  },
+  {
+    label: "OFF THE CLOCK",
+    items: [
+      "DJing house and electronica sets",
+      "Hiking and ultimate frisbee around the Netherlands",
+      "Trail volunteering — most recently Norway and Iceland",
+    ],
+  },
+];
+---
+
+<Base
+  title="Now"
+  meta_title="Now — Sukhi Singh"
+  description="What I'm working on, reading, and learning right now. A /now page in the spirit of nownownow.com."
+>
+  <section class="now-section">
+    <div class="now-container">
+      <div class="now-label">// NOW</div>
+      <h1 class="now-h1">What I'm focused on right now</h1>
+      <p class="now-lede">
+        A snapshot of what's taking my attention this month. Inspired by Derek Sivers' <a href="https://nownownow.com" target="_blank" rel="noopener">/now page</a> idea. Last updated <strong>{lastUpdated}</strong>.
+      </p>
+
+      <div class="now-grid">
+        {sections.map((s) => (
+          <div class="now-block">
+            <div class="now-block-label">{`// ${s.label}`}</div>
+            <ul class="now-list">
+              {s.items.map((i: string) => (<li>{i}</li>))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <p class="now-footer">
+        Want to chat about any of these? <a href="https://www.linkedin.com/in/vanbug" target="_blank" rel="noopener">DM me on LinkedIn</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+.now-section { padding: 60px 0 100px; }
+
+.now-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.now-label, .now-block-label {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  color: var(--cw-accent);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.now-h1 {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: clamp(40px, 5vw, 56px);
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+
+.now-lede {
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--cw-ink-dim);
+  max-width: 720px;
+  margin: 0 0 56px;
+}
+
+.now-lede a, .now-footer a {
+  color: var(--cw-accent);
+  text-decoration: underline;
+}
+
+.now-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 56px;
+  margin-bottom: 60px;
+}
+
+.now-block-label {
+  color: var(--cw-warm);
+  margin-bottom: 14px;
+}
+
+.now-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.now-list li {
+  padding: 8px 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--cw-ink-dim);
+  border-bottom: 1px dashed var(--cw-line);
+}
+
+.now-list li::before {
+  content: '→ ';
+  color: var(--cw-accent);
+  margin-right: 4px;
+}
+
+.now-footer {
+  font-size: 14px;
+  color: var(--cw-ink-dim);
+}
+
+@media (max-width: 700px) {
+  .now-container { padding: 0 20px; }
+  .now-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+</style>

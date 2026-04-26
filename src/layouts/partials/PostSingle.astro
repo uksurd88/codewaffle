@@ -81,6 +81,26 @@ const heroVariant = (() => {
       <Content />
     </div>
 
+    <!-- Newsletter callout -->
+    <aside class="post-newsletter">
+      <div class="post-nl-label font-mono-bio">// SUBSCRIBE</div>
+      <h3 class="post-nl-h">Liked this? Get the next one in your inbox.</h3>
+      <p class="post-nl-p">
+        Weekly notes from inside antibody discovery × AI. Three things from the literature, one take, no fluff.
+      </p>
+      <form
+        action="https://buttondown.com/api/emails/embed-subscribe/ssingh"
+        method="post"
+        target="popupwindow"
+        onsubmit="window.open('https://buttondown.com/ssingh', 'popupwindow')"
+        class="post-nl-form"
+      >
+        <input type="email" name="email" placeholder="you@email.com" required aria-label="Email address" class="post-nl-input" />
+        <button type="submit" class="post-nl-btn">Subscribe</button>
+      </form>
+      <p class="post-nl-fine">No spam. One-click unsubscribe.</p>
+    </aside>
+
     <!-- Tags + Share -->
     <div class="post-footer-row">
       <ul class="post-tags-list">
@@ -257,6 +277,84 @@ const heroVariant = (() => {
 .post-tag-pill:hover {
   border-color: var(--cw-accent);
   color: var(--cw-accent);
+}
+
+/* Post newsletter callout */
+.post-newsletter {
+  margin: 56px 0 32px;
+  padding: 32px 32px 28px;
+  border: 1px solid var(--cw-line-strong);
+  border-left: 3px solid var(--cw-accent);
+  background: var(--cw-bg-elev);
+  border-radius: 4px;
+}
+
+.post-nl-label {
+  color: var(--cw-accent);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.post-nl-h {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+  color: var(--cw-ink);
+}
+
+.post-nl-p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--cw-ink-dim);
+  margin: 0 0 16px;
+}
+
+.post-nl-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.post-nl-input {
+  flex: 1;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-family: inherit;
+  border: 1px solid var(--cw-line-strong);
+  background: var(--cw-bg);
+  color: var(--cw-ink);
+  border-radius: 4px;
+  outline: none;
+}
+
+.post-nl-input:focus { border-color: var(--cw-accent); }
+
+.post-nl-btn {
+  padding: 11px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  letter-spacing: 0.02em;
+  border: none;
+  background: var(--cw-accent);
+  color: var(--cw-bg);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.post-nl-btn:hover { opacity: 0.85; }
+
+.post-nl-fine {
+  font-size: 11px;
+  color: var(--cw-ink-faint);
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .post-newsletter { padding: 24px 20px; }
+  .post-nl-form { flex-direction: column; }
 }
 
 /* Related posts */

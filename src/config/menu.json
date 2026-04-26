@@ -9,18 +9,42 @@
       "url": "/posts"
     },
     {
-      "name": "Categories",
-      "url": "/categories"
+      "name": "Work",
+      "url": "/work"
+    },
+    {
+      "name": "Talks",
+      "url": "/talks"
     },
     {
       "name": "About",
       "url": "/about"
+    },
+    {
+      "name": "Subscribe",
+      "url": "/subscribe"
     }
   ],
   "footer": [
     {
       "name": "About",
       "url": "/about"
+    },
+    {
+      "name": "Work",
+      "url": "/work"
+    },
+    {
+      "name": "Talks",
+      "url": "/talks"
+    },
+    {
+      "name": "Now",
+      "url": "/now"
+    },
+    {
+      "name": "Uses",
+      "url": "/uses"
     },
     {
       "name": "Categories",
