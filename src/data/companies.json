@@ -1,0 +1,235 @@
+[
+  {
+    "name": "Merck & Co",
+    "ticker": "MRK",
+    "category": "Big Pharma",
+    "why": "Keytruda (pembrolizumab) — world's #1 antibody franchise by revenue.",
+    "url": "https://www.merck.com"
+  },
+  {
+    "name": "AbbVie",
+    "ticker": "ABBV",
+    "category": "Big Pharma",
+    "why": "Humira (adalimumab), Skyrizi, Rinvoq — historically dominant immunology antibody portfolio.",
+    "url": "https://www.abbvie.com"
+  },
+  {
+    "name": "Bristol Myers Squibb",
+    "ticker": "BMY",
+    "category": "Big Pharma",
+    "why": "Opdivo (nivolumab), Yervoy (ipilimumab) — checkpoint inhibitor pioneer.",
+    "url": "https://www.bms.com"
+  },
+  {
+    "name": "Roche",
+    "ticker": "RHHBY",
+    "category": "Big Pharma",
+    "why": "Genentech antibodies, oncology market leader, broad biologics franchise.",
+    "url": "https://www.roche.com"
+  },
+  {
+    "name": "Novartis",
+    "ticker": "NVS",
+    "category": "Big Pharma",
+    "why": "Cosentyx (secukinumab), Kesimpta — biologics across immunology and neurology.",
+    "url": "https://www.novartis.com"
+  },
+  {
+    "name": "Sanofi",
+    "ticker": "SNY",
+    "category": "Big Pharma",
+    "why": "Dupixent (dupilumab) co-developed with Regeneron — fastest-growing immunology antibody.",
+    "url": "https://www.sanofi.com"
+  },
+  {
+    "name": "Eli Lilly",
+    "ticker": "LLY",
+    "category": "Big Pharma",
+    "why": "Donanemab (Alzheimer's), mirikizumab (UC), broad antibody pipeline.",
+    "url": "https://www.lilly.com"
+  },
+  {
+    "name": "AstraZeneca",
+    "ticker": "AZN",
+    "category": "Big Pharma",
+    "why": "Imfinzi (durvalumab), Enhertu ADC — oncology biologics leader.",
+    "url": "https://www.astrazeneca.com"
+  },
+  {
+    "name": "Pfizer",
+    "ticker": "PFE",
+    "category": "Big Pharma",
+    "why": "Sasanlimab, broad ADC pipeline post-Seagen acquisition.",
+    "url": "https://www.pfizer.com"
+  },
+  {
+    "name": "GSK",
+    "ticker": "GSK",
+    "category": "Big Pharma",
+    "why": "Blenrep (belantamab), Jemperli — oncology antibody bets.",
+    "url": "https://www.gsk.com"
+  },
+  {
+    "name": "Johnson & Johnson",
+    "ticker": "JNJ",
+    "category": "Big Pharma",
+    "why": "Stelara, Tremfya, Darzalex — multiple billion-dollar antibody franchises.",
+    "url": "https://www.jnj.com"
+  },
+  {
+    "name": "Takeda",
+    "ticker": "TAK",
+    "category": "Big Pharma",
+    "why": "Vonoritamab pipeline, biologics bets in rare disease.",
+    "url": "https://www.takeda.com"
+  },
+
+  {
+    "name": "Regeneron",
+    "ticker": "REGN",
+    "category": "Antibody Pure-Play",
+    "why": "Dupixent (with Sanofi), Eylea — pure antibody-discovery powerhouse.",
+    "url": "https://www.regeneron.com"
+  },
+  {
+    "name": "Genmab",
+    "ticker": "GMAB",
+    "category": "Antibody Pure-Play",
+    "why": "DuoBody bispecifics platform, Darzalex co-developed with J&J.",
+    "url": "https://www.genmab.com"
+  },
+  {
+    "name": "Alector",
+    "ticker": "ALEC",
+    "category": "Antibody Pure-Play",
+    "why": "Neuro antibodies (AL001 against FTD), GSK partnership.",
+    "url": "https://www.alector.com"
+  },
+  {
+    "name": "Adaptive Biotechnologies",
+    "ticker": "ADPT",
+    "category": "Antibody Pure-Play",
+    "why": "Immune repertoire sequencing, clonotype tracking — directly relevant to discovery infrastructure.",
+    "url": "https://www.adaptivebiotech.com"
+  },
+  {
+    "name": "Absci",
+    "ticker": "ABSI",
+    "category": "AI-Native Platform",
+    "why": "Generative AI for de novo antibody design — direct peer to ENPICOM in the AI tooling layer.",
+    "url": "https://www.absci.com"
+  },
+  {
+    "name": "Recursion Pharmaceuticals",
+    "ticker": "RXRX",
+    "category": "AI-Native Platform",
+    "why": "AI-driven drug discovery, image-based phenotyping — broader than antibodies but adjacent.",
+    "url": "https://www.recursion.com"
+  },
+  {
+    "name": "Schrödinger",
+    "ticker": "SDGR",
+    "category": "AI-Native Platform",
+    "why": "Computational drug design, physics-based + ML — used widely by big pharma.",
+    "url": "https://www.schrodinger.com"
+  },
+  {
+    "name": "Prothena",
+    "ticker": "PRTA",
+    "category": "Antibody Pure-Play",
+    "why": "Neurological / amyloid antibodies, partnered with Roche on prasinezumab.",
+    "url": "https://www.prothena.com"
+  },
+  {
+    "name": "MacroGenics",
+    "ticker": "MGNX",
+    "category": "Antibody Pure-Play",
+    "why": "DART and TRIDENT bispecific platforms.",
+    "url": "https://www.macrogenics.com"
+  },
+  {
+    "name": "Vir Biotechnology",
+    "ticker": "VIR",
+    "category": "Antibody Pure-Play",
+    "why": "Infectious-disease antibodies (sotrovimab), broad antiviral platform.",
+    "url": "https://www.vir.bio"
+  },
+  {
+    "name": "Compugen",
+    "ticker": "CGEN",
+    "category": "Antibody Pure-Play",
+    "why": "Computational checkpoint discovery, partnerships with BMS and AstraZeneca.",
+    "url": "https://www.cgen.com"
+  },
+  {
+    "name": "ALX Oncology",
+    "ticker": "ALXO",
+    "category": "Antibody Pure-Play",
+    "why": "CD47 checkpoint inhibitor evorpacept.",
+    "url": "https://www.alxoncology.com"
+  },
+  {
+    "name": "10x Genomics",
+    "ticker": "TXG",
+    "category": "Tools / Platform",
+    "why": "Single-cell sequencing — backbone of many antibody-discovery workflows.",
+    "url": "https://www.10xgenomics.com"
+  },
+  {
+    "name": "Twist Bioscience",
+    "ticker": "TWST",
+    "category": "Tools / Platform",
+    "why": "Synthetic DNA for antibody libraries, partnership with biopharma.",
+    "url": "https://www.twistbioscience.com"
+  },
+  {
+    "name": "Bruker",
+    "ticker": "BRKR",
+    "category": "Tools / Platform",
+    "why": "SPR (surface plasmon resonance), mass spec — affinity and characterization.",
+    "url": "https://www.bruker.com"
+  },
+  {
+    "name": "Illumina",
+    "ticker": "ILMN",
+    "category": "Tools / Platform",
+    "why": "Sequencing infrastructure for repertoire and discovery work.",
+    "url": "https://www.illumina.com"
+  },
+  {
+    "name": "Quanterix",
+    "ticker": "QTRX",
+    "category": "Tools / Platform",
+    "why": "Ultra-sensitive Simoa immunoassay — biomarker quantification at low abundance.",
+    "url": "https://www.quanterix.com"
+  },
+
+  {
+    "name": "Lonza",
+    "ticker": "LONN.SW",
+    "category": "CDMO",
+    "why": "Largest contract biologics manufacturer in Europe.",
+    "url": "https://www.lonza.com"
+  },
+  {
+    "name": "Samsung Biologics",
+    "ticker": "207940.KS",
+    "category": "CDMO",
+    "why": "World's largest biologics CDMO by capacity.",
+    "url": "https://www.samsungbiologics.com"
+  },
+  {
+    "name": "WuXi Biologics",
+    "ticker": "2269.HK",
+    "category": "CDMO",
+    "why": "Major Asia-Pacific biologics CDMO, geopolitical exposure (BIOSECURE Act).",
+    "url": "https://www.wuxibiologics.com"
+  },
+  {
+    "name": "Fujifilm Diosynth",
+    "ticker": "FUJIY",
+    "category": "CDMO",
+    "why": "Biologics CDMO arm of Fujifilm — capacity expansions in US/UK/Denmark.",
+    "url": "https://www.fujifilmdiosynth.com"
+  }
+]
