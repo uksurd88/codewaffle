@@ -43,3 +43,7 @@ yarn.lock
 /LICENSE
 /favicon.ico
 /favicon.png
+
+# Local working drafts from new-post.py (per-post variants, not history)
+/social/
+/newsletter/
