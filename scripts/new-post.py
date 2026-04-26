@@ -21,9 +21,10 @@ import urllib.parse
 from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 
-REPO_ROOT  = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-POSTS_DIR  = os.path.join(REPO_ROOT, "src/content/posts")
-SOCIAL_DIR = os.path.join(REPO_ROOT, "social")
+REPO_ROOT      = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+POSTS_DIR      = os.path.join(REPO_ROOT, "src/content/posts")
+SOCIAL_DIR     = os.path.join(REPO_ROOT, "social")
+NEWSLETTER_DIR = os.path.join(REPO_ROOT, "newsletter")
 
 
 def _load_env_file():
@@ -420,6 +421,162 @@ Write all 5 artifacts now. No commentary, just the headings and content."""
         return None
 
 
+def generate_newsletter(blog_content, blog_title, blog_description, slug, digest):
+    """Generate a Buttondown-ready newsletter draft from the blog post + same digest.
+    Saves to newsletter/<slug>.md.
+    Returns (path, subject, body_markdown) or None."""
+    blog_url = f"https://sukhdeepsingh.eu/blog/{slug}"
+    digest_section = (digest or "").strip()
+    if digest_section:
+        digest_section = f"\n\nADDITIONAL ITEMS FROM THIS WEEK'S DIGEST (use 3 for the 'Three things' block — pick items that did NOT get a full treatment in the blog post):\n\n{digest_section}"
+
+    prompt = f"""You are ghostwriting a newsletter issue for Sukhi Singh aka Rad. Project Lead at ENPICOM, antibody discovery + AI. Audience: ~practitioners (bioinformaticians, scientists, biotech PMs, science-curious tech people). Sent via Buttondown.
+
+GOAL: drive readers back to the blog post, build long-term trust, surface speaking + consulting opportunities through reply conversations.
+
+VOICE:
+- Smart peer over coffee. Personal, not corporate. First person.
+- Banned words: "exciting", "thrilled", "groundbreaking", "game-changing", "delve", "leverage", "landscape", "realm"
+- Short sentences. Plain English. NEVER "Welcome to this week's edition of..."
+- Have an opinion. Have a stake. Specific > general.
+
+LENGTH: 500–800 words TOTAL. Reads in 3–4 minutes.
+
+OUTPUT FORMAT (use these exact section headings, verbatim — they will be parsed):
+
+SUBJECT: <50–65 char subject line. Specific, hook-driven. NEVER "Weekly digest" or "This week".>
+PREVIEW: <90–120 char preview text. Continues the subject's hook.>
+
+---BODY---
+
+[Opener — 2–3 sentences, no heading. Personal observation, anecdote, or a thing you noticed this week. NOT a recap.]
+
+[Lead paragraph — 100–150 words. Introduce the blog post in newsletter voice. Tease the contrarian angle. End with: "Read the full post → {blog_url}"]
+
+## Three things that caught my eye
+
+→ **[Item 1 — short title]**
+[2–3 sentences. What it is, what it means.]
+
+→ **[Item 2 — short title]**
+[2–3 sentences.]
+
+→ **[Item 3 — short title]**
+[2–3 sentences.]
+
+## One thought
+
+[A single standalone observation, 2–3 sentences. The thing a reader would screenshot. Should connect to the post's theme but stand alone.]
+
+## What I'm working on
+
+[1–2 sentences. Behind-the-scenes signal — current project at ENPICOM, an upcoming talk, a side build, a hike. Concrete, low-key. Avoid humble-bragging.]
+
+[Sign-off — 1 line invitation to reply, e.g. "If any of this resonates, hit reply. I read every one." then "— Sukhi"]
+
+[OPTIONAL P.S. — one line. Topical aside, link to /talks page, or specific ask if relevant.]
+
+---END---
+
+CONTEXT:
+- Blog post title: {blog_title}
+- Blog post description: {blog_description}
+- Blog URL: {blog_url}
+
+BLOG POST CONTENT (your reference for voice and lead-paragraph teaser — do NOT just paste it):
+{blog_content}{digest_section}
+
+Write the newsletter now. Output ONLY the SUBJECT, PREVIEW, and the BODY between ---BODY--- and ---END--- markers. Nothing else."""
+
+    try:
+        result = subprocess.run(
+            ["claude", "-p", prompt],
+            capture_output=True, text=True, timeout=180
+        )
+        if result.returncode != 0:
+            warn(f"newsletter generation: claude returned non-zero — {result.stderr[:200]}")
+            return None
+        raw = result.stdout.strip()
+
+        # Parse subject + preview + body
+        subj_m  = re.search(r"^SUBJECT:\s*(.+)$", raw, re.MULTILINE)
+        prev_m  = re.search(r"^PREVIEW:\s*(.+)$", raw, re.MULTILINE)
+        body_m  = re.search(r"---BODY---\s*\n([\s\S]+?)\n\s*---END---", raw)
+        if not (subj_m and body_m):
+            warn("newsletter parse failed (no SUBJECT or BODY markers)")
+            return None
+
+        subject = subj_m.group(1).strip().strip('"').strip("'")
+        preview = (prev_m.group(1).strip().strip('"').strip("'") if prev_m else "")
+        body    = body_m.group(1).strip()
+
+        os.makedirs(NEWSLETTER_DIR, exist_ok=True)
+        path = os.path.join(NEWSLETTER_DIR, f"{slug}.md")
+        header = (
+            f"# Newsletter draft — {blog_title}\n\n"
+            f"**Subject:** {subject}\n\n"
+            f"**Preview text:** {preview}\n\n"
+            f"**Blog URL:** {blog_url}\n\n"
+            f"**Generated:** {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}\n\n"
+            "_Word count target 500–800. Review, then either copy into Buttondown manually or auto-publish via API._\n\n"
+            "---\n\n"
+        )
+        with open(path, "w") as f:
+            f.write(header + body + "\n")
+        return path, subject, preview, body
+    except Exception as e:
+        warn(f"newsletter generation error: {e}")
+        return None
+
+
+def send_to_buttondown(subject, body, preview="", as_draft=True):
+    """Create the newsletter in Buttondown.
+    By default creates a DRAFT (status=draft) so the user can review + send manually.
+    Set as_draft=False to publish immediately (NOT recommended for first runs).
+    Requires BUTTONDOWN_API_KEY env var. Get one at: https://buttondown.com/settings/programming"""
+    api_key = os.getenv("BUTTONDOWN_API_KEY")
+    if not api_key:
+        warn("BUTTONDOWN_API_KEY not set, skipping (newsletter draft saved to file only)")
+        return False
+
+    payload = {
+        "subject": subject,
+        "body": body,
+        "email_type": "public",
+        "status": "draft" if as_draft else "about_to_send",
+    }
+    if preview:
+        payload["description"] = preview  # Buttondown calls preview text "description"
+
+    body_bytes = json.dumps(payload).encode()
+    req = urllib.request.Request(
+        "https://api.buttondown.com/v1/emails",
+        data=body_bytes,
+        headers={
+            "Authorization": f"Token {api_key}",
+            "Content-Type": "application/json",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=20) as r:
+            resp = json.loads(r.read())
+        edit_url = f"https://buttondown.com/emails/{resp.get('id', '')}"
+        info(f"draft created: {edit_url}")
+        return True
+    except urllib.error.HTTPError as e:
+        body_text = ""
+        try:
+            body_text = e.read().decode("utf-8", errors="replace")[:400]
+        except Exception:
+            pass
+        warn(f"Buttondown failed: HTTP {e.code} — {body_text or e.reason}")
+        return False
+    except Exception as e:
+        warn(f"Buttondown failed: {e}")
+        return False
+
+
 def extract_bluesky_text(social_path):
     """Pull the '## Bluesky Post' section from the social variants file."""
     try:
@@ -673,7 +830,10 @@ def main():
     no_social = "--no-social" in args
     args = [a for a in args if a not in ("--dry-run", "--no-social")]
 
+    no_newsletter = "--no-newsletter" in args
+    args = [a for a in args if a != "--no-newsletter"]
     has_bsky = bool(os.getenv("BSKY_HANDLE") and os.getenv("BSKY_APP_PASSWORD"))
+    has_buttondown = bool(os.getenv("BUTTONDOWN_API_KEY"))
 
     # Compute total steps based on flags
     # Always: fetch sources, generate post, save
@@ -695,6 +855,8 @@ def main():
         + (1 if not dry_run else 0)  # save (with Unsplash inline)
         + (0 if (no_social or dry_run) else 1)  # social variants
         + (1 if (has_bsky and not dry_run and not no_social) else 0)  # bluesky
+        + (0 if (no_newsletter or dry_run) else 1)  # newsletter draft
+        + (1 if (has_buttondown and not dry_run and not no_newsletter) else 0)  # buttondown push
         + (1 if not dry_run else 0)  # commit
     )
 
@@ -703,8 +865,12 @@ def main():
         info("--dry-run: nothing will be saved or pushed")
     if no_social:
         info("--no-social: skipping social variants + Bluesky")
+    if no_newsletter:
+        info("--no-newsletter: skipping newsletter draft")
     if not has_bsky and not dry_run and not no_social:
         info("BSKY_HANDLE/BSKY_APP_PASSWORD not set — Bluesky step will be skipped")
+    if not has_buttondown and not dry_run and not no_newsletter:
+        info("BUTTONDOWN_API_KEY not set — newsletter saved to file only (no auto-draft to Buttondown)")
 
     source_map = {}
     digest = None
@@ -780,6 +946,8 @@ def main():
 
     # ── 5. Social variants ────────────────────────────────────
     social_path = None
+    nl_result = None
+    nl_subject = None
     if not no_social:
         step("Generating social variants (LinkedIn ×4 + Twitter thread + Bluesky)")
         info("another claude -p call, expect 30–60s")
@@ -804,7 +972,32 @@ def main():
         else:
             warn("no Bluesky section found in social file — skipping")
 
-    # ── 7. Commit (UUID system) ───────────────────────────────
+    # ── 7. Newsletter draft ───────────────────────────────────
+    nl_result = None
+    if not no_newsletter:
+        step("Generating newsletter draft (500–800 words, Buttondown-ready)")
+        info("another claude -p call, expect 30–60s")
+        with stopwatch() as t, heartbeat("drafting newsletter", interval=10):
+            nl_result = generate_newsletter(content, title, extract_description(content), slug, digest)
+        if nl_result:
+            nl_path, nl_subject, nl_preview, nl_body = nl_result
+            ok(f"newsletter/{slug}.md  ·  subject: \"{nl_subject}\"", t())
+            wc = len(nl_body.split())
+            info(f"~{wc} words")
+        else:
+            warn("newsletter generation failed (post still saved)")
+
+    # ── 8. Push newsletter draft to Buttondown ────────────────
+    if has_buttondown and not no_newsletter and nl_result:
+        step("Pushing newsletter as DRAFT to Buttondown")
+        with stopwatch() as t:
+            sent = send_to_buttondown(nl_subject, nl_body, preview=nl_preview, as_draft=True)
+        if sent:
+            ok("draft created in Buttondown — review at buttondown.com/emails", t())
+        else:
+            warn("Buttondown push failed (newsletter saved locally)")
+
+    # ── 9. Commit (UUID system) ───────────────────────────────
     step("Committing to git with UUID")
     with stopwatch() as t:
         commit_post(filepath, f"Add post: {title[:60]}")
@@ -817,6 +1010,8 @@ def main():
     print(f"  url after deploy: \033[36mhttps://sukhdeepsingh.eu/blog/{slug}/\033[0m")
     if social_path:
         print(f"  social copy: \033[36msocial/{slug}.md\033[0m")
+    if nl_result:
+        print(f"  newsletter:  \033[36mnewsletter/{slug}.md\033[0m  (subject: \"{nl_subject}\")")
 
 
 if __name__ == "__main__":
