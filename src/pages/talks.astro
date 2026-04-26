@@ -1,0 +1,188 @@
+---
+import Base from "@/layouts/Base.astro";
+import talks from "@/data/talks.json";
+
+function fmtDate(s: string) {
+  const d = new Date(s);
+  return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+}
+---
+
+<Base
+  title="Talks & Speaking"
+  meta_title="Talks — Sukhi Singh"
+  description="Talks, panels, and workshops Sukhi Singh has hosted on antibody discovery, AI in pharma, FAIR data, and bioinformatics."
+>
+  <section class="talks-section">
+    <div class="talks-container">
+      <div class="talks-label">// SPEAKING</div>
+      <h1 class="talks-h1">Talks &amp; speaking</h1>
+      <p class="talks-lede">
+        Lectures, panels, and workshops on antibody discovery, AI in drug development, FAIR data, and how teams actually ship bioinformatics platforms. Want me to speak at your event? <a href="https://www.linkedin.com/in/vanbug" target="_blank" rel="noopener">Reach out on LinkedIn</a>.
+      </p>
+
+      <ol class="talks-list">
+        {talks.map((t: any) => (
+          <li class="talk-item">
+            <div class="talk-date">{fmtDate(t.date)}</div>
+            <div class="talk-body">
+              <h2 class="talk-title">
+                {t.url ? <a href={t.url}>{t.title}</a> : t.title}
+              </h2>
+              <div class="talk-meta">
+                <span class="talk-venue">{t.venue}</span>
+                {t.host && <span class="talk-host"> · {t.host}</span>}
+                {t.format && <span class="talk-format"> · {t.format}</span>}
+              </div>
+              {t.description && <p class="talk-desc">{t.description}</p>}
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <div class="talks-cta">
+        <p>
+          Topics I cover:
+        </p>
+        <ul class="talks-topics">
+          <li>Antibody discovery in the AI era — what works, what's still hype</li>
+          <li>Building FAIR-by-design platforms for pharma R&amp;D</li>
+          <li>Data governance for AI in regulated environments</li>
+          <li>Knowledge graphs in drug discovery (Novartis Data42 case study)</li>
+          <li>Repertoire sequencing and clonotype analytics for therapeutics</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+.talks-section {
+  padding: 60px 0 100px;
+}
+
+.talks-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.talks-label {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  color: var(--cw-accent);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.talks-h1 {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: clamp(40px, 5vw, 56px);
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+
+.talks-lede {
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--cw-ink-dim);
+  max-width: 720px;
+  margin: 0 0 56px;
+}
+
+.talks-lede a {
+  color: var(--cw-accent);
+  text-decoration: underline;
+}
+
+.talks-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 60px;
+  border-top: 1px solid var(--cw-line);
+}
+
+.talk-item {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--cw-line);
+}
+
+.talk-date {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--cw-warm);
+  padding-top: 4px;
+}
+
+.talk-title {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: 22px;
+  margin: 0 0 8px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.talk-title a {
+  color: var(--cw-ink);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.talk-title a:hover {
+  color: var(--cw-accent);
+}
+
+.talk-meta {
+  font-size: 13px;
+  color: var(--cw-ink-dim);
+  margin-bottom: 8px;
+}
+
+.talk-host, .talk-format {
+  color: var(--cw-ink-faint);
+}
+
+.talk-desc {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--cw-ink-dim);
+  margin: 0;
+}
+
+.talks-cta {
+  font-size: 15px;
+  color: var(--cw-ink-dim);
+  line-height: 1.6;
+}
+
+.talks-cta p { margin: 0 0 12px; }
+
+.talks-topics {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.talks-topics li {
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--cw-line);
+}
+
+.talks-topics li::before {
+  content: '◇ ';
+  color: var(--cw-accent);
+  margin-right: 8px;
+}
+
+@media (max-width: 700px) {
+  .talks-container { padding: 0 20px; }
+  .talk-item {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+</style>

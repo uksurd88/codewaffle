@@ -4,9 +4,11 @@ import Posts from "@/components/Posts.astro";
 import Base from "@/layouts/Base.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 import { sortByDate } from "@/lib/utils/sortFunctions";
+import dateFormat from "@/lib/utils/dateFormat";
 
 const posts = await getSinglePage("posts");
 const sortedPosts = sortByDate(posts);
+const startHere = sortedPosts.slice(0, 3);
 ---
 
 <Base>
@@ -24,15 +26,68 @@ const sortedPosts = sortByDate(posts);
         edge of <span class="accent-text">biology</span> and<br />
         <span class="warm-text">machine intelligence</span>.
       </h1>
+      <p class="hero-sub">
+        Weekly field notes from inside antibody discovery and AI in pharma.<br />
+        What the literature actually says, what the platforms get wrong, and what to build next.
+      </p>
       <div class="hero-cta">
-        <a href="/posts" class="cw-btn">
-          <span>Read the posts</span>
+        <a href="/subscribe" class="cw-btn primary">
+          <span>Subscribe — weekly</span>
           <span class="btn-arrow">→</span>
         </a>
+        <a href="/posts" class="cw-btn">
+          <span>Read the posts</span>
+        </a>
         <div class="hero-meta">
-          <span class="font-mono-bio">{posts.length} entries</span> · since 2015
+          <span class="font-mono-bio">{posts.length} entries</span>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Start here -->
+  {startHere.length > 0 && (
+    <section class="cw-section start-here">
+      <div class="cw-container">
+        <div class="section-header">
+          <div>
+            <div class="section-label">// START.HERE</div>
+            <h2 class="section-title">New here? Start with these.</h2>
+          </div>
+          <a href="/posts" class="header-link">All posts →</a>
+        </div>
+        <div class="start-grid">
+          {startHere.map((p: any) => (
+            <a href={`/blog/${p.id}`} class="start-card">
+              <div class="start-date font-mono-bio">{dateFormat(p.data.date).toUpperCase()}</div>
+              <h3 class="start-title">{p.data.title}</h3>
+              {p.data.description && (<p class="start-desc">{p.data.description}</p>)}
+              <div class="start-cta font-mono-bio">READ →</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Inline subscribe strip -->
+  <section class="sub-strip">
+    <div class="cw-container sub-strip-inner">
+      <div>
+        <div class="section-label warm-label">// SUBSCRIBE</div>
+        <h3 class="sub-strip-h">Get the next post in your inbox.</h3>
+        <p class="sub-strip-p">Weekly. Three things from the literature, one take, no fluff.</p>
+      </div>
+      <form
+        action="https://buttondown.com/api/emails/embed-subscribe/ssingh"
+        method="post"
+        target="popupwindow"
+        onsubmit="window.open('https://buttondown.com/ssingh', 'popupwindow')"
+        class="sub-strip-form"
+      >
+        <input type="email" name="email" placeholder="you@email.com" required aria-label="Email address" class="sub-strip-input" />
+        <button type="submit" class="sub-strip-btn">Subscribe</button>
+      </form>
     </div>
   </section>
 
@@ -175,9 +230,163 @@ const sortedPosts = sortByDate(posts);
   color: var(--cw-bg);
 }
 
+.cw-btn.primary {
+  background: var(--cw-accent);
+  border-color: var(--cw-accent);
+  color: var(--cw-bg);
+}
+
+.cw-btn.primary:hover {
+  background: var(--cw-ink);
+  border-color: var(--cw-ink);
+  color: var(--cw-bg);
+}
+
 .btn-arrow {
   font-size: 14px;
 }
+
+.hero-sub {
+  font-family: var(--font-serif, 'Instrument Serif', serif);
+  font-size: 19px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--cw-ink-dim);
+  margin-bottom: 28px;
+  max-width: 680px;
+}
+
+/* Start here */
+.start-here {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+
+.header-link {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--cw-accent);
+  text-decoration: none;
+}
+
+.header-link:hover { color: var(--cw-ink); }
+
+.start-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.start-card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border: 1px solid var(--cw-line);
+  background: var(--cw-bg-elev);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.start-card:hover {
+  border-color: var(--cw-accent);
+  transform: translateY(-2px);
+}
+
+.start-date {
+  color: var(--cw-warm);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+
+.start-title {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: 17px;
+  line-height: 1.25;
+  color: var(--cw-ink);
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+
+.start-desc {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--cw-ink-dim);
+  margin: 0 0 16px;
+  flex: 1;
+}
+
+.start-cta {
+  font-size: 11px;
+  color: var(--cw-accent);
+  letter-spacing: 0.1em;
+  margin-top: auto;
+}
+
+/* Subscribe strip */
+.sub-strip {
+  padding: 40px 0;
+  border-top: 1px solid var(--cw-line);
+  border-bottom: 1px solid var(--cw-line);
+  background: var(--cw-bg-elev);
+}
+
+.sub-strip-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: center;
+}
+
+.sub-strip-h {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  margin: 4px 0 4px;
+}
+
+.sub-strip-p {
+  font-size: 13px;
+  color: var(--cw-ink-dim);
+  margin: 0;
+}
+
+.sub-strip-form {
+  display: flex;
+  gap: 8px;
+}
+
+.sub-strip-input {
+  width: 240px;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-family: inherit;
+  border: 1px solid var(--cw-line-strong);
+  background: var(--cw-bg);
+  color: var(--cw-ink);
+  border-radius: 4px;
+  outline: none;
+}
+
+.sub-strip-input:focus { border-color: var(--cw-accent); }
+
+.sub-strip-btn {
+  padding: 11px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  letter-spacing: 0.02em;
+  border: none;
+  background: var(--cw-accent);
+  color: var(--cw-bg);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.sub-strip-btn:hover { opacity: 0.85; }
 
 /* Sections */
 .cw-section {
@@ -264,17 +473,29 @@ const sortedPosts = sortByDate(posts);
   }
 }
 
+@media (max-width: 900px) {
+  .start-grid { grid-template-columns: 1fr; }
+  .sub-strip-inner {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .sub-strip-form { width: 100%; }
+  .sub-strip-input { width: 100%; }
+}
+
 @media (max-width: 640px) {
   .hero-content {
     padding: 60px 20px 0;
   }
 
   #cw-hero {
-    height: 520px;
+    height: 600px;
   }
 
   .cw-container {
     padding: 0 20px;
   }
+
+  .sub-strip-form { flex-direction: column; }
 }
 </style>

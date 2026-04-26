@@ -1,0 +1,66 @@
+[
+  {
+    "title": "Antibody discovery platform — ENPICOM",
+    "client": "ENPICOM (current)",
+    "period": "Sep 2025 – present",
+    "role": "Project Lead",
+    "tags": ["antibody discovery", "NGS", "AI/ML", "FAIR", "ISO 27001"],
+    "summary": "Lead >€1M cross-functional programs turning immune repertoire NGS into therapeutic antibody candidate shortlists. Drive R&D, AI, and product roadmap.",
+    "outcomes": [
+      "Aligned scientific, engineering, and product teams on a unified discovery roadmap",
+      "Embedded FAIR-by-design and ISO 27001 across the platform",
+      "Integrated AI/ML candidate ranking into the IGX Platform"
+    ]
+  },
+  {
+    "title": "AI & data strategy across pharma, energy, DeSci",
+    "client": "RadTech (independent consultancy)",
+    "period": "Mar 2024 – present",
+    "role": "Principal Consultant",
+    "tags": ["AI strategy", "FAIR", "linked data", "blockchain", "DeSci"],
+    "summary": "Advise organizations across pharma, renewables, and decentralized science on AI, data governance, and partnerships. Global delivery across UAE, China, India, LATAM, and South Africa.",
+    "outcomes": [
+      "Built and delivered AI business cases ranging from $20K to $20M",
+      "Designed FAIR-aligned data platforms for regulated environments",
+      "Bridged scientific, business, and engineering stakeholders end-to-end"
+    ]
+  },
+  {
+    "title": "AI biomarker discovery program",
+    "client": "Genialis",
+    "period": "Apr 2023 – Feb 2024",
+    "role": "Program Lead, AI Biomarker Discovery",
+    "tags": ["oncology", "biomarkers", "AI/ML", "NGS", "GDPR/HIPAA"],
+    "summary": "Led cancer biomarker programs combining AI, ML, and NGS. Coordinated KOLs, CROs, and senior leadership.",
+    "outcomes": [
+      "Delivered FAIR, ISO 27001, GDPR, HIPAA-compliant AI workflows",
+      "Translated multi-modal molecular data into clinically interpretable biomarkers",
+      "Closed and ran multiple biopharma engagements end-to-end"
+    ]
+  },
+  {
+    "title": "Novartis Data42 knowledge graph",
+    "client": "Novartis (via The Hyve)",
+    "period": "Nov 2019 – Mar 2021",
+    "role": "FAIR Data & AI Consultant",
+    "tags": ["knowledge graph", "FAIR", "OMOP", "CDISC", "real-world evidence"],
+    "summary": "Architected and led the Data42 knowledge graph initiative across 30+ stakeholders, integrating clinical, omics, and real-world data for AI-driven discovery.",
+    "outcomes": [
+      "Defined the schema and ingestion pipelines that underpin Data42",
+      "Aligned Top 15 pharma stakeholders on FAIR + linked data principles",
+      "Established the program as a reference case in pharma data engineering"
+    ]
+  },
+  {
+    "title": "First tetraploid potato genome assembly",
+    "client": "HZPC Research",
+    "period": "Earlier",
+    "role": "Bioinformatician",
+    "tags": ["genome assembly", "polyploid", "agrigenomics"],
+    "summary": "Contributed to the first published tetraploid potato genome assembly — a hard polyploid genomics problem with direct breeding and trait-mapping applications.",
+    "outcomes": [
+      "Helped break a long-standing bottleneck in polyploid crop genomics",
+      "Pipeline reused for downstream variant and trait studies"
+    ]
+  }
+]

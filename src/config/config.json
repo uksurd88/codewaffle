@@ -1,6 +1,6 @@
 {
   "site": {
-    "title": "Sukhi Singh | Science, AI & Adventures",
+    "title": "Sukhi Singh — Notes from inside antibody discovery × AI",
     "base_url": "https://sukhdeepsingh.eu",
     "base_path": "/",
     "trailing_slash": false,
@@ -18,7 +18,7 @@
   "metadata": {
     "meta_author": "Sukhi Singh",
     "meta_image": "/images/og-image.png",
-    "meta_description": "Bioinformatician, DJ and Adventurer. Writing about science, AI, antibody engineering and life."
+    "meta_description": "Field notes from inside therapeutic antibody discovery and AI: weekly posts on what the literature actually says, what the platforms get wrong, and what to build next."
   },
 
   "google_tag_manager": {

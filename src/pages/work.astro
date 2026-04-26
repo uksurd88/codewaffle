@@ -1,0 +1,168 @@
+---
+import Base from "@/layouts/Base.astro";
+import projects from "@/data/projects.json";
+---
+
+<Base
+  title="Selected work"
+  meta_title="Work — Sukhi Singh"
+  description="Selected projects across antibody discovery, AI strategy, FAIR data, and bioinformatics platforms."
+>
+  <section class="work-section">
+    <div class="work-container">
+      <div class="work-label">// SELECTED WORK</div>
+      <h1 class="work-h1">What I've shipped</h1>
+      <p class="work-lede">
+        A selection of programs, platforms, and consulting engagements at the edge of biology, data, and AI. For specifics or references, <a href="https://www.linkedin.com/in/vanbug" target="_blank" rel="noopener">reach out on LinkedIn</a>.
+      </p>
+
+      <div class="work-list">
+        {projects.map((p: any) => (
+          <article class="work-card">
+            <header class="work-card-header">
+              <h2 class="work-card-title">{p.title}</h2>
+              <div class="work-card-meta">
+                <span class="work-client">{p.client}</span>
+                <span class="work-sep">·</span>
+                <span class="work-role">{p.role}</span>
+                <span class="work-sep">·</span>
+                <span class="work-period">{p.period}</span>
+              </div>
+            </header>
+            <p class="work-summary">{p.summary}</p>
+            {p.outcomes?.length && (
+              <ul class="work-outcomes">
+                {p.outcomes.map((o: string) => (<li>{o}</li>))}
+              </ul>
+            )}
+            {p.tags?.length && (
+              <div class="work-tags">
+                {p.tags.map((t: string) => (<span class="work-tag">{t}</span>))}
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+.work-section { padding: 60px 0 100px; }
+
+.work-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.work-label {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  color: var(--cw-accent);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.work-h1 {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: clamp(40px, 5vw, 56px);
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+
+.work-lede {
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--cw-ink-dim);
+  max-width: 720px;
+  margin: 0 0 56px;
+}
+
+.work-lede a {
+  color: var(--cw-accent);
+  text-decoration: underline;
+}
+
+.work-list {
+  display: grid;
+  gap: 24px;
+}
+
+.work-card {
+  padding: 28px 28px 24px;
+  border: 1px solid var(--cw-line);
+  background: var(--cw-bg-elev);
+  border-radius: 4px;
+}
+
+.work-card-header { margin-bottom: 14px; }
+
+.work-card-title {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: 22px;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+  color: var(--cw-ink);
+}
+
+.work-card-meta {
+  font-size: 13px;
+  color: var(--cw-ink-dim);
+}
+
+.work-client { color: var(--cw-warm); font-weight: 500; }
+.work-sep { color: var(--cw-ink-faint); margin: 0 6px; }
+.work-period { color: var(--cw-ink-faint); }
+
+.work-summary {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--cw-ink-dim);
+  margin: 0 0 14px;
+}
+
+.work-outcomes {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--cw-ink-dim);
+}
+
+.work-outcomes li {
+  padding: 4px 0 4px 18px;
+  position: relative;
+}
+
+.work-outcomes li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--cw-accent);
+}
+
+.work-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.work-tag {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1px solid var(--cw-line-strong);
+  border-radius: 2px;
+  color: var(--cw-ink-faint);
+}
+
+@media (max-width: 700px) {
+  .work-container { padding: 0 20px; }
+  .work-card { padding: 22px 18px; }
+}
+</style>

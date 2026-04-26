@@ -18,12 +18,35 @@ import urllib.request
 import urllib.parse
 from datetime import datetime, timedelta, timezone
 
-REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-POSTS_DIR = os.path.join(REPO_ROOT, "src/content/posts")
+REPO_ROOT  = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+POSTS_DIR  = os.path.join(REPO_ROOT, "src/content/posts")
+SOCIAL_DIR = os.path.join(REPO_ROOT, "social")
 
-NEWSAPI_KEY      = "b2e9703e570b413e89697497b21acba9"
-DEFAULT_NEWS_Q   = "antibody discovery OR therapeutic antibody OR immunotherapy bioinformatics"
-DEFAULT_PUBMED_Q = "antibody discovery[Title/Abstract] AND (NGS OR single-cell OR bioinformatics OR immunogenomics)"
+
+def _load_env_file():
+    """Tiny .env loader — populates os.environ with KEY=VALUE pairs from <repo>/.env."""
+    env_path = os.path.join(REPO_ROOT, ".env")
+    if not os.path.exists(env_path):
+        return
+    with open(env_path) as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, _, value = line.partition("=")
+            key = key.strip()
+            value = value.strip().strip('"').strip("'")
+            if key and key not in os.environ:
+                os.environ[key] = value
+
+
+_load_env_file()
+
+NEWSAPI_KEY       = "b2e9703e570b413e89697497b21acba9"
+UNSPLASH_KEY      = "0MBMTensZyqr9zdNG5_2d5tQGKCdSAsukPsQg_6P8So"
+DEFAULT_NEWS_Q    = "antibody discovery OR therapeutic antibody OR immunotherapy bioinformatics"
+DEFAULT_PUBMED_Q  = "antibody discovery[Title/Abstract] AND (NGS OR single-cell OR bioinformatics OR immunogenomics)"
+UNSPLASH_DEFAULT  = "antibody molecular biology"
 
 CATEGORIES = ["Science", "Antibody Engineering"]
 
@@ -239,6 +262,219 @@ Digest of relevant sources from the last 30 days (as of {week_of}):
 Write the post on the topic "{topic}", weaving in at least 3 of the digest sources as citations. If a digest item doesn't fit the topic, skip it — don't force it."""
 
 
+def fetch_hero_image(query=None):
+    """Returns (image_url, photographer_name, photographer_url, unsplash_url) or None."""
+    q = query or UNSPLASH_DEFAULT
+    params = urllib.parse.urlencode({"query": q, "per_page": "5", "orientation": "landscape"})
+    url = f"https://api.unsplash.com/search/photos?{params}"
+    req = urllib.request.Request(url, headers={"Authorization": f"Client-ID {UNSPLASH_KEY}"})
+    try:
+        with urllib.request.urlopen(req, timeout=10) as r:
+            data = json.loads(r.read())
+        results = data.get("results", [])
+        if not results:
+            return None
+        photo = results[0]
+        return (
+            photo["urls"]["regular"],
+            photo["user"]["name"],
+            photo["user"]["links"]["html"],
+            photo["links"]["html"],
+        )
+    except Exception as e:
+        print(f"Unsplash fetch failed: {e}")
+        return None
+
+
+def generate_social_variants(blog_content, blog_title, slug):
+    """Ask Claude to spin the post into 4 LinkedIn variants + 1 Twitter thread.
+    Saves to social/<slug>.md so the user can copy-paste each one across the week."""
+    prompt = f"""You are repurposing one blog post into 5 social-media artifacts for Sukhi Singh aka Rad (Project Lead at ENPICOM, antibody discovery + AI). The goal: drive traffic back to the post, build an audience over time, and book speaking/consulting opportunities.
+
+VOICE RULES (apply to ALL outputs):
+- Smart practitioner talking to peers. Short declarative sentences.
+- Open with a hook, never "Excited to share..." or "I'm thrilled..."
+- Banned words: "exciting", "thrilled", "groundbreaking", "game-changing", "delve", "leverage", "landscape", "realm"
+- Maximum ONE emoji per post, used functionally (👇 or →)
+- Have an opinion. Specificity > generality.
+
+Output EXACTLY this structure (use these headings verbatim):
+
+## LinkedIn — Day 1: The Hook
+80–120 words. The strongest contrarian/observational angle from the post. End with: "Full breakdown: [BLOG_URL] 👇"
+4 hashtags max.
+
+## LinkedIn — Day 3: The Specifics
+80–120 words. Pick ONE specific paper, method, or claim from the post. Go deep on why it matters. Reference one citation by short tag (e.g., "a recent Nature Communications paper").
+End with link.
+
+## LinkedIn — Day 5: The Question
+60–100 words. Provocative open question that invites comments. Tease the post's answer.
+End with link.
+
+## LinkedIn — Day 7: The Personal Take
+80–120 words. First-person reflection — "What I keep coming back to this week is..." Connect the post topic to working life as a Project Lead in antibody discovery.
+End with link.
+
+## Twitter Thread (5–7 tweets)
+Each tweet 240 chars max. Number them like 1/, 2/, etc. Tweet 1 must be a strong hook standing alone. Last tweet must end with: "Full post → [BLOG_URL]".
+
+## Bluesky Post
+ONE post, 280 characters MAX (hard cap, count carefully). Stand-alone hook. End with "→ [BLOG_URL]". No hashtags. Bluesky audience skews technical and science-leaning, so be direct and substantive.
+
+The blog post title: {blog_title}
+The slug (use in [BLOG_URL] = https://sukhdeepsingh.eu/blog/{slug}):
+
+POST CONTENT:
+{blog_content}
+
+Write all 5 artifacts now. No commentary, just the headings and content."""
+
+    print("Generating social variants via claude -p ...", flush=True)
+    try:
+        result = subprocess.run(
+            ["claude", "-p", prompt],
+            capture_output=True, text=True, timeout=180
+        )
+        if result.returncode != 0:
+            print(f"Social variants generation failed: {result.stderr[:300]}")
+            return None
+        social = result.stdout.strip()
+        # Replace [BLOG_URL] with the actual URL
+        blog_url = f"https://sukhdeepsingh.eu/blog/{slug}"
+        social = social.replace("[BLOG_URL]", blog_url)
+
+        os.makedirs(SOCIAL_DIR, exist_ok=True)
+        path = os.path.join(SOCIAL_DIR, f"{slug}.md")
+        header = f"# Social variants for: {blog_title}\n\nBlog URL: {blog_url}\n\nGenerated: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}\n\nCopy-paste each section into LinkedIn or Twitter on the suggested day. Spread over a week.\n\n---\n\n"
+        with open(path, "w") as f:
+            f.write(header + social + "\n")
+        print(f"Social variants saved: social/{slug}.md")
+        return path
+    except Exception as e:
+        print(f"Social variants error: {e}")
+        return None
+
+
+def extract_bluesky_text(social_path):
+    """Pull the '## Bluesky Post' section from the social variants file."""
+    try:
+        with open(social_path) as f:
+            data = f.read()
+        # Match the Bluesky section content (between heading and next ## or EOF)
+        m = re.search(r"##\s*Bluesky Post\s*\n([\s\S]+?)(?=\n##\s|\Z)", data)
+        if not m:
+            return None
+        return m.group(1).strip()
+    except Exception as e:
+        print(f"Bluesky extract failed: {e}")
+        return None
+
+
+def post_to_bluesky(text, blog_url=None, blog_title=None):
+    """Post to Bluesky via AT Protocol.
+    Requires env vars: BSKY_HANDLE (e.g. 'sukhi.bsky.social') and BSKY_APP_PASSWORD
+    (generated at https://bsky.app/settings/app-passwords — DO NOT use main password)."""
+    handle = os.getenv("BSKY_HANDLE")
+    app_pass = os.getenv("BSKY_APP_PASSWORD")
+    if not handle or not app_pass:
+        print("Bluesky: BSKY_HANDLE and BSKY_APP_PASSWORD env vars not set, skipping post")
+        return False
+
+    pds = "https://bsky.social"
+
+    # Truncate text to 300 chars (Bluesky hard limit on graphemes is 300, bytes 3000)
+    if len(text) > 300:
+        # Reserve ~60 chars for URL + ellipsis
+        text = text[:240].rsplit(" ", 1)[0] + "…"
+        if blog_url:
+            text += f" {blog_url}"
+
+    # 1. Create session
+    session_body = json.dumps({"identifier": handle, "password": app_pass}).encode()
+    req = urllib.request.Request(
+        f"{pds}/xrpc/com.atproto.server.createSession",
+        data=session_body,
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=15) as r:
+            session = json.loads(r.read())
+    except Exception as e:
+        print(f"Bluesky auth failed: {e}")
+        return False
+
+    access_jwt = session.get("accessJwt")
+    did = session.get("did")
+    if not access_jwt or not did:
+        print("Bluesky session missing token/did")
+        return False
+
+    # 2. Build post record. Detect URL in text and convert to a clickable facet.
+    facets = []
+    for m in re.finditer(r"https?://\S+", text):
+        url = m.group(0).rstrip(".,)")
+        # Byte offsets (Bluesky uses UTF-8 byte indices for facets)
+        prefix = text[: m.start()].encode("utf-8")
+        target = url.encode("utf-8")
+        facets.append({
+            "index": {"byteStart": len(prefix), "byteEnd": len(prefix) + len(target)},
+            "features": [{"$type": "app.bsky.richtext.facet#link", "uri": url}],
+        })
+
+    record = {
+        "$type": "app.bsky.feed.post",
+        "text": text,
+        "createdAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+        "langs": ["en"],
+    }
+    if facets:
+        record["facets"] = facets
+
+    # Optional: attach blog URL as embed card
+    if blog_url and blog_title:
+        record["embed"] = {
+            "$type": "app.bsky.embed.external",
+            "external": {
+                "uri": blog_url,
+                "title": blog_title,
+                "description": "sukhdeepsingh.eu",
+            },
+        }
+
+    create_body = json.dumps({
+        "repo": did,
+        "collection": "app.bsky.feed.post",
+        "record": record,
+    }).encode()
+
+    req = urllib.request.Request(
+        f"{pds}/xrpc/com.atproto.repo.createRecord",
+        data=create_body,
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {access_jwt}",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=15) as r:
+            resp = json.loads(r.read())
+        post_uri = resp.get("uri", "")
+        # Convert at:// URI to web URL
+        m = re.match(r"at://([^/]+)/app\.bsky\.feed\.post/(.+)", post_uri)
+        if m:
+            web = f"https://bsky.app/profile/{handle}/post/{m.group(2)}"
+            print(f"Bluesky posted: {web}")
+        else:
+            print(f"Bluesky posted: {post_uri}")
+        return True
+    except Exception as e:
+        print(f"Bluesky publish failed: {e}")
+        return False
+
+
 def run_claude(prompt):
     print("Calling claude -p ...", flush=True)
     result = subprocess.run(
@@ -281,7 +517,7 @@ def extract_description(content):
     return ""
 
 
-def save_post(content, dry_run=False):
+def save_post(content, dry_run=False, image_query=None):
     title = extract_title(content)
     description = extract_description(content)
     date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
@@ -292,11 +528,22 @@ def save_post(content, dry_run=False):
     # Strip the H1 from the body since it goes into frontmatter
     body = re.sub(r"^#\s+.+\n?", "", content, count=1).lstrip()
 
+    # Fetch a header image from Unsplash and inject after the first paragraph
+    image_line = ""
+    if not dry_run:
+        img = fetch_hero_image(image_query or title)
+        if img:
+            url, photographer, photographer_url, unsplash_url = img
+            image_line = f'image: "{url}"\n'
+            # Also embed photo credit at the bottom of the body
+            credit = f"\n\n*Header photo by [{photographer}]({photographer_url}) on [Unsplash]({unsplash_url}).*\n"
+            body = body.rstrip() + credit
+
     frontmatter = f"""---
 title: "{title.replace('"', "'")}"
 description: "{description.replace('"', "'")}"
 date: {date_str}
-categories: {json.dumps(CATEGORIES)}
+{image_line}categories: {json.dumps(CATEGORIES)}
 tags: []
 authors: ["Sukhi Singh"]
 draft: false
@@ -384,9 +631,22 @@ def main():
     if not dry_run and result:
         filepath, filename = result
         slug = filename.replace(".md", "")
-        commit_post(filepath, f"Add post: {extract_title(content)[:60]}")
+        title = extract_title(content)
+
+        # Generate social variants (LinkedIn x4 + Twitter thread + Bluesky)
+        if "--no-social" not in sys.argv:
+            social_path = generate_social_variants(content, title, slug)
+            # Auto-post to Bluesky if creds are set in env
+            if social_path and os.getenv("BSKY_HANDLE") and os.getenv("BSKY_APP_PASSWORD"):
+                bsky_text = extract_bluesky_text(social_path)
+                if bsky_text:
+                    blog_url = f"https://sukhdeepsingh.eu/blog/{slug}"
+                    post_to_bluesky(bsky_text, blog_url=blog_url, blog_title=title)
+
+        commit_post(filepath, f"Add post: {title[:60]}")
         print(f"\nDone. Push with: GIT_CONFIG_GLOBAL=/dev/null git push origin main")
         print(f"URL after deploy: https://sukhdeepsingh.eu/blog/{slug}/")
+        print(f"Social copy: social/{slug}.md")
 
 
 if __name__ == "__main__":
