@@ -17,6 +17,37 @@ const sortedPosts = sortByDate(posts);
         <p class="posts-sub">Every entry, chronologically. Hover a row — the helix lights up; an antibody binds.</p>
       </div>
       <Posts className="mb-12" posts={sortedPosts} />
+
+      <!-- Cross-links to secondary pages -->
+      <aside class="explore-block">
+        <div class="explore-label font-mono-bio">// MORE FROM THIS SITE</div>
+        <div class="explore-grid">
+          <a href="/business" class="explore-card">
+            <div class="explore-card-name">Business</div>
+            <div class="explore-card-desc">Stocks, M&A, drug approvals across 33 antibody-drug companies.</div>
+          </a>
+          <a href="/work" class="explore-card">
+            <div class="explore-card-name">Work</div>
+            <div class="explore-card-desc">Selected case studies — what I've actually shipped.</div>
+          </a>
+          <a href="/talks" class="explore-card">
+            <div class="explore-card-name">Talks</div>
+            <div class="explore-card-desc">Speaking history + topics I cover at events.</div>
+          </a>
+          <a href="/writing" class="explore-card">
+            <div class="explore-card-name">Writing elsewhere</div>
+            <div class="explore-card-desc">External articles and reports — Hyve era and beyond.</div>
+          </a>
+          <a href="/now" class="explore-card">
+            <div class="explore-card-name">Now</div>
+            <div class="explore-card-desc">What I'm focused on this month.</div>
+          </a>
+          <a href="/uses" class="explore-card">
+            <div class="explore-card-name">Uses</div>
+            <div class="explore-card-desc">The tools I actually use, day in and out.</div>
+          </a>
+        </div>
+      </aside>
     </div>
   </div>
 </Base>
@@ -57,9 +88,64 @@ const sortedPosts = sortByDate(posts);
   margin: 0;
 }
 
+/* Explore block at bottom */
+.explore-block {
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px dashed var(--cw-line-strong);
+}
+
+.explore-label {
+  color: var(--cw-warm);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  margin-bottom: 18px;
+}
+
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.explore-card {
+  display: block;
+  padding: 16px 18px 14px;
+  border: 1px solid var(--cw-line);
+  background: var(--cw-bg-elev);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.explore-card:hover {
+  border-color: var(--cw-accent);
+  transform: translateY(-2px);
+}
+
+.explore-card-name {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: 16px;
+  color: var(--cw-ink);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+
+.explore-card-desc {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--cw-ink-dim);
+}
+
+@media (max-width: 900px) {
+  .explore-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 640px) {
   .posts-container {
     padding: 40px 20px 0;
   }
+  .explore-grid { grid-template-columns: 1fr; }
 }
 </style>

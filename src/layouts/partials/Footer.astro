@@ -1,12 +1,14 @@
 ---
 import config from "@/config/config.json";
 import social from "@/config/social.json";
+import menu from "@/config/menu.json";
 
 type SocialLink = { name: string; link: string };
+type MenuItem = { name: string; url: string };
 const mainSocial: SocialLink[] = (social as any).main ?? [];
+const footerMenu: MenuItem[] = (menu as any).footer ?? [];
 
 // Visitor count snapshot — written by scripts/snapshot-views.mjs at every build.
-// Provides a real fallback if the live counter API is unreachable client-side.
 let snapshot: { value: number; source?: string; fetched_at?: string } = { value: 0 };
 try {
   // @ts-ignore — file is created by prebuild script, may not exist on first run
@@ -17,6 +19,16 @@ const padded = String(initialCount).padStart(7, "0").split("");
 ---
 
 <footer id="cw-footer">
+  <!-- Sitemap row: surfaces secondary pages (Now, Uses, Writing, Talks, etc.) -->
+  <nav class="footer-nav" aria-label="Footer sitemap">
+    <div class="footer-nav-label font-mono-bio">// EXPLORE</div>
+    <ul class="footer-nav-list">
+      {footerMenu.map((m) => (
+        <li><a href={m.url} class="footer-nav-link">{m.name}</a></li>
+      ))}
+    </ul>
+  </nav>
+
   <div class="cw-footer-inner">
     <div>
       <div class="footer-copy">© 2015–2026 · CODEWAFFLE</div>
@@ -92,6 +104,45 @@ const padded = String(initialCount).padStart(7, "0").split("");
   border-top: 1px solid var(--cw-line);
   padding: 40px 40px 28px;
   margin-top: 80px;
+}
+
+/* Footer "Explore" sitemap row */
+.footer-nav {
+  max-width: 1400px;
+  margin: 0 auto 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px dashed var(--cw-line);
+}
+
+.footer-nav-label {
+  color: var(--cw-warm);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.footer-nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-nav-link {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: 14px;
+  color: var(--cw-ink);
+  text-decoration: none;
+  transition: color 0.2s, border-color 0.2s;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+}
+
+.footer-nav-link:hover {
+  color: var(--cw-accent);
+  border-bottom-color: var(--cw-accent);
 }
 
 .cw-footer-inner {
