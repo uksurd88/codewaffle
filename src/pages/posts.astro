@@ -3,9 +3,18 @@ import Posts from "@/components/Posts.astro";
 import Base from "@/layouts/Base.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 import { sortByDate } from "@/lib/utils/sortFunctions";
+import writing from "@/data/writing.json";
 
 const posts = await getSinglePage("posts");
 const sortedPosts = sortByDate(posts);
+
+const externalWriting = (writing as any[])
+  .slice()
+  .sort((a, b) => +new Date(b.date) - +new Date(a.date));
+
+function fmtDate(s: string) {
+  return new Date(s).toLocaleDateString("en-GB", { month: "short", year: "numeric" });
+}
 ---
 
 <Base title="Posts">
@@ -17,6 +26,33 @@ const sortedPosts = sortByDate(posts);
         <p class="posts-sub">Every entry, chronologically. Hover a row — the helix lights up; an antibody binds.</p>
       </div>
       <Posts className="mb-12" posts={sortedPosts} />
+
+      <!-- External writing — articles + reports hosted on other publications -->
+      {externalWriting.length > 0 && (
+        <aside class="ext-block">
+          <div class="ext-head">
+            <div>
+              <div class="ext-label font-mono-bio">// FROM ELSEWHERE</div>
+              <h2 class="ext-h2">Articles published on other sites</h2>
+              <p class="ext-sub">Earlier pieces written for The Hyve, D4 Pharma, and other venues. The full archive lives at <a href="/writing">/writing</a>.</p>
+            </div>
+          </div>
+          <div class="ext-grid">
+            {externalWriting.map((w: any) => (
+              <a href={w.url} target="_blank" rel="noopener noreferrer" class="ext-card">
+                <div class="ext-meta-row">
+                  <span class="ext-type font-mono-bio">{w.type.toUpperCase()}</span>
+                  <span class="ext-date font-mono-bio">{fmtDate(w.date)}</span>
+                </div>
+                <h3 class="ext-title">{w.title}</h3>
+                <div class="ext-venue">{w.venue}{w.coauthors ? ` · ${w.coauthors}` : ""}</div>
+                {w.annotation && <p class="ext-annot">{w.annotation}</p>}
+                <div class="ext-cta font-mono-bio">READ ON {w.venue.split(" ")[0].toUpperCase()} ↗</div>
+              </a>
+            ))}
+          </div>
+        </aside>
+      )}
 
       <!-- Cross-links to secondary pages -->
       <aside class="explore-block">
@@ -88,6 +124,118 @@ const sortedPosts = sortByDate(posts);
   margin: 0;
 }
 
+/* External writing block */
+.ext-block {
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px dashed var(--cw-line-strong);
+}
+
+.ext-head {
+  margin-bottom: 24px;
+}
+
+.ext-label {
+  color: var(--cw-warm);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.ext-h2 {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+}
+
+.ext-sub {
+  font-size: 14px;
+  color: var(--cw-ink-dim);
+  margin: 0;
+  max-width: 680px;
+}
+
+.ext-sub a {
+  color: var(--cw-accent);
+  text-decoration: underline;
+}
+
+.ext-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.ext-card {
+  display: flex;
+  flex-direction: column;
+  padding: 22px 22px 18px;
+  border: 1px solid var(--cw-line);
+  border-left: 3px solid var(--cw-warm);
+  background: var(--cw-bg-elev);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.ext-card:hover {
+  border-color: var(--cw-accent);
+  border-left-color: var(--cw-accent);
+  transform: translateY(-2px);
+}
+
+.ext-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+
+.ext-type {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--cw-warm);
+}
+
+.ext-date {
+  font-size: 10px;
+  color: var(--cw-ink-faint);
+  letter-spacing: 0.06em;
+}
+
+.ext-title {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: 17px;
+  line-height: 1.25;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+  color: var(--cw-ink);
+}
+
+.ext-card:hover .ext-title { color: var(--cw-accent); }
+
+.ext-venue {
+  font-size: 12px;
+  color: var(--cw-ink-faint);
+  margin-bottom: 10px;
+}
+
+.ext-annot {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--cw-ink-dim);
+  margin: 0 0 14px;
+  flex: 1;
+}
+
+.ext-cta {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--cw-accent);
+  margin-top: auto;
+}
+
 /* Explore block at bottom */
 .explore-block {
   margin-top: 64px;
@@ -140,6 +288,7 @@ const sortedPosts = sortByDate(posts);
 
 @media (max-width: 900px) {
   .explore-grid { grid-template-columns: repeat(2, 1fr); }
+  .ext-grid     { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 640px) {
@@ -147,5 +296,6 @@ const sortedPosts = sortByDate(posts);
     padding: 40px 20px 0;
   }
   .explore-grid { grid-template-columns: 1fr; }
+  .ext-grid     { grid-template-columns: 1fr; }
 }
 </style>
