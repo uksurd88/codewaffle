@@ -10,9 +10,13 @@
     "build": "astro build",
     "preview": "astro preview",
     "format": "prettier -w .",
-    "check": "astro check",
-    "deploy:cf-workers": "npm run build && wrangler deploy",
-    "preview:cf-workers": "npm run build && wrangler dev"
+    "check": "astro check"
+  },
+  "overrides": {
+    "yaml": "^2.8.3",
+    "ws": "^8.20.1",
+    "devalue": "^5.8.1",
+    "fast-uri": "^3.1.2"
   },
   "dependencies": {
     "@astrojs/check": "0.9.8",
@@ -20,7 +24,7 @@
     "@astrojs/react": "5.0.4",
     "@astrojs/sitemap": "3.7.2",
     "@justinribeiro/lite-youtube": "^1.9.0",
-    "astro": "6.1.9",
+    "astro": "6.3.6",
     "astro-auto-import": "^0.5.1",
     "astro-gtm-lite": "^1.0.1",
     "date-fns": "^4.1.0",
@@ -42,7 +46,6 @@
     "prettier-plugin-tailwindcss": "^0.7.2",
     "sharp": "0.34.5",
     "tailwindcss": "^4.2.4",
-    "typescript": "^6.0.3",
-    "wrangler": "^4.84.1"
+    "typescript": "^6.0.3"
   }
 }
