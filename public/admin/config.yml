@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: uksurd88/codewaffle
+  repo: uksurd88/radtech
   branch: main
   base_url: https://sveltia-cms-auth.sukhdeepsingh.workers.dev  # optional: use if you want OAuth via Cloudflare Worker (free)
 
@@ -23,7 +23,7 @@ collections:
       - label: "Authors"
         name: "authors"
         widget: "list"
-        default: ["Sukhdeep Singh"]
+        default: ["Sukhi Singh"]
       - { label: "Tags", name: "tags", widget: "list", required: false }
       - { label: "Draft", name: "draft", widget: "boolean", default: false }
       - { label: "Body", name: "body", widget: "markdown" }

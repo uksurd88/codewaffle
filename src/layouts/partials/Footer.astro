@@ -18,7 +18,7 @@ const initialCount = snapshot.value || 0;
 const padded = String(initialCount).padStart(7, "0").split("");
 ---
 
-<footer id="cw-footer">
+<footer id="rt-footer">
   <!-- Sitemap row: surfaces secondary pages (Now, Uses, Writing, Talks, etc.) -->
   <nav class="footer-nav" aria-label="Footer sitemap">
     <div class="footer-nav-label font-mono-bio">// EXPLORE</div>
@@ -29,9 +29,9 @@ const padded = String(initialCount).padStart(7, "0").split("");
     </ul>
   </nav>
 
-  <div class="cw-footer-inner">
+  <div class="rt-footer-inner">
     <div>
-      <div class="footer-copy">© 2015–2026 · CODEWAFFLE</div>
+      <div class="footer-copy">© 2015–2026 · RADTECH</div>
       <div class="footer-tagline">Notes on AI, antibody discovery, and the data that makes both work.</div>
     </div>
     <div class="footer-links">
@@ -45,10 +45,10 @@ const padded = String(initialCount).padStart(7, "0").split("");
   </div>
 
   <!-- Visitor counter: bio-futurism styled, abacus.jasoncameron.dev API -->
-  <div class="cw-counter" aria-label="Visitor counter">
+  <div class="rt-counter" aria-label="Visitor counter">
     <div class="counter-pulse" aria-hidden="true"></div>
     <span class="counter-label">// READS</span>
-    <span class="counter-digits" id="cw-counter-digits" data-snapshot={String(initialCount)}>
+    <span class="counter-digits" id="rt-counter-digits" data-snapshot={String(initialCount)}>
       {padded.map((d, i) => (
         <span class="counter-digit" style={`animation-delay:${i * 60}ms`}>{d}</span>
       ))}
@@ -56,7 +56,7 @@ const padded = String(initialCount).padStart(7, "0").split("");
     <span class="counter-strand" aria-hidden="true">
       <span class="strand-base">A</span><span class="strand-base alt">T</span><span class="strand-base">G</span><span class="strand-base alt">C</span><span class="strand-base">A</span><span class="strand-base alt">T</span>
     </span>
-    <span class="counter-meta">since <span id="cw-counter-since">2015</span></span>
+    <span class="counter-meta">since <span id="rt-counter-since">2015</span></span>
   </div>
 </footer>
 
@@ -64,9 +64,9 @@ const padded = String(initialCount).padStart(7, "0").split("");
   // Visitor counter — abacus.jasoncameron.dev (free, no auth, simple HTTP).
   // /hit increments + returns; /get just reads. We use /hit per page load.
   (function () {
-    const NAMESPACE = "sukhdeepsingh-eu";
+    const NAMESPACE = "radtech-nl";
     const KEY = "total";
-    const target = document.getElementById("cw-counter-digits");
+    const target = document.getElementById("rt-counter-digits");
     if (!target) return;
 
     function pad(n) {
@@ -100,8 +100,8 @@ const padded = String(initialCount).padStart(7, "0").split("");
 </script>
 
 <style>
-#cw-footer {
-  border-top: 1px solid var(--cw-line);
+#rt-footer {
+  border-top: 1px solid var(--rt-line);
   padding: 40px 40px 28px;
   margin-top: 80px;
 }
@@ -111,11 +111,11 @@ const padded = String(initialCount).padStart(7, "0").split("");
   max-width: 1400px;
   margin: 0 auto 28px;
   padding-bottom: 24px;
-  border-bottom: 1px dashed var(--cw-line);
+  border-bottom: 1px dashed var(--rt-line);
 }
 
 .footer-nav-label {
-  color: var(--cw-warm);
+  color: var(--rt-warm);
   font-size: 11px;
   letter-spacing: 0.1em;
   margin-bottom: 12px;
@@ -133,7 +133,7 @@ const padded = String(initialCount).padStart(7, "0").split("");
 .footer-nav-link {
   font-family: var(--font-display, 'Space Grotesk', sans-serif);
   font-size: 14px;
-  color: var(--cw-ink);
+  color: var(--rt-ink);
   text-decoration: none;
   transition: color 0.2s, border-color 0.2s;
   padding-bottom: 2px;
@@ -141,11 +141,11 @@ const padded = String(initialCount).padStart(7, "0").split("");
 }
 
 .footer-nav-link:hover {
-  color: var(--cw-accent);
-  border-bottom-color: var(--cw-accent);
+  color: var(--rt-accent);
+  border-bottom-color: var(--rt-accent);
 }
 
-.cw-footer-inner {
+.rt-footer-inner {
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
@@ -159,14 +159,14 @@ const padded = String(initialCount).padStart(7, "0").split("");
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 10px;
   letter-spacing: 0.1em;
-  color: var(--cw-ink-faint);
+  color: var(--rt-ink-faint);
   margin-bottom: 8px;
 }
 
 .footer-tagline {
   font-family: var(--font-display, 'Space Grotesk', sans-serif);
   font-size: 13px;
-  color: var(--cw-ink-dim);
+  color: var(--rt-ink-dim);
 }
 
 .footer-links {
@@ -178,21 +178,21 @@ const padded = String(initialCount).padStart(7, "0").split("");
 .footer-link {
   font-family: var(--font-display, 'Space Grotesk', sans-serif);
   font-size: 13px;
-  color: var(--cw-ink-dim);
+  color: var(--rt-ink-dim);
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .footer-link:hover {
-  color: var(--cw-accent);
+  color: var(--rt-accent);
 }
 
 /* Visitor counter */
-.cw-counter {
+.rt-counter {
   max-width: 1400px;
   margin: 28px auto 0;
   padding-top: 18px;
-  border-top: 1px dashed var(--cw-line);
+  border-top: 1px dashed var(--rt-line);
   display: flex;
   align-items: center;
   gap: 14px;
@@ -200,14 +200,14 @@ const padded = String(initialCount).padStart(7, "0").split("");
   font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace);
   font-size: 11px;
   letter-spacing: 0.1em;
-  color: var(--cw-ink-faint);
+  color: var(--rt-ink-faint);
 }
 
 .counter-pulse {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--cw-accent);
+  background: var(--rt-accent);
   position: relative;
   animation: counter-blink 1.6s ease-in-out infinite;
 }
@@ -217,7 +217,7 @@ const padded = String(initialCount).padStart(7, "0").split("");
   position: absolute;
   inset: -3px;
   border-radius: 50%;
-  border: 1px solid var(--cw-accent);
+  border: 1px solid var(--rt-accent);
   opacity: 0.5;
   animation: counter-ring 1.6s ease-out infinite;
 }
@@ -233,16 +233,16 @@ const padded = String(initialCount).padStart(7, "0").split("");
 }
 
 .counter-label {
-  color: var(--cw-accent);
+  color: var(--rt-accent);
 }
 
 .counter-digits {
   display: inline-flex;
   gap: 2px;
   padding: 4px 8px;
-  border: 1px solid var(--cw-line-strong);
+  border: 1px solid var(--rt-line-strong);
   border-radius: 2px;
-  background: color-mix(in srgb, var(--cw-bg-elev) 70%, transparent);
+  background: color-mix(in srgb, var(--rt-bg-elev) 70%, transparent);
 }
 
 .counter-digit {
@@ -250,7 +250,7 @@ const padded = String(initialCount).padStart(7, "0").split("");
   min-width: 9px;
   text-align: center;
   font-variant-numeric: tabular-nums;
-  color: var(--cw-ink);
+  color: var(--rt-ink);
   font-weight: 600;
   font-size: 12px;
   letter-spacing: 0;
@@ -263,7 +263,7 @@ const padded = String(initialCount).padStart(7, "0").split("");
 }
 
 .counter-skel {
-  color: var(--cw-ink-faint);
+  color: var(--rt-ink-faint);
   letter-spacing: 0.3em;
 }
 
@@ -272,7 +272,7 @@ const padded = String(initialCount).padStart(7, "0").split("");
   display: inline-flex;
   gap: 1px;
   padding-left: 6px;
-  border-left: 1px solid var(--cw-line);
+  border-left: 1px solid var(--rt-line);
   margin-left: 4px;
 }
 
@@ -281,13 +281,13 @@ const padded = String(initialCount).padStart(7, "0").split("");
   font-size: 9px;
   width: 11px;
   text-align: center;
-  color: var(--cw-accent);
+  color: var(--rt-accent);
   opacity: 0.7;
   animation: strand-pulse 2.4s ease-in-out infinite;
 }
 
 .strand-base.alt {
-  color: var(--cw-warm);
+  color: var(--rt-warm);
 }
 
 .strand-base:nth-child(2) { animation-delay: 0.2s; }
@@ -302,23 +302,23 @@ const padded = String(initialCount).padStart(7, "0").split("");
 }
 
 .counter-meta {
-  color: var(--cw-ink-faint);
+  color: var(--rt-ink-faint);
   margin-left: auto;
 }
 
 @media (max-width: 768px) {
-  #cw-footer {
+  #rt-footer {
     padding: 32px 20px 24px;
     margin-top: 60px;
   }
 
-  .cw-footer-inner {
+  .rt-footer-inner {
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
   }
 
-  .cw-counter {
+  .rt-counter {
     margin-top: 22px;
     gap: 10px;
   }

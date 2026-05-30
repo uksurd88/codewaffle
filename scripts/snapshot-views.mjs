@@ -18,7 +18,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, "..");
 const OUT_PATH = resolve(REPO_ROOT, "src/data/views.json");
 
-const NAMESPACE = "sukhdeepsingh-eu";
+const NAMESPACE = "radtech-nl";
 const KEY = "total";
 const URL = `https://abacus.jasoncameron.dev/get/${NAMESPACE}/${KEY}`;
 

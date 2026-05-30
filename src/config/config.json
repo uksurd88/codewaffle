@@ -1,14 +1,14 @@
 {
   "site": {
-    "title": "Sukhi Singh — Notes from inside antibody discovery × AI",
-    "base_url": "https://sukhdeepsingh.eu",
+    "title": "RadTech — Notes from inside antibody discovery × AI",
+    "base_url": "https://radtech.nl",
     "base_path": "/",
     "trailing_slash": false,
     "favicon": "/images/favicon.png",
     "logo": "",
     "logo_width": "200",
     "logo_height": "34",
-    "logo_text": "Sukhi Singh"
+    "logo_text": "RadTech"
   },
 
   "settings": {
@@ -16,7 +16,7 @@
   },
 
   "metadata": {
-    "meta_author": "Sukhi Singh",
+    "meta_author": "RadTech",
     "meta_image": "/images/og-image.png",
     "meta_description": "Field notes from inside therapeutic antibody discovery and AI: weekly posts on what the literature actually says, what the platforms get wrong, and what to build next."
   },
@@ -28,12 +28,12 @@
 
   "params": {
     "contact_form_action": "#",
-    "copyright": "Copyright © 2026 [Sukhi Singh](https://sukhdeepsingh.eu)"
+    "copyright": "Copyright © 2026 [RadTech](https://radtech.nl)"
   },
 
   "contactinfo": {
     "address": "Netherlands",
-    "email": "sukhdeepsingh.bio@gmail.com",
+    "email": "contact@radtech.nl",
     "phone": ""
   }
 }

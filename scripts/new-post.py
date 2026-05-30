@@ -390,7 +390,7 @@ Each tweet 240 chars max. Number them like 1/, 2/, etc. Tweet 1 must be a strong
 ONE post, **240 characters MAX including the URL** (hard cap — Bluesky truncates at 300 and the URL eats ~110 chars). Count your characters carefully. Stand-alone hook. End with "→ [BLOG_URL]". No hashtags. Bluesky audience skews technical and science-leaning, so be direct and substantive.
 
 The blog post title: {blog_title}
-The slug (use in [BLOG_URL] = https://sukhdeepsingh.eu/blog/{slug}):
+The slug (use in [BLOG_URL] = https://radtech.nl/blog/{slug}):
 
 POST CONTENT:
 {blog_content}
@@ -407,7 +407,7 @@ Write all 5 artifacts now. No commentary, just the headings and content."""
             return None
         social = result.stdout.strip()
         # Replace [BLOG_URL] with the actual URL
-        blog_url = f"https://sukhdeepsingh.eu/blog/{slug}"
+        blog_url = f"https://radtech.nl/blog/{slug}"
         social = social.replace("[BLOG_URL]", blog_url)
 
         os.makedirs(SOCIAL_DIR, exist_ok=True)
@@ -425,7 +425,7 @@ def generate_newsletter(blog_content, blog_title, blog_description, slug, digest
     """Generate a Buttondown-ready newsletter draft from the blog post + same digest.
     Saves to newsletter/<slug>.md.
     Returns (path, subject, body_markdown) or None."""
-    blog_url = f"https://sukhdeepsingh.eu/blog/{slug}"
+    blog_url = f"https://radtech.nl/blog/{slug}"
     digest_section = (digest or "").strip()
     if digest_section:
         digest_section = f"\n\nADDITIONAL ITEMS FROM THIS WEEK'S DIGEST (use 3 for the 'Three things' block — pick items that did NOT get a full treatment in the blog post):\n\n{digest_section}"
@@ -690,7 +690,7 @@ def post_to_bluesky(text, blog_url=None, blog_title=None):
             "external": {
                 "uri": blog_url,
                 "title": blog_title,
-                "description": "sukhdeepsingh.eu",
+                "description": "radtech.nl",
             },
         }
 
@@ -973,7 +973,7 @@ def main():
         bsky_text = extract_bluesky_text(social_path)
         if bsky_text:
             with stopwatch() as t:
-                posted = post_to_bluesky(bsky_text, blog_url=f"https://sukhdeepsingh.eu/blog/{slug}", blog_title=title)
+                posted = post_to_bluesky(bsky_text, blog_url=f"https://radtech.nl/blog/{slug}", blog_title=title)
             if posted:
                 ok("posted to Bluesky", t())
             else:
@@ -1016,7 +1016,7 @@ def main():
     total = time.monotonic() - _PIPELINE_START
     print(f"\n\033[1;35m▸ done\033[0m  total: \033[1m{_fmt_dt(total)}\033[0m", flush=True)
     print(f"  push with: \033[36mGIT_CONFIG_GLOBAL=/dev/null git push origin main\033[0m")
-    print(f"  url after deploy: \033[36mhttps://sukhdeepsingh.eu/blog/{slug}/\033[0m")
+    print(f"  url after deploy: \033[36mhttps://radtech.nl/blog/{slug}/\033[0m")
     if social_path:
         print(f"  social copy: \033[36msocial/{slug}.md\033[0m")
     if nl_result:

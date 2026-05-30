@@ -87,29 +87,29 @@
 /* Dark mode: override prose heading colors so they're readable on dark backgrounds */
 .dark .content h1,
 .dark .content h2 {
-  color: var(--cw-warm);
+  color: var(--rt-warm);
 }
 .dark .content h3,
 .dark .content h4 {
-  color: var(--cw-accent);
+  color: var(--rt-accent);
 }
 .dark .content h5,
 .dark .content h6 {
-  color: var(--cw-ink);
+  color: var(--rt-ink);
 }
 .dark .content {
-  color: var(--cw-ink-dim);
+  color: var(--rt-ink-dim);
 }
 .dark .content strong {
-  color: var(--cw-ink);
+  color: var(--rt-ink);
 }
 .dark .content a {
-  color: var(--cw-accent);
+  color: var(--rt-accent);
 }
 .dark .content blockquote {
-  background: color-mix(in srgb, var(--cw-bg-elev) 80%, transparent);
-  border-color: var(--cw-warm);
-  color: var(--cw-ink-dim);
+  background: color-mix(in srgb, var(--rt-bg-elev) 80%, transparent);
+  border-color: var(--rt-warm);
+  color: var(--rt-ink-dim);
 }
 
 /* tab */

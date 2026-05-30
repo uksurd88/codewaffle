@@ -50,7 +50,7 @@ const pathA = pathAPoints.join('');
 const pathB = pathBPoints.join('');
 ---
 
-<div class={`cw-dna-timeline ${className ?? ''}`}>
+<div class={`rt-dna-timeline ${className ?? ''}`}>
   <!-- DNA spine SVG (server-rendered, hover state handled via CSS) -->
   <div class="dna-spine-wrap" aria-hidden="true">
     <svg
@@ -62,12 +62,12 @@ const pathB = pathBPoints.join('');
     >
       <defs>
         <linearGradient id="dnaGradA" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="var(--cw-accent)" stop-opacity="0.9"/>
-          <stop offset="100%" stop-color="var(--cw-accent)" stop-opacity="0.2"/>
+          <stop offset="0%" stop-color="var(--rt-accent)" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="var(--rt-accent)" stop-opacity="0.2"/>
         </linearGradient>
         <linearGradient id="dnaGradB" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="var(--cw-warm)" stop-opacity="0.8"/>
-          <stop offset="100%" stop-color="var(--cw-warm)" stop-opacity="0.15"/>
+          <stop offset="0%" stop-color="var(--rt-warm)" stop-opacity="0.8"/>
+          <stop offset="100%" stop-color="var(--rt-warm)" stop-opacity="0.15"/>
         </linearGradient>
       </defs>
       <path d={pathA} stroke="url(#dnaGradA)" stroke-width="1.5" />
@@ -132,7 +132,7 @@ const pathB = pathBPoints.join('');
 </div>
 
 <style>
-.cw-dna-timeline {
+.rt-dna-timeline {
   position: relative;
   padding-left: 140px;
 }
@@ -143,7 +143,7 @@ const pathB = pathBPoints.join('');
   top: 0;
   width: 120px;
   height: 100%;
-  color: var(--cw-ink-faint);
+  color: var(--rt-ink-faint);
   pointer-events: none;
 }
 
@@ -158,7 +158,7 @@ const pathB = pathBPoints.join('');
   gap: 32px;
   align-items: center;
   min-height: 160px;
-  border-bottom: 1px solid var(--cw-line);
+  border-bottom: 1px solid var(--rt-line);
   padding: 20px 8px 20px 20px;
   cursor: pointer;
   transition: background 0.25s;
@@ -168,7 +168,7 @@ const pathB = pathBPoints.join('');
 }
 
 .dna-post-row:hover {
-  background: color-mix(in srgb, var(--cw-accent) 5%, transparent);
+  background: color-mix(in srgb, var(--rt-accent) 5%, transparent);
 }
 
 .post-meta-col {
@@ -178,14 +178,14 @@ const pathB = pathBPoints.join('');
 }
 
 .post-num {
-  color: var(--cw-ink-faint);
+  color: var(--rt-ink-faint);
   font-size: 10px;
 }
 
 .post-date {
   font-family: var(--font-display, 'Space Grotesk', sans-serif);
   font-size: 13px;
-  color: var(--cw-ink-dim);
+  color: var(--rt-ink-dim);
 }
 
 .post-tags {
@@ -197,7 +197,7 @@ const pathB = pathBPoints.join('');
 }
 
 .post-tag {
-  color: var(--cw-ink-dim);
+  color: var(--rt-ink-dim);
   font-size: 10px;
   letter-spacing: 0.1em;
   text-decoration: none;
@@ -205,11 +205,11 @@ const pathB = pathBPoints.join('');
 }
 
 .post-tag:hover {
-  color: var(--cw-accent);
+  color: var(--rt-accent);
 }
 
 .post-readtime {
-  color: var(--cw-ink-faint);
+  color: var(--rt-ink-faint);
   font-size: 10px;
 }
 
@@ -220,17 +220,17 @@ const pathB = pathBPoints.join('');
   font-size: 26px;
   line-height: 1.15;
   margin: 0 0 8px;
-  color: var(--cw-ink);
+  color: var(--rt-ink);
   transition: color 0.2s;
   letter-spacing: -0.01em;
 }
 
 .dna-post-row:hover .post-title {
-  color: var(--cw-accent);
+  color: var(--rt-accent);
 }
 
 .post-excerpt {
-  color: var(--cw-ink-dim);
+  color: var(--rt-ink-dim);
   font-size: 14px;
   max-width: 580px;
   overflow: hidden;
@@ -245,12 +245,12 @@ const pathB = pathBPoints.join('');
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  color: var(--cw-ink-faint);
+  color: var(--rt-ink-faint);
   transition: color 0.25s;
 }
 
 .dna-post-row:hover .post-antibody-col {
-  color: var(--cw-accent);
+  color: var(--rt-accent);
 }
 
 .antibody-icon {
@@ -278,7 +278,7 @@ const pathB = pathBPoints.join('');
 }
 
 @media (max-width: 768px) {
-  .cw-dna-timeline {
+  .rt-dna-timeline {
     padding-left: 0;
   }
 

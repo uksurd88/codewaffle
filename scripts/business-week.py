@@ -200,8 +200,8 @@ def main():
     print(f"Saved: src/content/posts/{slug}.md")
     commit(path, title)
     print(f"\nDone. Push: GIT_CONFIG_GLOBAL=/dev/null git push origin main")
-    print(f"Will appear at: https://sukhdeepsingh.eu/blog/{slug}/")
-    print(f"And as latest analysis on: https://sukhdeepsingh.eu/business/")
+    print(f"Will appear at: https://radtech.nl/blog/{slug}/")
+    print(f"And as latest analysis on: https://radtech.nl/business/")
 
 
 if __name__ == "__main__":

@@ -1,30 +1,30 @@
 /* Bio-futurism design tokens (complement the Tailwind theme vars) */
 :root {
-  --cw-accent: #178F84;
-  --cw-accent-deep: #0C5F57;
-  --cw-warm: #B87A28;
-  --cw-ink: #1A2336;
-  --cw-ink-dim: rgba(26, 35, 54, 0.70);
-  --cw-ink-faint: rgba(26, 35, 54, 0.45);
-  --cw-line: rgba(26, 35, 54, 0.14);
-  --cw-line-strong: rgba(26, 35, 54, 0.28);
-  --cw-bg: #F6F1E7;
-  --cw-bg-elev: #FBF8F2;
-  --cw-surface: #FFFFFF;
+  --rt-accent: #178F84;
+  --rt-accent-deep: #0C5F57;
+  --rt-warm: #B87A28;
+  --rt-ink: #1A2336;
+  --rt-ink-dim: rgba(26, 35, 54, 0.70);
+  --rt-ink-faint: rgba(26, 35, 54, 0.45);
+  --rt-line: rgba(26, 35, 54, 0.14);
+  --rt-line-strong: rgba(26, 35, 54, 0.28);
+  --rt-bg: #F6F1E7;
+  --rt-bg-elev: #FBF8F2;
+  --rt-surface: #FFFFFF;
 }
 
 .dark {
-  --cw-accent: #6FE3D8;
-  --cw-accent-deep: #1FAE9E;
-  --cw-warm: #E8B168;
-  --cw-ink: #E6ECF5;
-  --cw-ink-dim: rgba(230, 236, 245, 0.65);
-  --cw-ink-faint: rgba(230, 236, 245, 0.42);
-  --cw-line: rgba(230, 236, 245, 0.12);
-  --cw-line-strong: rgba(230, 236, 245, 0.22);
-  --cw-bg: #0B1220;
-  --cw-bg-elev: #111a2e;
-  --cw-surface: #0f1729;
+  --rt-accent: #6FE3D8;
+  --rt-accent-deep: #1FAE9E;
+  --rt-warm: #E8B168;
+  --rt-ink: #E6ECF5;
+  --rt-ink-dim: rgba(230, 236, 245, 0.65);
+  --rt-ink-faint: rgba(230, 236, 245, 0.42);
+  --rt-line: rgba(230, 236, 245, 0.12);
+  --rt-line-strong: rgba(230, 236, 245, 0.22);
+  --rt-bg: #0B1220;
+  --rt-bg-elev: #111a2e;
+  --rt-surface: #0f1729;
 }
 
 html {
@@ -102,18 +102,18 @@ img {
   letter-spacing: 0.02em;
 }
 
-.cw-meta-badge {
+.rt-meta-badge {
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 10px;
   letter-spacing: 0.12em;
   padding: 3px 8px;
   border-radius: 2px;
-  border: 1px solid color-mix(in srgb, var(--cw-accent) 35%, transparent);
-  color: var(--cw-accent);
+  border: 1px solid color-mix(in srgb, var(--rt-accent) 35%, transparent);
+  color: var(--rt-accent);
   display: inline-block;
 }
 
-.cw-tag {
+.rt-tag {
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 10px;
   letter-spacing: 0.08em;
@@ -126,8 +126,8 @@ img {
 
 .grid-bg-subtle {
   background-image:
-    linear-gradient(var(--cw-ink) 0.5px, transparent 0.5px),
-    linear-gradient(90deg, var(--cw-ink) 0.5px, transparent 0.5px);
+    linear-gradient(var(--rt-ink) 0.5px, transparent 0.5px),
+    linear-gradient(90deg, var(--rt-ink) 0.5px, transparent 0.5px);
   background-size: 32px 32px;
   opacity: 0.05;
 }

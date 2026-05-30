@@ -1,8 +1,8 @@
-# sukhdeepsingh.eu
+# radtech.nl
 
 Personal blog by Sukhi Singh. Notes from the edge of biology and machine intelligence.
 
-**[sukhdeepsingh.eu](https://sukhdeepsingh.eu)**
+**[radtech.nl](https://radtech.nl)**
 
 ---
 
